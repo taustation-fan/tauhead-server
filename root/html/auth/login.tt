@@ -1,0 +1,12 @@
+[% WRAPPER inc/wrapper.tt page_title='Log In' ajax=1 %]
+<div class="row justify-content-md-center">
+	<div class="col-md-auto">
+		[% PROCESS inc/form.tt %]
+		<p>
+			<a href="[% c.uri_for('/recover-username') %]">Forgotten username</a>
+			or
+			<a href="[% c.uri_for('/reset-password') %]">forgotten password</a> ?
+		</p>
+	</div>
+</div>
+[% END %]

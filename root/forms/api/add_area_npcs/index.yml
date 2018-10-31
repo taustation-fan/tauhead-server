@@ -1,0 +1,84 @@
+---
+load_config_file: __path_to(root/forms/inc/wrapper.yml)__
+default_args:
+  elements:
+    'Texts|Textarea':
+      constraint: SingleValue
+model_config:
+  resultset: Area
+
+elements:
+  - type: '+TauHead::FormFu::Element::MessageContainer'
+
+  - name: system
+    label: System
+    attrs:
+      readonly: 1
+    constraints:
+      - type: Required
+
+  - name: station
+    label: Station
+    attrs:
+      readonly: 1
+    constraints:
+      - type: Required
+
+  - name: area_slug
+    label: Area URI Slug
+    attrs:
+      readonly: 1
+    constraints:
+      - type: '+TauHead::FormFu::Constraint::Slug'
+      - type: Required
+
+  - name: npc_counter
+    type: Hidden
+    constraint:
+      - type: Integer
+      - type: Required
+      - type: SingleValue
+
+  - type: Repeatable
+    nested_name: npc
+    counter_name: npc_counter
+    increment_field_names: 1
+    attrs:
+      class: 'border rounded mb-2 p-1'
+    elements:
+      - name: name
+        label: Name
+        render_processed_value: 1
+        filters:
+          - type: Regex
+            match: '\s*\(with an action available\)\z'
+            replace: ''
+        constraints:
+          - type: Required
+
+      - name: slug
+        label: URI Slug
+        attrs:
+          readonly: 1
+        constraints:
+          - type: '+TauHead::FormFu::Constraint::Slug'
+          - type: Required
+
+      - name: primary_weapon_slug
+        label: Primary Weapon
+        attrs:
+          readonly: 1
+        constraints:
+          - type: '+TauHead::FormFu::Constraint::Slug'
+
+      - name: armor_slug
+        label: Armor
+        attrs:
+          readonly: 1
+        constraints:
+          - type: '+TauHead::FormFu::Constraint::Slug'
+
+  - name: submit
+    type: ContentButton
+    field_type: submit
+    content: Submit

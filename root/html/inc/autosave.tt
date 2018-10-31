@@ -1,0 +1,73 @@
+[% FOREACH autosaveForm = forms.autosave %]
+	<script type="text/javascript">
+		$(document).ready(function(){
+
+			var [% autosaveForm.id %]_autosave_secs	= 5;
+			var [% autosaveForm.id %]_notice_stay_secs = 1;
+			var [% autosaveForm.id %]_notice_fade_secs = 2;
+
+			var [% autosaveForm.id %]_previous_title = [% IF has_title %]$("#[% autosaveForm.id %]_title").val()[% ELSE %]""[% END %];
+			var [% autosaveForm.id %]_previous_text  = $("#[% autosaveForm.id %]_text").val();
+			var [% autosaveForm.id %]_set_id		 = 0;
+
+			autosaveIntervalID = window.setInterval(
+				[% autosaveForm.id %]_autosave,
+				([% autosaveForm.id %]_autosave_secs*1000)
+			);
+
+			function [% autosaveForm.id %]_autosave() {
+				var title = [% IF has_title %]$("#[% autosaveForm.id %]_title").val()[% ELSE %]""[% END %];
+				var text  = $("#[% autosaveForm.id %]_text").val();
+				[% IF has_title %]
+					if ( title === "" || text === "" ) {
+						// don't autosave unless both 'title' and 'text' are entered
+						return;
+					}
+				[% ELSE %]
+					// doesn't have title
+					if ( text === "" ) {
+						//don't autosave unless 'text' is entered
+						return;
+					}
+				[% END %]
+
+				if ( [% autosaveForm.id %]_previous_title === title && [% autosaveForm.id %]_previous_text === text ) {
+					// don't autosave unless something's changed
+					return;
+				}
+				$("#[% autosaveForm.id %]").ajaxSubmit({
+					dataType: 'json',
+					success: function(responseJSON, statusText, xhr, form) {
+						if ( ![% autosaveForm.id %]_set_id ) {
+							if ( responseJSON.id ) {
+								$("#[% autosaveForm.id %]_id").val( responseJSON.id );
+								[% autosaveForm.id %]_set_id = 1;
+								$("#[% autosaveForm.id %] input[name=autosave]").each(function(){ $(this).val(1) });
+							}
+							else {
+								return;
+							}
+						} 
+						$(form).append('<span class="alert alert-info" role="alert">Autosaved</span>');
+						var notice = $(form).find(".alert-info");
+						window.setTimeout(
+							function() {
+								notice.fadeOut(
+									([% autosaveForm.id %]_notice_fade_secs*1000),
+									function() {
+										notice.detach();
+									}
+								);
+							},
+							([% autosaveForm.id %]_notice_stay_secs*1000)
+						);
+					},
+					data: { autosave: 1 }
+				});
+				[% autosaveForm.id %]_previous_title = title;
+				[% autosaveForm.id %]_previous_text  = text;
+			}
+
+		});
+	</script>
+[% END %]

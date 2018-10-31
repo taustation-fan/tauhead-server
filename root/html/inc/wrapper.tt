@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="apple-touch-icon" sizes="180x180" href="[% c.uri_for('/static/icons/apple-touch-icon.png') %]">
+	<link rel="icon" type="image/png" sizes="32x32" href="[% c.uri_for('/static/icons/favicon-32x32.png') %]">
+	<link rel="icon" type="image/png" sizes="16x16" href="[% c.uri_for('/static/icons/favicon-16x16.png') %]">
+	<link rel="manifest" href="[% c.uri_for('/static/icons/site.webmanifest') %]">
+	<link rel="mask-icon" href="[% c.uri_for('/static/icons/safari-pinned-tab.svg') %]" color="#5bbad5">
+	<link rel="shortcut icon" href="[% c.uri_for('/static/icons/favicon.ico') %]">
+	<meta name="msapplication-config" content="[% c.uri_for('/static/icons/browserconfig.xml') %]">
+	<link rel="stylesheet" href="[% c.uri_for('/static/tauhead.min.css', {v=>3} ) %]">
+	[% IF dataTable %]
+		<link rel="stylesheet" href="[% c.uri_for('/static/dataTables.bootstrap4.min.css') %]">
+	[% END %]
+	[% IF open_iconic %]
+		<link rel="stylesheet" href="[% c.uri_for('/static/open-iconic/font/css/open-iconic-bootstrap.min.css') %]">
+	[% END %]
+	<title>Test Site: [% page_title | html %]</title>
+	<style>
+		body {
+			background: #fff url("[% c.uri_for('/static/test-site.png') %]") repeat fixed;
+		}
+	</style>
+</head>
+<body>
+	[% INCLUDE inc/nav.tt %]
+
+	<div class="container content">
+	[% INCLUDE inc/breadcrumbs.tt %]
+		[% IF status_msg %]
+		<div class="row">
+			<div class="col-md-6 offset-md-3" role="alert">
+				<div id="status_msg" class="alert alert-success alert-dismissable" role="alert">
+					<a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
+						[% status_msg | html %]
+				</div>
+			</div>
+		</div>
+		[% END %]
+
+		<script type="text/javascript" src="[% c.uri_for('/static/jquery.min.js') %]"></script>
+		[% IF forms.include_ajax %]
+			<script type="text/javascript" src="[% c.uri_for('/static/jquery.form.min.js') %]"></script>
+			<script type="text/javascript" src="[% c.uri_for('/static/jquery.validate.min.js') %]"></script>
+			<script type="text/javascript">
+				autosaveIntervalID = {};
+			</script>
+			[% INCLUDE inc/ajax.tt %]
+		[% END %]
+
+		[% content %]
+	</div>
+
+	[% IF comment_request %]
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col small alert alert-dark">
+				[% comment_request | html %]
+			</div>
+		</div>
+	</div>
+	[% END %]
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<div id="disqus_thread"></div>
+				[% IF disqus_url %]
+				<script>
+					var disqus_config = function () {
+					this.page.url = '[% disqus_url %]';
+					this.page.identifier = '[% disqus_url.path %]';
+					};
+					(function() { // DON'T EDIT BELOW THIS LINE
+					var d = document, s = d.createElement('script');
+					s.src = '[% c.conf.disqus_domain %]/embed.js';
+					s.setAttribute('data-timestamp', +new Date());
+					(d.head || d.body).appendChild(s);
+					})();
+				</script>
+				<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+				[% END %]
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<footer class="small">
+			<a href="[% c.uri_for('/privacy') %]">TauHead Privacy Policy</a>
+			<br />
+			This website is a private project and not an official offer by the creators
+			of Tau Station.
+			<br />
+			Visit the official game website at
+			<a href="https://taustation.space" target="_blank">https://taustation.space</a>.
+			<br />
+			Tau Station pictures by courtesy of Makes Dreams Happen SASU, France.
+		</footer>
+	</div>
+	[% IF modal %]
+	<div id="modalDialog" class="modal modal-form fade" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+			</div> <!-- /.modal-content -->
+		</div> <!-- /.modal-dialog -->
+	</div>
+	[% END %]
+	<script type="text/javascript" src="[% c.uri_for('/static/bootstrap.min.js') %]"></script>
+	[% IF forms.autosave.size %]
+		[% INCLUDE inc/autosave.tt %]
+	[% END %]
+	[% IF dataTable %]
+		<script type="text/javascript" src="[% c.uri_for('/static/jquery.dataTables.min.js') %]"></script>
+		<script type="text/javascript" src="[% c.uri_for('/static/dataTables.bootstrap4.min.js') %]"></script>
+	[% END %]
+	[% IF mermaid %]
+		<script type="text/javascript" src="[% c.uri_for('/static/mermaid.js') %]"></script>
+		<script type="text/javascript">mermaid.initialize({startOnLoad:true});</script>
+	[% END %]
+	[% FOREACH js IN end_js %]
+		<script type="text/javascript">
+			[% js %]
+		</script>
+	[% END %]
+	[% IF status_msg %]
+		<script type="text/javascript">
+			$("#status_msg").alert();
+		</script>
+	[% END %]
+	[% IF datatables_script %]
+	<script type="text/javascript">
+		[% INCLUDE $datatables_script %]
+	</script>
+	[% END %]
+	<script id="dsq-count-scr" src="[% c.conf.disqus_domain %]/count.js" async></script>
+</body>
+</html>

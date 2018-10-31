@@ -1,0 +1,27 @@
+[submodule "ext/octicons"]
+	path = ext/octicons
+	url = https://github.com/primer/octicons.git
+[submodule "ext/bootstrap"]
+	path = ext/bootstrap
+	url = https://github.com/twbs/bootstrap.git
+[submodule "ext/jquery"]
+	path = ext/jquery
+	url = https://github.com/jquery/jquery.git
+[submodule "ext/jquery-form"]
+	path = ext/jquery-form
+	url = https://github.com/jquery-form/form.git
+[submodule "ext/jquery-validation"]
+	path = ext/jquery-validation
+	url = https://github.com/jquery-validation/jquery-validation.git
+[submodule "ext/DataTables"]
+	path = ext/DataTables
+	url = https://github.com/DataTables/DataTables.git
+[submodule "ext/open-iconic"]
+	path = ext/open-iconic
+	url = https://github.com/iconic/open-iconic.git
+[submodule "ext/pushjs"]
+	path = ext/pushjs
+	url = https://github.com/Nickersoft/push.js.git
+[submodule "ext/mermaid"]
+	path = ext/mermaid
+	url = https://github.com/knsv/mermaid.git

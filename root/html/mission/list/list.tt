@@ -1,0 +1,33 @@
+[% WRAPPER inc/wrapper.tt page_title='Missions' %]
+<div class="row">
+	<div class="col col-md-8 col-lg-6 offset-md-2 offset-lg-3">
+		<h3>Missions</h3>
+	</div>
+	<div class="w-100"></div>
+	<div class="col col-md-8 col-lg-6 offset-md-2 offset-lg-3">
+		<ul class="list-group">
+		[% FOREACH mission = missions.all %]
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+				<a href="[% c.uri_for('/mission', mission.slug) %]">
+					[% mission.name | html %]
+				</a>
+                [% IF mission.level %]<small>(level [% mission.level | html %])</small>[% END %]
+				[% IF c.check_user_roles('admin') %]
+				<a href="[% c.uri_for('/mission', mission.slug, 'edit') %]" class="badge badge-secondary">
+					edit
+				</a>
+				[% END %]
+			</li>
+		[% END %]
+		</ul>
+	</div>
+	[% IF c.check_user_roles('admin') %]
+	<div class="w-100"></div>
+	<div class="col col-md-8 col-lg-6 offset-md-2 offset-lg-3">
+		<a href="[% c.uri_for('/mission/new') %]" class="btn btn-outline-secondary btn-sm" role="button">
+			Add a new Mission
+		</a>
+	</div>
+</div>
+[% END %]
+[% END %]

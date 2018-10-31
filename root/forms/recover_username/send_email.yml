@@ -1,0 +1,26 @@
+---
+load_config_file: __path_to(root/forms/inc/wrapper.yml)__
+
+elements:
+  type: Fieldset
+  legend: 'Send Email With Username'
+  elements:
+    - type: '+TauHead::FormFu::Element::MessageContainer'
+    
+    - name: email
+      type: Email
+      label: Email
+      autocomplete: off
+      autofocus: autofocus
+      required: required
+      constraints:
+        - type: Required
+        
+        - type: DBIC::Exists
+          resultset: User
+          message: 'There is no account with that email address'
+    
+    - name: send
+      type: ContentButton
+      field_type: submit
+      content: Send Email

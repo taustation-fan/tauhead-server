@@ -1,0 +1,39 @@
+[% WRAPPER inc/wrapper.tt page_title='Area Search' ajax=1 %]
+[% IF form.submitted_and_valid %]
+<div class="row">
+	<div class="col-auto offset-md-2 offset-lg-3">
+		<ul class="list-group">
+		[% FOREACH system = systems.all %]
+			[% FOREACH station = system.stations_sorted %]
+				[% SET area_search = station.search_related_rs('areas', {'slug' => query_area}) %]
+				[% SET count = area_search.count %]
+				[% IF query_with %]
+					[% IF 1 == count %]
+						[% SET area = area_search.first %]
+						<li class="list-group-item">
+							<a href="[% c.uri_for('/system', system.slug, 'station', station.slug, 'area', area.slug) %]">
+								[% system.name | html %] / [% station.name | html %] / [% area.name | html %]
+							</a>
+						</li>
+					[% END %]
+				[% ELSE %]
+					[% IF 0 == count %]
+						<li class="list-group-item">
+							<a href="[% c.uri_for('/system', system.slug, 'station', station.slug) %]">
+								[% system.name | html %] / [% station.name | html %]
+							</a>
+						</li>
+					[% END %]
+				[% END %]
+			[% END %]
+		[% END %]
+		</ul>
+	</div>
+</div>
+[% END %]
+<div class="row">
+	<div class="col-md-auto offset-md-2 offset-lg-3">
+		[% PROCESS inc/form.tt %]
+	</div>
+</div>
+[% END %]

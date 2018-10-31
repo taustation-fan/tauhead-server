@@ -1,0 +1,44 @@
+---
+load_config_file: __path_to(root/forms/inc/wrapper.yml)__
+model_config:
+  resultset: NPC
+
+elements:
+  - type: '+TauHead::FormFu::Element::MessageContainer'
+
+  - name: name
+    label: Name
+    autofocus: 1
+    constraints:
+      - type: Required
+
+  - name: slug
+    label: URI Slug
+    constraints:
+      - type: Required
+      - type: '+TauHead::FormFu::Constraint::Slug'
+
+  - name: description
+    label: Description
+    type: Textarea
+    rows: 8
+    constraints:
+      - type: MaxLength
+        max: 4000000
+
+  - name: areas
+    label: Areas this NPC is seen in
+    type: '+TauHead::FormFu::Element::AllAreas'
+
+  - name: missions
+    label: Missions this NPC are involved in
+    type: Checkboxgroup
+    model_config:
+      resultset: Mission
+      attributes:
+        order_by: name
+
+  - name: submit
+    type: ContentButton
+    field_type: submit
+    content: Save

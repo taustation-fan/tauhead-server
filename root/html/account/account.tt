@@ -1,0 +1,66 @@
+[% WRAPPER inc/wrapper.tt page_title='TauHead' modal=1 %]
+[% forms.include_ajax = 1 %]
+<div class="row justify-content-center">
+	<div class="col-md-auto">
+		<table class="table table-bordered table-striped table-responsive">
+			<tr>
+				<td>Username:</td>
+				<td>[% user.username | html %]</td>
+			</tr>
+			<tr>
+				<td>Email:</td>
+				<td>[% user.email | html %]</td>
+			</tr>
+			<tr>
+				<td>Roles:</td>
+				<td>
+					<ul>
+					[% FOREACH role = user.roles %]
+						<li title="[% role.description | html %]">[% role.display_label | html %]</li>
+					[% END %]
+					</ul>
+				</td>
+			</tr>
+			<!-- tr>
+				<td>Preferences:</td>
+				<td>
+					<ul>
+					[% FOREACH mypref = user.search_related( 'user_preferences', {}, { order_by => 'preference_id' } ) %]
+						[%- pref = mypref.preference -%]
+						<li title="[% pref.description | html %]">
+							[% pref.display_label | html %]:
+							<code>[% IF pref.data_type == 'BOOL' -%]
+									[%- IF mypref.value %]Yes[% ELSE %]No[% END -%]
+								  [%- ELSE -%]
+									[%- mypref.value | html -%]
+								  [%- END %]</code>
+						</li>
+					[% END %]
+					</ul>
+				<button class="btn btn-default" data-toggle="modal" data-target="#modalDialog" data-remote="[% c.uri_for('/edit-preferences') %]">Edit Preferences</button>
+				</td>
+			</tr -->
+			<tr>
+				<td>&nbsp;</td>
+				<td><button class="btn btn-default" data-toggle="modal" data-target="#modalDialog" data-remote="[% c.uri_for('/change-password') %]">Change Password</button></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td><button class="btn btn-default" data-toggle="modal" data-target="#modalDialog" data-remote="[% c.uri_for('/change-email') %]">Change Email Address</button></td>
+			</tr>
+		</table>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#modalDialog').on('show.bs.modal', function(e) {
+			$(this).find('.modal-content').load( $(e.relatedTarget).attr('data-remote') );
+		});
+		$('#modalDialog').on('hidden.bs.modal', function() {
+			$(this).removeData('bs.modal');
+			$(this).find('textarea').each(function(){ $(this).val("") });
+			$(this).find('input'   ).each(function(){ $(this).val("") });
+		});
+	});
+</script>
+[% END %]

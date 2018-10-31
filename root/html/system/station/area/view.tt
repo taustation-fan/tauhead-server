@@ -1,0 +1,136 @@
+[% WRAPPER inc/wrapper.tt page_title=system.name _ ' / ' _ station.name _ ' / ' _ area.name
+	comment_request="If you see this Area involve an NPC or Mission not listed above, please leave a comment below, and let us know!"
+%]
+[% IF area.bg_img %]
+<div class="area_bg" style="background-image: url([% area.bg_img %]);">
+<div class="area_bg_overlay">
+[% END %]
+
+<div class="row area-with-img">
+	<div class="col-md-6">
+		<div class="row">
+			<div class="col-auto offset-md-2 offset-lg-3">
+				<h3>[% area.name | html %]</h3>
+		        [% IF area.aka.length %]
+		        <p><small>([% area.aka | html %])</small></p>
+		        [% END %]
+			</div>
+		</div>
+
+		[% IF area.area_description_short.length %]
+		<div class="row mb-2">
+		    <div class="col offset-md-2 offset-lg-3">
+				[% area.area_description_short | html | html_line_break %]
+				</ul>
+			</div>
+		</div>
+		[% END %]
+
+		[% IF area.area_description_long.length %]
+		<div class="row mb-2">
+		    <div class="col offset-md-2 offset-lg-3">
+				[% area.area_description_long | html | html_line_break %]
+				</ul>
+			</div>
+		</div>
+		[% END %]
+
+		[% IF area.description.length %]
+		<div class="row mb-2">
+			<div class="col col-md-2 col-lg-3 offset-md-2 offset-lg-3">
+		        Description
+		    </div>
+		    <div class="col col-md-8 col-lg-6">
+				[% area.description | html | html_line_break %]
+				</ul>
+			</div>
+		</div>
+		[% END %]
+
+		[% IF area.count_related('vendors') %]
+		<div class="row">
+			<div class="col-auto offset-md-2 offset-lg-3">
+		        <h4>Vendors found in this Area</h4>
+				<ul class="list-group">
+				[% FOREACH vendor = area.vendors_sorted %]
+			        <li class="list-group-item d-flex justify-content-between align-items-center">
+			            <a href="[% vendor.build_uri(c) %]">
+			                [% vendor.name | html %]
+			            </a>
+			        </li>
+			    [% END %]
+				</ul>
+			</div>
+		</div>
+		[% END %]
+
+		[% IF area.count_related('area_npcs') %]
+		<div class="row">
+			<div class="col-auto offset-md-2 offset-lg-3">
+		        <h4>NPCs found in this Area</h4>
+				<ul class="list-group">
+				[% FOREACH npc = area.npcs_sorted %]
+			        <li class="list-group-item d-flex justify-content-between align-items-center">
+			            <a href="[% c.uri_for('/npc', npc.slug) %]">
+			                [% npc.name | html %]
+			            </a>
+			        </li>
+			    [% END %]
+				</ul>
+			</div>
+		</div>
+		[% END %]
+
+		[% IF area.count_related('mission_areas') %]
+		<div class="row">
+			<div class="col-auto offset-md-2 offset-lg-3">
+		        <h4>Missions that visit this Area</h4>
+				<ul class="list-group">
+				[% FOREACH mission = area.missions_sorted %]
+			        <li class="list-group-item d-flex justify-content-between align-items-center">
+			            <a href="[% c.uri_for('/mission', mission.slug) %]">
+			                [% mission.name | html %]
+			            </a>
+			        </li>
+			    [% END %]
+				</ul>
+			</div>
+		</div>
+		[% END %]
+
+		[% IF c.check_user_roles('admin') %]
+		<div class="row">
+			<div class="col-auto offset-md-2 offset-lg-3">
+				<a href="[% c.uri_for('/system', system.slug, 'station', station.slug, 'area', area.slug, 'edit') %]" class="btn btn-outline-secondary btn-sm" role="button">
+					Edit Area
+				</a>
+		        <a href="[% c.uri_for('/system', system.slug, 'station', station.slug, 'area', area.slug, 'vendor', 'new') %]" class="btn btn-outline-secondary btn-sm" role="button">
+		            Add a new Vendor
+		        </a>
+			</div>
+		</div>
+		[% END %]
+	</div>
+	<div class="col-md-6 area_images">
+		[% IF area.content_img %]
+			<div class="area_content_img">
+				<a href="[% area.content_img %]" rel="nofollow"><img src="[% area.content_img %]"></a>
+				[% IF area.content_side_img %]
+				<a href="[% area.content_side_img %]" rel="nofollow"><img src="[% area.content_side_img %]"></a>
+				[% END %]
+			</div>
+		[% END %]
+		[% IF area.hero_img %]
+			<div class="area_hero_img"><a href="[% area.hero_img %]" rel="nofollow"><img src="[% area.hero_img %]"></a></div>
+		[% END %]
+		[% IF area.other_img %]
+			<div class="area_other_img"><a href="[% area.other_img %]" rel="nofollow"><img src="[% area.other_img %]"></div>
+		[% END %]
+	</div>
+</div>
+
+[% IF area.bg_img %]
+</div>
+</div>
+[% END %]
+[% END %]

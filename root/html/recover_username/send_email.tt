@@ -1,0 +1,10 @@
+[% WRAPPER inc/wrapper.tt page_title='Recover Username' ajax=1 %]
+<div class="row justify-content-md-center">
+	<div class="col-lg-auto">
+		<p class="alert alert-info" role="alert">
+			You <b>must</b> have access to your registered email account to recover your username.<br />
+		</p>
+		[% PROCESS inc/form.tt %]
+	</div>
+</div>
+[% END %]

@@ -1,0 +1,10 @@
+---
+load_config_file: __path_to(root/forms/inc/wrapper.yml)__
+
+elements:
+  - type: '+TauHead::FormFu::Element::MessageContainer'
+
+  - name: submit
+    type: ContentButton
+    field_type: submit
+    content: Download JSON File

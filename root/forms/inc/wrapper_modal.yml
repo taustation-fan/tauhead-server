@@ -1,0 +1,16 @@
+---
+load_config_file: __path_to(root/forms/inc/wrapper.yml)__
+
+elements:
+    - type: Hidden
+      name: guid
+      constraints:
+        - type: Required
+        - type: SingleValue
+      plugins:
+        - '+TauHead::FormFu::Plugin::Element::GUID'
+    
+    - type: Hidden
+      name: autosave
+      attributes:
+        disabled: disabled

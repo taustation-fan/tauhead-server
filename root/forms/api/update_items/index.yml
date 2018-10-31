@@ -1,0 +1,344 @@
+---
+load_config_file: __path_to(root/forms/inc/wrapper_api.yml)__
+default_args:
+  elements:
+    'Text|Textarea|Checkbox|TauHead::FormFu::Element::JSON':
+      constraint: SingleValue
+    Checkbox:
+      filters:
+        - type: Regex
+          match: '^\z'
+          replace: 0
+
+elements:
+  - type: '+TauHead::FormFu::Element::MessageContainer'
+
+  - type: Block
+    content: Item Types
+    tag: h3
+
+  - name: item_type_counter
+    type: Hidden
+    constraint:
+      - type: Integer
+      - type: Required
+      - type: SingleValue
+
+  - type: Repeatable
+    nested_name: item_type
+    counter_name: item_type_counter
+    increment_field_names: 1
+    attrs:
+      class: 'api-item-types'
+    elements:
+      - type: Block
+        attributes:
+          class: row
+        elements:
+          - type: Block
+            attributes:
+              class: col
+            elements:
+              - name: slug
+                label: Slug
+                constraints:
+                  - type: Required
+
+          - type: Block
+            attributes:
+              class: col
+            elements:
+              - name: name
+                label: Name
+                constraints:
+                  - type: Required
+
+  - type: Block
+    content: Items
+    tag: h3
+
+  - name: item_counter
+    type: Hidden
+    constraint:
+      - type: Integer
+      - type: Required
+      - type: SingleValue
+
+  - type: Repeatable
+    nested_name: item
+    counter_name: item_counter
+    increment_field_names: 1
+    model_config:
+      resultset: Item
+    attrs:
+      class: api-items
+    elements:
+      - type: Block
+        attributes:
+          class: row
+        elements:
+          - type: Block
+            attributes:
+              class: col
+            elements:
+              - name: slug
+                label: Slug
+                constraints:
+                  - type: Required
+          - type: Block
+            attributes:
+              class: col
+            elements:
+              - name: name
+                label: Name
+                constraints:
+                  - type: Required
+          - type: Block
+            attributes:
+              class: col
+            elements:
+              - name: item_type_slug
+                label: Item Type Slug
+                constraints:
+                  - type: Required
+
+      - name: image
+        label: Image URL Path
+        constraints:
+          - type: Required
+
+      - type: Block
+        attributes:
+          class: row
+        elements:
+          - type: Block
+            attributes:
+              class: col
+            elements:
+              - name: tier
+                label: Tier
+                constraints:
+                  - type: Integer
+                  - type: Required
+          - type: Block
+            attributes:
+              class: col
+            elements:
+              - name: stack_size
+                label: Stack Size
+                constraints:
+                  - type: Integer
+                  - type: Required
+          - type: Block
+            attributes:
+              class: col
+            elements:
+              - name: bonds
+                label: Bonds
+                constraints:
+                  - type: Integer
+                  - type: Required
+
+      - type: Block
+        attributes:
+          class: row
+        elements:
+          - type: Block
+            attributes:
+              class: col col-4
+            elements:
+              - name: mass
+                label: Mass
+                constraints:
+                  - type: Regex
+                    common: ['num', 'decimal', {'-places': '0,3'}]
+                  - type: Required
+          - type: Block
+            attributes:
+              class: col col-4
+            elements:
+              - name: rarity
+                label: Rarity
+                constraints:
+                  - type: Set
+                    set: ['common', 'uncommon', 'rare', 'epic']
+                  - type: Required
+
+      - type: Fieldset
+        nested_name: item_component_armor
+        legend: Item Component Armor
+        elements:
+          - type: Block
+            attributes:
+              class: row
+            elements:
+              - type: Block
+                attributes:
+                  class: col
+                elements:
+                  - name: energy
+              - type: Block
+                attributes:
+                  class: col
+                elements:
+                  - name: impact
+              - type: Block
+                attributes:
+                  class: col
+                elements:
+                  - name: piercing
+
+      - type: Fieldset
+        nested_name: item_component_medical
+        legend: Item Component Medical
+        elements:
+          - type: Block
+            attributes:
+              class: row
+            elements:
+              - type: Block
+                attributes:
+                  class: col
+                elements:
+                  - name: base_toxicity
+              - type: Block
+                attributes:
+                  class: col
+                elements:
+                  - name: strength_boost
+              - type: Block
+                attributes:
+                  class: col
+                elements:
+                  - name: agility_boost
+
+          - type: Block
+            attributes:
+              class: row
+            elements:
+              - type: Block
+                attributes:
+                  class: col
+                elements:
+                  - name: stamina_boost
+              - type: Block
+                attributes:
+                  class: col
+                elements:
+                  - name: intelligence_boost
+              - type: Block
+                attributes:
+                  class: col
+                elements:
+                  - name: social_boost
+
+      - type: Fieldset
+        nested_name: item_component_mod
+        legend: Item Component Mod
+        elements:
+          - type: Block
+            attributes:
+              class: row
+            elements:
+              - type: Block
+                attributes:
+                  class: col
+                elements:
+                  - name: focus_mod
+                    model_config:
+                      null_if_empty: 1
+              - type: Block
+                attributes:
+                  class: col
+                elements:
+                  - name: strength_mod
+                    model_config:
+                      null_if_empty: 1
+              - type: Block
+                attributes:
+                  class: col
+                elements:
+                  - name: agility_mod
+                    model_config:
+                      null_if_empty: 1
+
+          - type: Block
+            attributes:
+              class: row
+            elements:
+              - type: Block
+                attributes:
+                  class: col
+                elements:
+                  - name: stamina_mod
+                    model_config:
+                      null_if_empty: 1
+              - type: Block
+                attributes:
+                  class: col
+                elements:
+                  - name: intelligence_mod
+                    model_config:
+                      null_if_empty: 1
+              - type: Block
+                attributes:
+                  class: col
+                elements:
+                  - name: social_mod
+                    model_config:
+                      null_if_empty: 1
+
+          - name: mod_type
+
+      - type: Fieldset
+        nested_name: item_component_weapon
+        legend: Item Component Weapon
+        elements:
+          - type: Block
+            attributes:
+              class: row
+            elements:
+              - type: Block
+                attributes:
+                  class: col
+                elements:
+                  - name: energy_damage
+              - type: Block
+                attributes:
+                  class: col
+                elements:
+                  - name: impact_damage
+              - type: Block
+                attributes:
+                  class: col
+                elements:
+                  - name: piercing_damage
+
+          - type: Block
+            attributes:
+              class: row
+            elements:
+              - type: Block
+                attributes:
+                  class: col
+                elements:
+                  - name: accuracy
+              - type: Block
+                attributes:
+                  class: col
+                elements:
+                  - name: hand_to_hand
+              - type: Block
+                attributes:
+                  class: col
+                elements:
+                  - name: weapon_type
+
+          - name: is_long_range
+            label: Is Long Range
+            type: Checkbox
+
+  - name: submit
+    type: ContentButton
+    field_type: submit
+    content: Save

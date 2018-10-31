@@ -1,0 +1,32 @@
+[% WRAPPER inc/wrapper.tt page_title='Item List' dataTable=1 datatables_script='inc/datatables_item_list.tt' ajax=1 open_iconic=1 %]
+<div class="row justify-content-md-center">
+	<div class="col-md-auto">
+	[% IF legend %]
+		<strong>Filtering by [% legend %]</strong>
+	[% END %]
+		<table cellpadding="0" cellspacing="0" border="0" class="table table-bordered" id="dataTable">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Tier</th>
+					<th>Value</th>
+					<th>Mass</th>
+					<th>Lowest Vendor Price Available</th>
+					<th>Price Unit</th>
+					<th>In-game link</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+</div>
+[% IF c.user_exists %]
+<div class="row justify-content">
+	<div class="col-auto">
+		<span class="oi oi-data-transfer-download" title="Download" aria-hidden="true"></span>
+		<a href="[% c.uri_for('/item/download') %]">Download all items as JSON</a>
+	</div>
+</div>
+[% END %]
+[% END %]

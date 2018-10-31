@@ -1,0 +1,90 @@
+---
+load_config_file: __path_to(root/forms/inc/wrapper.yml)__
+default_args:
+  elements:
+    'Texts|Textarea|Checkbox':
+      add_attrs:
+        readonly: 1
+      constraint: SingleValue
+    Checkbox:
+      filters:
+        - type: Regex
+          match: '^\z'
+          replace: 0
+model_config:
+  resultset: Area
+
+elements:
+  - type: '+TauHead::FormFu::Element::MessageContainer'
+
+  - name: system
+    label: System
+    constraints:
+      - type: Required
+
+  - name: station
+    label: Station
+    constraints:
+      - type: Required
+
+  - name: name
+    label: Name
+    constraints:
+      - type: Required
+
+  - name: aka
+    label: 'A.K.A. (colorful name)'
+    constraints:
+      - type: Required
+
+  - name: slug
+    label: URI Slug
+    constraints:
+      - type: '+TauHead::FormFu::Constraint::Slug'
+      - type: Required
+
+  - name: bg_img
+    label: Background Image
+    model_config:
+      null_if_empty: 1
+
+  - name: content_img
+    label: Content Image
+    model_config:
+      null_if_empty: 1
+
+  - name: content_side_img
+    label: Content Side Image
+    model_config:
+      null_if_empty: 1
+
+  - name: hero_img
+    label: Hero Image
+    model_config:
+      null_if_empty: 1
+
+  - name: other_img
+    label: Other Image
+    model_config:
+      null_if_empty: 1
+
+  - name: area_description_short
+    label: Short Area Description
+    type: Textarea
+    rows: 8
+    constraints:
+      - type: MaxLength
+        max: 4000000
+
+  - name: area_description_long
+    label: Long Area Description
+    type: Textarea
+    rows: 8
+    constraints:
+      - type: MaxLength
+        max: 4000000
+
+  - name: submit
+    type: ContentButton
+    field_type: submit
+    content: Submit

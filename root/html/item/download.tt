@@ -1,0 +1,8 @@
+[% WRAPPER inc/wrapper.tt page_title='Item Download' %]
+<div class="row justify-content-md-center">
+	<div class="col-md-auto">
+		<span class="oi oi-data-transfer-download" title="Download" aria-hidden="true"></span>
+		[% form %]
+	</div>
+</div>
+[% END %]

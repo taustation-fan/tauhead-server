@@ -1,0 +1,17 @@
+[% WRAPPER inc/wrapper.tt page_title='GTC Conversion' %]
+<div class="row justify-content-md-center">
+	<div class="col-md-auto">
+		[% form %]
+		[% IF datetime_oe %]
+		<div class="alert alert-primary" role="alert">
+			In Old Earth (UTC): <code>[% datetime_oe %]</code>,
+			<br/>
+			which is <code>[% duration_gtc %]</code>
+			[% IF duration_neg %]in the past[% ELSE %]from now[% END %],
+			<br/>
+			or <code>[% duration_oe %]</code>.
+		</div>
+		[% END %]
+	</div>
+</div>
+[% END %]

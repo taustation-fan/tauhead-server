@@ -1,0 +1,100 @@
+---
+load_config_file: __path_to(root/forms/inc/wrapper.yml)__
+model_config:
+  resultset: Area
+
+elements:
+  - type: '+TauHead::FormFu::Element::MessageContainer'
+
+  - name: parent_area_id
+    label: Sub-Area of...
+    type: Select
+    empty_first: 1
+    constraints:
+      - type: AutoSet
+    model_config:
+      resultset: Area
+      null_if_empty: 1
+      condition:
+        parent_area_id: ~
+      condition_from_stash:
+        station_id: context.stash.station.id
+      expand_stash_dots: 1
+      attributes:
+        order_by: name
+
+  - name: name
+    label: Name
+    autofocus: 1
+    constraints:
+      - type: Required
+
+  - name: aka
+    label: 'A.K.A. (colorful name)'
+
+  - name: slug
+    label: URI Slug
+    constraints:
+      - type: Required
+      - type: '+TauHead::FormFu::Constraint::Slug'
+
+  - name: bg_img
+    label: Background Image
+
+  - name: content_img
+    label: Content Image
+
+  - name: content_side_img
+    label: Content Side Image
+
+  - name: hero_img
+    label: Hero Image
+
+  - name: other_img
+    label: Other Image
+
+  - name: area_description_short
+    label: Short Area Description
+    type: Textarea
+    rows: 8
+    constraints:
+      - type: MaxLength
+        max: 4000000
+
+  - name: area_description_long
+    label: Long Area Description
+    type: Textarea
+    rows: 8
+    constraints:
+      - type: MaxLength
+        max: 4000000
+
+  - name: description
+    label: Description
+    type: Textarea
+    rows: 8
+    constraints:
+      - type: MaxLength
+        max: 4000000
+
+  - name: sort_order
+    label: Sort Order
+    constraints:
+      - type: Integer
+
+  - name: npcs
+    label: NPCs seen in this Area
+    type: Checkboxgroup
+    model_config:
+      resultset: NPC
+
+  - name: missions
+    label: Missions that visit this Area
+    type: Checkboxgroup
+    model_config:
+      resultset: Mission
+
+  - name: submit
+    type: ContentButton
+    field_type: submit
+    content: Save

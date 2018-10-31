@@ -1,0 +1,115 @@
+[% WRAPPER inc/wrapper.tt page_title=system.name _ ' / ' _ station.name %]
+<div class="row">
+	<div class="col-auto offset-md-2 offset-lg-3">
+		<h3>[% station.name | html %]</h3>
+	</div>
+</div>
+<div class="row">
+	<div class="col col-md-2 col-lg-3 offset-md-2 offset-lg-3">
+        Affiliation
+    </div>
+    <div class="col col-md-8 col-lg-6">
+		[% station.affiliation | html %]
+		</ul>
+	</div>
+</div>
+<div class="row">
+	<div class="col col-md-2 col-lg-3 offset-md-2 offset-lg-3">
+        Level
+    </div>
+    <div class="col col-md-8 col-lg-6">
+		[% station.level | html %]
+		</ul>
+	</div>
+</div>
+<div class="row">
+	<div class="col col-md-2 col-lg-3 offset-md-2 offset-lg-3">
+        Has open ruins sewers?
+    </div>
+    <div class="col col-md-8 col-lg-6">
+		[% SET has_open_ruins_sewers = station.has_open_ruins_sewers ? 'Yes' : 'No' %]
+		[% has_open_ruins_sewers | html %]
+		</ul>
+	</div>
+</div>
+
+[% IF station.description.length %]
+<div class="row">
+	<div class="col col-md-2 col-lg-3 offset-md-2 offset-lg-3">
+        Description
+    </div>
+    <div class="col col-md-8 col-lg-6">
+		[% station.description | html | html_line_break %]
+		</ul>
+	</div>
+</div>
+[% END %]
+
+<div class="row">
+	<div class="col-auto offset-md-2 offset-lg-3">
+		<ul class="list-group">
+		[% FOREACH area = areas.all %]
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+				<a href="[% c.uri_for('/system', system.slug, 'station', station.slug, 'area', area.slug) %]">
+					[% area.name | html %]
+				</a>
+				[% IF area.aka.length %]<small>([% area.aka | html %])</small>[% END %]
+				[% IF c.check_user_roles('admin') %]
+				<a href="[% c.uri_for('/system', system.slug, 'station', station.slug, 'area', area.slug, 'edit') %]" class="badge badge-secondary">
+					edit
+				</a>
+				[% END %]
+			</li>
+			[% IF area.count_related('child_areas') %]
+				<div class="w-100"></div>
+				<ul class="list-group">
+				[% FOREACH subarea = area.child_areas_sorted %]
+					<li class="list-group-item d-flex justify-content-between align-items-center">
+						<a href="[% c.uri_for('/system', system.slug, 'station', station.slug, 'area', subarea.slug) %]">
+							[% subarea.name | html %]
+						</a>
+						[% IF subarea.aka.length %]<small>([% subarea.aka | html %])</small>[% END %]
+						[% IF c.check_user_roles('admin') %]
+						<a href="[% c.uri_for('/system', system.slug, 'station', station.slug, 'area', subarea.slug, 'edit') %]" class="badge badge-secondary">
+							edit
+						</a>
+						[% END %]
+					</li>
+				[% END %]
+				</ul>
+			[% END %]
+		[% END %]
+		</ul>
+	</div>
+</div>
+
+[% IF area_missions.count %]
+<div class="row">
+	<div class="col-auto offset-md-2 offset-lg-3">
+        <h4>Missions that visit this Station</h4>
+		<ul class="list-group">
+		[% FOREACH mission = area_missions.all %]
+	        <li class="list-group-item d-flex justify-content-between align-items-center">
+	            <a href="[% c.uri_for('/mission', mission.slug) %]">
+	                [% mission.name | html %]
+	            </a>
+	        </li>
+	    [% END %]
+		</ul>
+	</div>
+</div>
+[% END %]
+
+[% IF c.check_user_roles('admin') %]
+<div class="row">
+	<div class="col-auto offset-md-2 offset-lg-3">
+		<a href="[% c.uri_for('/system', system.slug, 'station', station.slug, 'edit') %]" class="btn btn-outline-secondary btn-sm" role="button">
+			Edit Station
+		</a>
+		<a href="[% c.uri_for('/system', system.slug, 'station', station.slug, 'area/new') %]" class="btn btn-outline-secondary btn-sm" role="button">
+			Add a new Area
+		</a>
+	</div>
+</div>
+[% END %]
+[% END %]

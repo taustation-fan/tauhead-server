@@ -1,0 +1,81 @@
+[% WRAPPER inc/wrapper.tt page_title=item.name
+	comment_request="If you find an interesting source for this item, please leave a comment below, and let us know!"
+%]
+<div class="row">
+	<div class="col-auto offset-md-2 offset-lg-3">
+		<h3>[% item.name | html %]</h3>
+	</div>
+</div>
+
+<dl class="row">
+	[% FOREACH col IN item.display_col_vals %]
+	<dt class="col-sm-4 col-md-3 offset-md-1 col-lg-2 offset-lg-2">[% col.name | camel2words | html %]</dt>
+	<dd class="col-sm-8 col-md-7 col-lg-6">[% col.value | html %]<dd>
+	[% END %]
+
+	[% FOREACH component IN item.item_component_names %]
+	[% IF item.count_related(component)  %][% SET rel = item.find_related(component, {'item_slug' => item.slug}) %]
+	<dt class="col-sm-4 col-md-3 offset-md-1 col-lg-2 offset-lg-2">[% component | camel2words %]</dt>
+	<dd class="col-sm-8 col-md-7 col-lg-6">
+		<dl class="row">
+		[% FOREACH rel_col IN rel.display_col_vals %]
+			<dt class="col-6">[% rel_col.name | camel2words | html %]</dt>
+			<dd class="col-6">[% rel_col.value | html %]</dd>
+		[% END %]
+		</dl>
+	</dd>
+	[% END %]
+	[% END %]
+</dl>
+
+<div class="row">
+	<div class="col-6 col-md-4 col-lg-3">
+		<div class="slot">
+			<div class="item-framed-img [% item.rarity %]">
+				<img src="[% c.uri_for( item.image ) %]">
+			</div>
+		</div>
+		<br />
+		<a href="[% item.in_game_link(c) %]" target="_blank">
+			View in-game item page
+		</a>
+	</div>
+	[% IF item.description.length %]
+	<div class="col-6 col-md-8 col-lg-9">
+		[% item.description | html | html_line_break %]
+	</div>
+	[% END %]
+</div>
+
+[% IF item.count_related('vendor_items') %]
+<div class="row">
+	<div class="col-auto offset-md-2 offset-lg-3">
+        <h4>Vendors who sell this item:</h4>
+		<ul class="list-group">
+		[% FOREACH vendor = item.vendors %]
+	        <li class="list-group-item d-flex justify-content-between align-items-center">
+	            <a href="[% vendor.build_uri(c) %]">
+	                [% vendor.name | html %]
+					<small>([% vendor.area.station.name | html %])</small>
+	            </a>
+				[% vendor_item = vendor.search_related( 'vendor_items', { 'item_slug' => item.slug }, {'rows' => 1}) %]
+				<span class="badge badge-info">
+					[% vendor_item.price %] [% vendor_item.price_unit | ucfirst %]
+				</span>
+	        </li>
+	    [% END %]
+		</ul>
+	</div>
+</div>
+[% END %]
+
+[% IF c.check_user_roles('admin') %]
+<div class="row">
+	<div class="col-auto offset-md-2 offset-lg-3">
+		<a href="[% c.uri_for('/item', item.slug, 'edit') %]" class="btn btn-outline-secondary btn-sm" role="button">
+			Edit Item
+		</a>
+	</div>
+</div>
+[% END %]
+[% END %]

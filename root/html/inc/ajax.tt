@@ -1,0 +1,77 @@
+[% FOREACH ajaxForm = forms.ajax %]
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var [% ajaxForm.id %]_opts = [% ajaxForm.jquery_validation_json %];
+
+			var [% ajaxForm.id %]_button = $("#[% ajaxForm.id %] button[type=submit].progress-bar");
+			if ([% ajaxForm.id %]_button) {
+				[% ajaxForm.id %]_opts.submitHandler = function() {
+					[% ajaxForm.id %]_button.attr("disabled", "disabled");
+					[% ajaxForm.id %]_button.addClass("progress-bar-striped");
+					[% ajaxForm.id %]_button.addClass("progress-bar-animated");
+
+					if (autosaveIntervalID.[% ajaxForm.id %]) {
+						window.clearInterval(autosaveIntervalID.[% ajaxForm.id %]);
+					}
+
+					$("#[% ajaxForm.id %]").ajaxSubmit({
+						dataType: 'json',
+						success: [% form.id %]_formSuccess,
+					});
+				};
+			}
+
+			var [% ajaxForm.id %]_validator = $("#[% ajaxForm.id %]").validate([% ajaxForm.id %]_opts);
+
+			function [% form.id %]_formSuccess(responseJSON, statusText, xhr, form) {
+				if ( responseJSON.ok ) {
+					if ( responseJSON.redirect ) {
+						window.location.href = responseJSON.redirect;
+					}
+					else {
+						formMessage(form, responseJSON.message);
+						if ( responseJSON.clear ) {
+							var msg = $(form).find(".formfu-message-container").first();
+							msg.addClass("col-md-offset-4 col-md-4");
+							msg = msg.detach();
+							msg.insertBefore($(form));
+							$(form).detach()
+							return;
+						}
+					}
+				}
+				else {
+					[% ajaxForm.id %]_validator.showErrors( responseJSON.errors );
+					if ( responseJSON.password2text ) {
+						$("#[% ajaxForm.id %] input[type=password]").each( function() {
+							$(this).val("");
+							$(this).attr( 'type', 'text' );
+						} );
+					}
+					if ( responseJSON.link ) {
+						var name   = responseJSON.link.field;
+						var field  = $(form).find("[name="+name+"]").first();
+						var parent = field.parent();
+						var error  = $(parent).find("label[class=error]").first();
+						if ( error ) {
+							$(error).append(
+								'<br />' +
+								'<a href="' + responseJSON.link.href + '">' +
+								responseJSON.link.text +
+								'</a>'
+							);
+						}
+					}
+				}
+		   	}
+
+			function formMessage(form, message) {
+				message = message || 'Success';
+				var container = $(form).find(".formfu-message-container:first");
+				container.find(".message:first").text(message);
+						container.addClass("alert alert-success");
+				container.show();
+			}
+		});
+	</script>
+[% END %]

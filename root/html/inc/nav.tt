@@ -1,0 +1,70 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+	<div class="container">
+		<a class="navbar-brand" href="[% c.uri_for('/') %]">Test Site</a>
+		<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<a href="[% c.uri_for('/system/list') %]" class="nav-link">Systems</a>
+				</li>
+				<li class="nav-item">
+					<a href="[% c.uri_for('/vendor/list') %]" class="nav-link">Vendors</a>
+				</li>
+				<li class="nav-item">
+					<a href="[% c.uri_for('/item/list') %]" class="nav-link">Items</a>
+				</li>
+				<li class="nav-item">
+					<a href="[% c.uri_for('/npc/list') %]" class="nav-link">NPCs</a>
+				</li>
+				<li class="nav-item">
+					<a href="[% c.uri_for('/mission/list') %]" class="nav-link">Missions</a>
+				</li>
+				<li class="nav-item">
+					<a href="[% c.uri_for('/gct') %]" class="nav-link">GCT Conversion</a>
+				</li>
+			[% IF c.user_exists %]
+				[% IF c.check_any_user_role('admin') %]
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarAdminDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Admin <b class="caret"></b>
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarAdminDropdown">
+							<a class="dropdown-item" href="[% c.uri_for('/admin/user/list') %]">User Admin</a>
+							<a class="dropdown-item" href="[% c.uri_for('/log/list') %]">View System Logs</a>
+					</div>
+				</li>
+				[% END %]
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarAccountsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						[% c.user.username | html %] <b class="caret"></b>
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarAccountsDropdown">
+						<a class="dropdown-item" href="[% c.uri_for('/account') %]">Account</a>
+						<a class="dropdown-item" href="[% c.uri_for('/logout') %]">Log Out</a>
+					</div>
+				</li>
+			[% ELSE %]
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarAccountsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Accounts <b class="caret"></b>
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarAccountsDropdown">
+						<a class="dropdown-item" href="[% c.uri_for('/signup') %]">Create Account</a>
+						<a class="dropdown-item" href="[% c.uri_for('/recover-username') %]">Forgot Username</a>
+						<a class="dropdown-item" href="[% c.uri_for('/reset-password') %]">Forgot Password</a>
+					</div>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="[% c.uri_for('/login') %]">Log In</a>
+				</li>
+			[% END %]
+			</ul>
+		</div>
+		<form action="[% c.uri_for('/search') %]" class="form-inline">
+			<input class="form-control mr-sm-2 p-1" name="query" type="search" placeholder="Search" aria-label="Search" />
+			<button class="btn btn-outline-light my-2 my-sm-0 p-1" type="submit">Search</button>
+		</form>
+	</div>
+</nav>

@@ -1,0 +1,79 @@
+[% WRAPPER inc/wrapper.tt page_title=vendor.name %]
+<div class="row">
+	<div class="col-auto offset-md-2 offset-lg-3">
+		<h3>[% vendor.name | html %]</h3>
+	</div>
+</div>
+<div class="row">
+	<div class="col-auto offset-md-2 offset-lg-3">
+		Is Corporation: [% vendor.is_corporation ? 'Yes' : 'No' %]
+	</div>
+</div>
+<div class="row">
+	<div class="col-auto offset-md-2 offset-lg-3">
+		Area: [% SET area = vendor.area %]
+		<a href="[% area.build_uri(c) %]">
+			[% area.name | html %]
+		</a>
+	</div>
+</div>
+
+[% IF vendor.description.length %]
+<div class="row">
+	<div class="col-auto offset-md-2 offset-lg-3">
+		[% vendor.description | html | html_line_break %]
+	</div>
+</div>
+[% END %]
+
+<div class="row">
+	<div class="col-auto offset-md-2 offset-lg-3">
+		<h4>Itinerary</h4>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		<table class="table table-responsive-md table-sm table-bordered table-striped">
+			<caption class="sr-only">Vendor itinerary - list of items for sale</caption>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Item Type</th>
+					<th>Rarity</th>
+					<th>Tier</th>
+					<th>Max quantity per sale</th>
+					<th>Default quantity</th>
+					<th>Has unlimited quantity</th>
+					<th>Price</th>
+					<th>Price unit</th>
+				</tr>
+			</thead>
+			<tbody>
+			[% WHILE ( vendor_item = vendor_items.next ) %][% item = vendor_item.item %]
+				<tr>
+					<td><a href="[% c.uri_for('/item', item.slug) %]">[% item.name | html %]</a></td>
+					<td>[% item.item_type.name | html %]</td>
+					<td>[% item.rarity | ucfirst | html %]</td>
+					<td>[% item.tier | html %]</td>
+					<td>[% vendor_item.max_quantity_that_can_be_sold_per_attempt | html %]</td>
+					<td>[% vendor_item.default_quantity | html %]</td>
+					<td>[% vendor_item.has_unlimited_quantity ? 'Yes' : '' %]</td>
+					<td>[% vendor_item.price | html %]</td>
+					<td>[% vendor_item.price_unit | ucfirst | html %]</td>
+				</tr>
+			[% END %]
+			</tbody>
+		</table>
+	</div>
+</div>
+
+[% IF c.check_user_roles('admin') %]
+<div class="row">
+	<div class="col-auto offset-md-2 offset-lg-3">
+		<a href="[% c.uri_for('/system', system.slug, 'station', station.slug, 'area', area.slug, 'vendor', vendor.slug, 'edit') %]" class="btn btn-outline-secondary btn-sm" role="button">
+			Edit Vendor
+		</a>
+	</div>
+</div>
+[% END %]
+[% END %]

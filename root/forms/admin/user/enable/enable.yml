@@ -1,0 +1,26 @@
+---
+load_config_file: __path_to(root/forms/inc/wrapper.yml)__
+
+elements:
+  type: Fieldset
+  legend: 'Enable Account'
+  elements:
+    - type: '+TauHead::FormFu::Element::MessageContainer'
+
+    - name: username
+      label: Username
+      autocomplete: off
+      attributes:
+        disabled: disabled
+
+    - name: reason
+      type: Textarea
+      label: "Reason why account is being enabled"
+      rows: 6
+      constraints:
+        - type: Required
+
+    - name: send
+      type: ContentButton
+      field_type: submit
+      content: Enable Account

@@ -1,0 +1,64 @@
+[% WRAPPER inc/wrapper.tt page_title='User Admin' %]
+<div class="row justify-content-center">
+	<div class="col-md-auto">
+		<table class="table table-bordered table-striped">
+			<tr>
+				<td>Username:</td>
+				<td>[% view_user.username | html %]</td>
+			</tr>
+			<tr>
+				<td>Roles:</td>
+				<td>
+					<ul>
+					[% FOREACH role = view_user.roles %]
+						<li title="[% role.description | html %]">[% role.display_label | html %]</li>
+					[% END %]
+					</ul>
+					<a href="[% c.uri_for('/admin/user', view_user.id, 'edit-roles') %]" class="btn btn-warning">Edit roles</a>
+				</td>
+			</tr>
+			<tr>
+				<td>Last Login</td>
+				<td>[% last_login | html %]</td>
+			</tr>
+			[% IF c.check_user_roles('log_viewer') %]
+				<tr>
+					<td colspan="2">
+						<a href="[% c.uri_for('/log/list', {'user_id' => view_user.id}) %]" class="btn btn-default">
+							View history logs
+						</a>
+						<br />
+						<a href="[% c.uri_for('/log/list', {'owner_id' => view_user.id}) %]" class="btn btn-default">
+							View associated history logs
+						</a>
+					</td>
+				</tr>
+			[% END %]
+			[% IF view_user.disabled %]
+				<tr>
+					<td>
+						<b>Account disabled</b><br/>
+						Reason:
+					</td>
+					<td>
+						[% view_user.disabled_reason | html %]
+					</td>
+				</tr>
+			[% END %]
+			<tr>
+				<td colspan="2">
+					[% IF view_user.disabled %]
+						<a href="[% c.uri_for('/admin/user', view_user.id, 'enable') %]" class="btn btn-danger">
+							Enable Account
+						</a>
+					[% ELSE %]
+						<a href="[% c.uri_for('/admin/user', view_user.id, 'disable') %]" class="btn btn-danger">
+							Disable Account
+						</a>
+					[% END %]
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+[% END %]

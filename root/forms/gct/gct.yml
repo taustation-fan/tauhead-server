@@ -1,0 +1,20 @@
+---
+load_config_file: __path_to(root/forms/inc/wrapper.yml)__
+
+elements:
+  - type: '+TauHead::FormFu::Element::MessageContainer'
+
+  - type: Text
+    name: datetime
+    label: 'Convert GCT datetime to Old Earth (UTC)'
+    attrs:
+      placeholder: '199.29/62:541 GCT'
+    constraint:
+      - 'TauStation::DateTime'
+    inflator:
+      - 'TauStation::DateTime'
+
+  - name: submit
+    type: ContentButton
+    field_type: submit
+    content: Convert

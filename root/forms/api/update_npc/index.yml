@@ -1,0 +1,40 @@
+---
+load_config_file: __path_to(root/forms/inc/wrapper.yml)__
+default_args:
+  elements:
+    'Text|Textarea|Checkbox|TauHead::FormFu::Element::JSON':
+      constraint: SingleValue
+    Checkbox:
+      filters:
+        - type: Regex
+          match: '^\z'
+          replace: 0
+
+elements:
+  - type: '+TauHead::FormFu::Element::MessageContainer'
+
+  - name: slug
+    label: Slug
+    constraints:
+      - type: Required
+
+  - name: name
+    label: Name
+    constraints:
+      - type: Required
+
+  - name: genotype
+    label: Genotype
+
+  - name: description
+    label: Description
+    type: Textarea
+    rows: 8
+    constraints:
+      - type: MaxLength
+        max: 4000000
+
+  - name: submit
+    type: ContentButton
+    field_type: submit
+    content: Save

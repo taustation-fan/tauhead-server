@@ -1,0 +1,28 @@
+[% WRAPPER inc/wrapper.tt page_title='All Vendors' %]
+<div class="row">
+	<div class="col col-md-8 col-lg-6 offset-md-2 offset-lg-3">
+		<h3>All Vendors</h3>
+	</div>
+</div>
+[% WHILE ( area = areas.next ) %][% station = area.station; system = station.system; parent_area = area.parent_area %]
+<div class="row">
+	<div class="col col-md-4 col-lg-3 offset-md-2 offset-lg-3">
+        [% name = area.name _ ', ' _ station.name _ ', ' %]
+        [% IF parent_area; name = name _ parent_area.name _ ', '; END %]
+        [% name = name _ system.name | html %]
+        [% name | html %]
+    </div>
+    <div class="col col-md-4 col-lg-3">
+        <ul>
+        [% FOREACH vendor = area.vendors_sorted %]
+            <li>
+                <a href="[% c.uri_for('/system', system.slug, 'station', station.slug, 'area', area.slug, 'vendor', vendor.slug) %]">
+                    [% vendor.name | html %]
+                </a>
+            </li>
+        [% END %]
+        </ul>
+	</div>
+</div>
+[% END %]
+[% END %]

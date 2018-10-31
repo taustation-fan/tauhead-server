@@ -1,0 +1,50 @@
+name: TauHead
+enable_catalyst_header: 0
+
+'Controller::HTML::FormFu':
+  default_action_use_path: 1
+  model_stash:
+    schema: DB
+
+'View::HTML':
+  INCLUDE_PATH: __path_to(root/html)__
+  TEMPLATE_EXTENSION: .tt
+  expose_methods:
+    - sort_by_datetime
+
+'Model::DB':
+  schema_class: 'TauHead::Schema'
+  connect_info:
+    - 'dbi:mysql:dbname=%DATABASE-NAME%'
+    - '%DATABASE-USER%'
+    - '%DATABASE-PASS%'
+    - mysql_enable_utf8: 1
+
+'Plugin::Authentication':
+  default:
+    credential:
+      class: Password
+      password_field: password_base64
+      password_type: hashed
+      password_hash_type: SHA-256
+      password_pre_salt:  '%PRESALT%'
+      password_post_salt: '%POSTSALT%'
+    store:
+      class: 'DBIx::Class'
+      user_model: 'DB::User'
+      role_relation: roles
+      role_field: name
+
+'Plugin::Session':
+  dbic_class: 'DB::Session'
+  cookie_expires: 0
+  cookie_name: 'tauhead'
+
+game_server_domain: 'https://alpha.taustation.space'
+
+system_email_address: %EMAIL%
+alert_email_address: %EMAIL%
+
+disqus_domain: %DISQUS_DOMAIN%
+
+login_attempts_limit: 10

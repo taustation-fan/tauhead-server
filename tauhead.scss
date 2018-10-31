@@ -1,0 +1,294 @@
+$enable-rounded: false;
+
+$blue:    #054E67;
+$indigo:  #6610f2;
+$purple:  #6f42c1;
+$pink:    #e83e8c;
+$red:     #d76543;
+$orange:  #fd7e14;
+$yellow:  #ffc107;
+$green:   #2a5d56;
+$teal:    #20c997;
+$cyan:    #17a2b8;
+
+$primary:       $blue;
+$success:       darken($green, 20%);
+$info:          darken($cyan, 20%);
+$warning:       darken($yellow, 20%);
+$danger:        $red;
+
+$body-bg:    #242634;
+$body-color: #e2faf0;
+
+$link-color:                $primary;
+$link-decoration:           none;
+$link-hover-color:          lighten($link-color, 15%);
+$link-hover-decoration:     underline;
+
+@import "ext/bootstrap/scss/bootstrap.scss";
+
+body {
+	background-image: url(/static/images/background.jpg);
+}
+
+body .container.content {
+	background-color: #242634;
+	a {
+		color: $body-color;
+	}
+	.page-item.active .page-link {
+		color: lighten($body-color, 10%);
+		background-color: lighten($green, 10%);
+		border-color: lighten($green, 20%);
+	}
+	.page-item.disabled .page-link {
+		color: $body-color;
+		background-color: $gray-700;
+	}
+	.page-link {
+		color: darken($body-color, 20%);
+		background-color: darken($green, 20%);
+	}
+}
+
+.breadcrumb {
+	background-color: $green;
+	a {
+		color: $body-color;
+	}
+}
+
+.list-group-item,
+.list-group-item a {
+	background: none;
+	color: $body-color;
+}
+
+// forms
+
+input.error {
+	@extend .border-danger;
+}
+
+label.error {
+	@extend .alert;
+	@extend .alert-danger;
+	@extend .small;
+	@extend .w-100;
+}
+
+.list-group .list-group .list-group-item {
+	padding-left: 2.5rem;
+}
+
+.form-group.checkboxgroup {
+    @extend .text-primary;
+}
+
+.form-group.checkboxgroup > span > span {
+    @extend .form-check;
+}
+
+.form-group.checkboxgroup > span > span > input {
+    @extend .form-check-input;
+}
+
+// homepage
+.homepage {
+	a {
+		color: #e2faf0;
+	}
+	.odd,
+	.even,
+        .area-search,
+	.recent-updates {
+		z-index: 1;
+	}
+	.odd:after,
+	.even:after,
+        .area-search:after,
+	.recent-updates:after {
+		content: "";
+		top: 0;
+		left: 0;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		opacity: 0.2;
+		z-index: -1;
+	}
+	.odd:after {
+		background-size: cover;
+		background-position-x: right;
+		background-image: url(/static/images/welcome_text_huge.jpg);
+	}
+	.even:after {
+		background-size: cover;
+		background-position-x: right;
+		background-image: url(/static/images/game_features_huge.jpg);
+	}
+	.area-search:after {
+		background-size: cover;
+		background-position-x: left;
+		background-image: url(/static/images/landing_hero_huge.jpg);
+	}
+	.recent-updates:after {
+		background-size: cover;
+		background-position-x: 75%;
+		background-image: url(/static/images/travel-bg.jpg);
+	}
+	.list-group-item,
+	.list-group-item a {
+		background: none;
+	}
+}
+
+// area view
+
+.area_bg {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+	background-position: top center;
+}
+
+.area_bg_overlay {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	background: rgba(36, 38, 52, 0.8);
+}
+
+.area_bg_overlay * {
+	opacity: 1;
+}
+
+.area_bg .list-group-item {
+	background: none;
+}
+
+.area-with-img {
+	min-height: 700px;
+}
+
+.area_images {
+	overflow: hidden;
+}
+
+.area_content_img img {
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.area_content_img img:nth-child(2) {
+	width: 50%;
+	z-index: 10;
+}
+
+.area_hero_img img,
+.area_other_img img {
+	@extend .mb-2;
+	width: 100%;
+}
+
+// item view
+
+.slot {
+    background-color: #121b24;
+}
+
+.item-framed-img {
+    background-position: 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.item-framed-img.uncommon {
+    background-image: url(/static/images/inventory/frames/uncommon.svg);
+}
+
+.item-framed-img.common {
+    background-image: url(/static/images/inventory/frames/common.svg);
+}
+
+.item-framed-img.rare {
+    background-image: url(/static/images/inventory/frames/rare.svg);
+}
+
+.item-framed-img.epic {
+    background-image: url(/static/images/inventory/frames/epic.svg);
+}
+
+.item-framed-img img {
+    padding: 10%;
+    max-width: 100%;
+}
+
+// footer
+
+$footer-height: 60px;
+
+html {
+	position: relative;
+	min-height: 100%;
+}
+
+body {
+	margin-bottom: $footer-height;
+}
+
+footer {
+	position: absolute;
+	bottom: 0;
+	height: $footer-height;
+	margin: auto;
+}
+
+// API
+
+.form-group-api {
+	@extend .form-group;
+	background-color: grey;
+}
+
+.alert-api {
+	@extend .p-0;
+	@extend .mx-1;
+}
+
+.api-repeatable {
+	@extend .border;
+	@extend .rounded;
+	@extend .mb-2;
+	@extend .p-1;
+}
+
+.api-item-types .api-label,
+.api-items      .api-label {
+	@extend .col;
+	@extend .col-md-4;
+}
+
+.api-item-types .api-field,
+.api-items      .api-field {
+	@extend .col;
+	@extend .col-md-8;
+}
+
+.api-item-types .api-checkbox,
+.api-items      .api-checkbox {
+	@extend .col;
+	@extend .col-md-8;
+	@extend .offset-md-4;
+}
+
+.api-item-types,
+.api-items {
+	@extend .api-repeatable;
+	background-color: grey;
+}

@@ -1,0 +1,89 @@
+[% WRAPPER inc/wrapper.tt page_title=mission.name
+	comment_request="If you see this Mission visit an Area or involve an NPC not listed above, please leave a comment below, and let us know!"
+%]
+<div class="row">
+	<div class="col-auto offset-md-2 offset-lg-3">
+		<h3>[% mission.name | html %]</h3>
+	</div>
+</div>
+<div class="row">
+	<div class="col col-md-2 col-lg-3 offset-md-2 offset-lg-3">
+        Level
+    </div>
+    <div class="col col-md-8 col-lg-6">
+		[% IF mission.level %][% mission.level | html %][% ELSE %](unknown)[% END %]
+		</ul>
+	</div>
+</div>
+
+[% IF mission.description.length %]
+<div class="row">
+	<div class="col col-md-2 col-lg-3 offset-md-2 offset-lg-3">
+        Description
+    </div>
+    <div class="col col-md-8 col-lg-6">
+		[% mission.description | html | html_line_break %]
+		</ul>
+	</div>
+</div>
+[% END %]
+
+[% IF mission.mermaid %]
+<div class="row">
+    <div class="col-auto offset-md-2 offset-lg-3">
+        <a class="btn btn-warning" href="[% c.uri_for('/mission', mission.slug, 'flowchart') %]">View mission flowchart (spoilers!)</a>
+    </div>
+</div>
+[% END %]
+
+[% IF mission.count_related('mission_areas') %]
+<div class="row">
+	<div class="col-auto offset-md-2 offset-lg-3">
+        <h4>Areas this Mission visits</h4>
+		<ul class="list-group">
+		[% FOREACH area = mission.areas %][% station = area.station %]
+	        <li class="list-group-item d-flex justify-content-between align-items-center">
+	            <a href="[% area.build_uri(c) %]">
+	                [% area.name | html %]
+					<small>
+						[% IF area.parent_area %]
+							, [% area.parent_area.name | html %]
+						[% END %]
+						, [% station.name | html %]
+						, [% station.system.name | html %]
+					</small>
+	            </a>
+	        </li>
+	    [% END %]
+		</ul>
+	</div>
+</div>
+[% END %]
+
+[% IF mission.count_related('mission_npcs') %]
+<div class="row">
+	<div class="col-auto offset-md-2 offset-lg-3">
+        <h4>NPCs involved with this Mission</h4>
+		<ul class="list-group">
+		[% FOREACH npc = mission.npcs_sorted %]
+	        <li class="list-group-item d-flex justify-content-between align-items-center">
+	            <a href="[% c.uri_for('/npc', npc.slug) %]">
+	                [% npc.name | html %]
+	            </a>
+	        </li>
+	    [% END %]
+		</ul>
+	</div>
+</div>
+[% END %]
+
+[% IF c.check_user_roles('admin') %]
+<div class="row">
+	<div class="col-auto offset-md-2 offset-lg-3">
+		<a href="[% c.uri_for('/mission', mission.slug, 'edit') %]" class="btn btn-outline-secondary btn-sm" role="button">
+			Edit Mission
+		</a>
+	</div>
+</div>
+[% END %]
+[% END %]

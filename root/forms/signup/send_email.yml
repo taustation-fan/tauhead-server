@@ -1,0 +1,56 @@
+---
+load_config_file: __path_to(root/forms/inc/wrapper.yml)__
+
+model_config:
+  resultset: User
+
+elements:
+  type: Fieldset
+  legend: 'Create New Account'
+  elements:
+    - type: '+TauHead::FormFu::Element::MessageContainer'
+    
+    - name: username
+      label: Username
+      autofocus: autofocus
+      required: required
+      autocomplete: off
+      constraints:
+        - Required
+        - type: DBIC::Unique
+          resultset: User
+          column: username
+          message: 'That username is already taken'
+    
+    - name: email
+      type: Email
+      label: Email
+      required: required
+      autocomplete: off
+      constraints:
+        - Required
+        - type: DBIC::Unique
+          resultset: User
+          column: email
+          message: 'That email address is already associated with an account'
+    
+    - type: '+TauHead::FormFu::Element::NewPassword'
+    
+    - type: Password
+      name: password2
+      label: Repeat Password
+      required: required
+      constraints:
+        - type: Required
+        
+        - type: Equal
+          others: password
+          message: 'Passwords do not match'
+          attach_errors_to_base: 1
+    
+    - name: send
+      type: ContentButton
+      field_type: submit
+      content: Create Account
+    
+    - type: '+TauHead::FormFu::Element::NewPasswordMessage'

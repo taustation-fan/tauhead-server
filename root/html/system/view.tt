@@ -1,0 +1,45 @@
+[% WRAPPER inc/wrapper.tt page_title=system.name %]
+<div class="row">
+	<div class="col-auto offset-md-2 offset-lg-3">
+		<h3>[% system.name | html %]</h3>
+	</div>
+</div>
+[% IF npc.description.length %]
+<div class="row">
+	<div class="col-auto offset-md-2 offset-lg-3">
+		[% system.description | html | html_line_break %]
+	</div>
+</div>
+[% END %]
+
+<div class="row">
+	<div class="col-auto offset-md-2 offset-lg-3">
+		<ul class="list-group">
+		[% FOREACH station = stations.all %]
+	        <li class="list-group-item d-flex justify-content-between align-items-center">
+	            <a href="[% c.uri_for('/system', system.slug, 'station', station.slug) %]">
+	                [% station.name | html %]
+	            </a>
+	            [% IF c.check_user_roles('admin') %]
+	            <a href="[% c.uri_for('/system', system.slug, 'station', station.slug, 'edit') %]" class="badge badge-secondary">
+	                edit
+	            </a>
+	            [% END %]
+	        </li>
+	    [% END %]
+		</ul>
+	</div>
+</div>
+[% IF c.check_user_roles('admin') %]
+<div class="row">
+	<div class="col-auto offset-md-2 offset-lg-3">
+		<a href="[% c.uri_for('/system', system.slug, 'edit') %]" class="btn btn-outline-secondary btn-sm" role="button">
+			Edit System
+		</a>
+        <a href="[% c.uri_for('/system', system.slug, 'station/new') %]" class="btn btn-outline-secondary btn-sm" role="button">
+			Add a new Station
+		</a>
+	</div>
+</div>
+[% END %]
+[% END %]

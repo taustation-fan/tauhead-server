@@ -1,0 +1,78 @@
+---
+auto_id: '%f_%n'
+attrs:
+  role: form
+  novalidate: novalidate
+
+plugin:
+  - '+TauHead::FormFu::Plugin::PathID'
+
+roles:
+  - JQueryValidation
+
+localize_class: 'TauHead::FormFu::I18N'
+
+auto_error_field_class: error
+error_container_tag: label
+auto_error_container_class: error
+
+default_args:
+  elements:
+    'Email|Text|Textarea|Select|Password|TauHead::FormFu::Element::NewPassword|TauHead::FormFu::Element::JSON':
+      auto_label: '%n'
+      container_attrs:
+        class: form-group row
+      label_attrs:
+        class: col-form-label-sm
+      attrs:
+        class: form-control form-control-sm
+      layout:
+        -
+          div:
+            attributes:
+              class: api-label
+            content: label
+        -
+          div:
+            attributes:
+              class: api-field
+            content: field
+        - comment
+        - errors
+        - javascript
+    ContentButton:
+      attrs:
+        class: btn btn-primary progress-bar
+        data-style: zoom-out
+    Checkbox:
+      default_empty_value: 1
+      container_attrs:
+        class: form-check row
+      attrs:
+        class: form-check-input
+      label_attrs:
+        class: form-check-label
+      layout:
+        -
+          div:
+            attributes:
+              class: api-checkbox
+            content:
+              - field
+              - label
+        - comment
+        - errors
+        - javascript
+    'Checkboxgroup|TauHead::FormFu::Element::AllAreas':
+        auto_id: '%f_%n_%c'
+        container_tag: div
+        container_attrs:
+          class: form-group checkboxgroup border border-secondary rounded
+        label_attrs:
+          class: form-check-label
+        label_tag: label
+    Radiogroup:
+      container_attrs:
+        class: ''
+      comment_attrs:
+        class: text-muted

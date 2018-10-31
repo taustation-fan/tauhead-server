@@ -1,0 +1,1 @@
+../../ext/mermaid/dist/mermaid.js

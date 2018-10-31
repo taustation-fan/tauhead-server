@@ -1,0 +1,284 @@
+---
+load_config_file: __path_to(root/forms/inc/wrapper.yml)__
+default_args:
+  elements:
+    'Text|Textarea|Checkbox|TauHead::FormFu::Element::JSON':
+      constraint: SingleValue
+    Checkbox:
+      filters:
+        - type: Regex
+          match: '^\z'
+          replace: 0
+
+elements:
+  - type: '+TauHead::FormFu::Element::MessageContainer'
+
+  - name: system
+    label: System
+    constraints:
+      - type: Required
+
+  - name: station
+    label: Station
+    constraints:
+      - type: Required
+
+  - name: area_slug
+    label: Area URI Slug
+    constraints:
+      - type: '+TauHead::FormFu::Constraint::Slug'
+      - type: Required
+
+  - type: Block
+    nested_name: vendor
+    elements:
+      - type: Block
+        content: Vendor
+        tag: h3
+
+      - name: id
+        label: 'ID (market_stall_id)'
+        constraints:
+          - type: Integer
+          - type: Required
+
+      - name: name
+        label: Name
+        constraints:
+          - type: Required
+
+      - name: slug
+        label: Slug
+        constraints:
+          - type: Required
+
+      - name: is_corporation
+        label: Is Corporation
+        type: Checkbox
+
+  - type: Block
+    content: Item Types
+    tag: h3
+
+  - name: item_type_counter
+    type: Hidden
+    constraint:
+      - type: Integer
+      - type: Required
+      - type: SingleValue
+
+  - type: Repeatable
+    nested_name: item_type
+    counter_name: item_type_counter
+    increment_field_names: 1
+    attrs:
+      class: 'border rounded mb-2 p-1'
+    elements:
+      - name: slug
+        label: Slug
+        constraints:
+        - type: Required
+
+      - name: name
+        label: Name
+        constraints:
+          - type: Required
+
+  - type: Block
+    content: Items
+    tag: h3
+
+  - name: item_counter
+    type: Hidden
+    constraint:
+      - type: Integer
+      - type: Required
+      - type: SingleValue
+
+  - type: Repeatable
+    nested_name: item
+    counter_name: item_counter
+    increment_field_names: 1
+    model_config:
+      resultset: Item
+    attrs:
+      class: 'border rounded mb-2 p-1'
+    elements:
+      - name: slug
+        label: Slug
+        constraints:
+          - type: Required
+
+      - name: name
+        label: Name
+        constraints:
+          - type: Required
+
+      - name: item_type_slug
+        label: Item Type Slug
+        constraints:
+          - type: Required
+
+      - name: image
+        label: Image URL Path
+        constraints:
+          - type: Required
+
+      - name: tier
+        label: Tier
+        constraints:
+          - type: Integer
+          - type: Required
+
+      - name: stack_size
+        label: Stack Size
+        constraints:
+          - type: Integer
+          - type: Required
+
+      - name: bonds
+        label: Bonds
+        constraints:
+          - type: Integer
+          - type: Required
+
+      - name: mass
+        label: Mass
+        constraints:
+          - type: Regex
+            common: ['num', 'decimal', {'-places': '0,3'}]
+          - type: Required
+
+      - name: rarity
+        label: Rarity
+        constraints:
+          - type: Set
+            set: ['common', 'uncommon', 'rare', 'epic']
+          - type: Required
+
+      - type: Fieldset
+        nested_name: item_component_armor
+        legend: Item Component Armor
+        elements:
+          - name: energy
+          - name: impact
+          - name: piercing
+
+      - type: Fieldset
+        nested_name: item_component_medical
+        legend: Item Component Medical
+        elements:
+          - name: base_toxicity
+          - name: strength_boost
+          - name: agility_boost
+          - name: stamina_boost
+          - name: intelligence_boost
+          - name: social_boost
+
+      - type: Fieldset
+        nested_name: item_component_mod
+        legend: Item Component Mod
+        elements:
+          - name: focus_mod
+            model_config:
+              null_if_empty: 1
+
+          - name: strength_mod
+            model_config:
+              null_if_empty: 1
+
+          - name: agility_mod
+            model_config:
+              null_if_empty: 1
+
+          - name: stamina_mod
+            model_config:
+              null_if_empty: 1
+
+          - name: intelligence_mod
+            model_config:
+              null_if_empty: 1
+
+          - name: social_mod
+            model_config:
+              null_if_empty: 1
+
+          - name: mod_type
+
+      - type: Fieldset
+        nested_name: item_component_weapon
+        legend: Item Component Weapon
+        elements:
+          - name: energy_damage
+          - name: impact_damage
+          - name: piercing_damage
+          - name: accuracy
+          - name: hand_to_hand
+          - name: weapon_type
+
+          - name: is_long_range
+            label: Is Long Range
+            type: Checkbox
+
+  - type: Block
+    content: Vendor Items
+    tag: h3
+
+  - name: vendor_item_counter
+    type: Hidden
+    constraint:
+      - type: Integer
+      - type: Required
+      - type: SingleValue
+
+  - type: Repeatable
+    nested_name: vendor_item
+    counter_name: vendor_item_counter
+    increment_field_names: 1
+    attrs:
+      class: 'border rounded mb-2 p-1'
+    elements:
+      - name: id
+        label: 'ID (market_stall_item_id)'
+        constraints:
+          - type: Integer
+          - type: Required
+
+      - name: item_slug
+        label: Item Slug
+        constraints:
+          - type: '+TauHead::FormFu::Constraint::Slug'
+          - type: Required
+
+      - name: max_quantity_that_can_be_sold_per_attempt
+        label: Max Quantity That Can Be Sold Per Attempt
+        constraints:
+          - type: Integer
+
+      - name: default_quantity
+        label: Default Quantity
+        constraints:
+          - type: Integer
+
+      - name: has_unlimited_quantity
+        label: Has Unlimited Quantity
+        type: Checkbox
+
+      - name: price
+        label: Price
+        constraints:
+          - type: Regex
+            common: ['num', 'decimal', {'-places': '0,3'}]
+          - type: Required
+
+      - name: price_unit
+        label: Price Unit
+        constraints:
+          - type: Set
+            set: ['credits', 'bonds']
+          - type: Required
+
+  - name: submit
+    type: ContentButton
+    field_type: submit
+    content: Save

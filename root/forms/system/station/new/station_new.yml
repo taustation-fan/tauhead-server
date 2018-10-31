@@ -1,0 +1,52 @@
+---
+load_config_file: __path_to(root/forms/inc/wrapper.yml)__
+model_config:
+  resultset: Station
+
+elements:
+  - type: '+TauHead::FormFu::Element::MessageContainer'
+
+  - name: name
+    label: Name
+    autofocus: 1
+    constraints:
+      - type: Required
+
+  - name: slug
+    label: URI Slug
+    constraints:
+      - type: Required
+      - type: '+TauHead::FormFu::Constraint::Slug'
+
+  - name: level
+    label: Level
+    constraints:
+      - type: Required
+      - type: Integer
+
+  - name: affiliation
+    label: Affiliation
+    constraints:
+      - type: Required
+
+  - name: has_open_ruins_sewers
+    label: Has Open Ruins Sewers
+    type: Checkbox
+
+  - name: description
+    label: Description
+    type: Textarea
+    rows: 8
+    constraints:
+      - type: MaxLength
+        max: 4000000
+
+  - name: sort_order
+    label: Sort Order
+    constraints:
+      - type: Integer
+
+  - name: submit
+    type: ContentButton
+    field_type: submit
+    content: Save

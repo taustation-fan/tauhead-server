@@ -1,0 +1,30 @@
+---
+load_config_file: __path_to(root/forms/inc/wrapper.yml)__
+
+elements:
+  type: Fieldset
+  legend: 'Edit User Roles'
+  elements:
+    - type: '+TauHead::FormFu::Element::MessageContainer'
+
+    - name: username
+      label: Username
+      autocomplete: off
+      attributes:
+        disabled: disabled
+      model_config:
+        read_only: 1
+
+    - type: Checkboxgroup
+      name: roles
+      label: 'User Roles'
+      model_config:
+        resultset: Role
+        label_column: display_label
+      constraints:
+        - type: AutoSet
+
+    - name: send
+      type: ContentButton
+      field_type: submit
+      content: Update

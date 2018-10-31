@@ -1,0 +1,61 @@
+---
+load_config_file: __path_to(root/forms/inc/wrapper.yml)__
+action: __uri_for(/area-search)__
+
+elements:
+  type: Fieldset
+  legend: Search Stations with/without areas
+  elements:
+    - name: with
+      type: Select
+      label: 'With / Without'
+      options:
+        - [ 1, 'With' ]
+        - [ 0, 'Without' ]
+      empty_first_label: 1
+      constraints:
+        - Required
+        - SingleValue
+        - AutoSet
+    
+    - name: area
+      type: Select
+      label: Area-type
+      options:
+        - ['bank', 'Bank']
+        - ['bar', 'Bar']
+        - ['brig', 'Brig']
+        - ['clonevat', 'Clones']
+        - ['consortium-embassy', 'Consortium Embassy']
+        - ['decommissioned-area', 'Decommissioned Area']
+        - ['docks', 'Docks']
+        - ['electronic-market', 'Public Market']
+        - ['gaule-embassy', 'Gaule Embassy']
+        - ['government-center', 'Government Area']
+        - ['hotel-rooms', 'Hotel rooms']
+        - ['inn', 'Inn']
+        - ['interstellar-shuttles', 'Interstellar Shuttles']
+        - ['job-center', 'Job Center']
+        - ['local-shuttles', 'Local Shuttles']
+        - ['lounge', 'Lounge']
+        - ['market', 'Market']
+        - ['port', 'Port']
+        - ['residences', 'Residences']
+        - ['ruins', 'Ruins']
+        - ['security', 'Security']
+        - ['shipping-bay', 'Shipping Bay']
+        - ['shipyard', 'Shipyard']
+        - ['sickbay', 'Sick Bay']
+        - ['storage', 'Storage']
+        - ['training', 'Training']
+        - ['university', 'University']
+        - ['vendors', 'Vendors']
+      empty_first_label: 1
+      constraints:
+        - Required
+        - SingleValue
+        - AutoSet
+    
+    - name: submit
+      type: Submit
+      value: Search

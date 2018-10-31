@@ -1,0 +1,10 @@
+{
+  "name": "TauHead",
+  "version": "1.0.0",
+  "main": "Gruntfile.js",
+  "devDependencies": {
+    "grunt": "~1.0.2",
+    "grunt-contrib-sass": "~1.0.0",
+    "grunt-contrib-uglify": "~3.3.0"
+  }
+}

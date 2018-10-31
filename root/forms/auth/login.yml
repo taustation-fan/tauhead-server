@@ -1,0 +1,38 @@
+---
+load_config_file: __path_to(root/forms/inc/wrapper.yml)__
+
+elements:
+  type: Fieldset
+  legend: Login
+  elements:
+    - name: forward
+      type: Hidden
+      constraints:
+        - SingleValue
+        - type: Regex
+          anchored: 1
+          common:
+            - URI
+            - HTTP
+            - 
+              '-scheme': 'https?'
+
+    - name: username
+      label: Username
+      autofocus: autofocus
+      required: required
+      autocomplete: off
+      constraints:
+        - Required
+    
+    - name: password
+      type: Password
+      label: Password
+      required: required
+      constraints:
+        - Required
+    
+    - name: login
+      type: ContentButton
+      field_type: submit
+      content: Login

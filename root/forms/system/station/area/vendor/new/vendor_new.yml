@@ -1,0 +1,42 @@
+---
+load_config_file: __path_to(root/forms/inc/wrapper.yml)__
+model_config:
+  resultset: Vendor
+
+elements:
+  - type: '+TauHead::FormFu::Element::MessageContainer'
+
+  - name: id
+    label: 'ID (market_stall_id)'
+    autofocus: 1
+    constraints:
+      - type: Required
+      - type: Integer
+
+  - name: name
+    label: Name
+    constraints:
+      - type: Required
+
+  - name: slug
+    label: URI Slug
+    constraints:
+      - type: Required
+      - type: '+TauHead::FormFu::Constraint::Slug'
+
+  - name: is_corporation
+    label: Is Corporation
+    type: Checkbox
+
+  - name: description
+    label: Description
+    type: Textarea
+    rows: 8
+    constraints:
+      - type: MaxLength
+        max: 4000000
+
+  - name: submit
+    type: ContentButton
+    field_type: submit
+    content: Save

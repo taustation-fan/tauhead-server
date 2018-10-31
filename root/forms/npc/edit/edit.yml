@@ -1,0 +1,2 @@
+---
+load_config_file: __path_to(root/forms/npc/new/npc_new.yml)__

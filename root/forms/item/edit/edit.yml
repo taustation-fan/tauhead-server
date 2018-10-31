@@ -1,0 +1,54 @@
+---
+load_config_file: __path_to(root/forms/inc/wrapper.yml)__
+model_config:
+  resultset: Item
+
+elements:
+  - type: '+TauHead::FormFu::Element::MessageContainer'
+
+  - name: name
+    label: Name
+    constraints:
+      - type: Required
+
+  - name: image
+    label: Image URL Path
+    constraints:
+      - type: Required
+
+  - name: tier
+    label: Tier
+    constraints:
+      - type: Integer
+      - type: Required
+
+  - name: stack_size
+    label: Stack Size
+    constraints:
+      - type: Integer
+      - type: Required
+
+  - name: bonds
+    label: Bonds
+    constraints:
+      - type: Integer
+      - type: Required
+
+  - name: mass
+    label: Mass
+    constraints:
+      - type: Regex
+        common: ['num', 'decimal', {'-places': '0,3'}]
+      - type: Required
+
+  - name: rarity
+    label: Rarity
+    constraints:
+      - type: Set
+        set: ['common', 'uncommon', 'rare', 'epic']
+      - type: Required
+
+  - name: submit
+    type: ContentButton
+    field_type: submit
+    content: Save

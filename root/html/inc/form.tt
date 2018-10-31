@@ -1,0 +1,7 @@
+[% form %]
+[% DEFAULT forms = {} forms.ajax = [] forms.autosave = [] %]
+[% forms.include_ajax = 1 %]
+[% forms.ajax.push( form ) %]
+[% IF autosave %]
+	[% forms.autosave.push( form ) %]
+[% END %]

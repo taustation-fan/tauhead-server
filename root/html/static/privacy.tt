@@ -1,0 +1,17 @@
+[% WRAPPER inc/wrapper.tt page_title='Privacy Policy' %]
+<div class="row justify-content-md-center">
+	<div class="col-md-auto">
+		<h3>Privacy Policy</h3>
+		<p>
+			Creating an account requires you to supply a username, email address,
+			and password.
+			<ul>
+				<li>We will never share these details with a 3rd party.</li>
+				<li>We will only email you when necessary for the administration of your account.</li>
+				<li>We store your password hashed &amp; salted.</li>
+			</ul>
+			We record all edits made to the site, by username &amp; time and date.
+		</p>
+	</div>
+</div>
+[% END %]

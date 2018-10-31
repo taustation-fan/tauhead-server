@@ -1,0 +1,2 @@
+---
+load_config_file: __path_to(root/forms/api/add_sub_area/index.yml)__

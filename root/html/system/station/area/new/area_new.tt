@@ -1,0 +1,7 @@
+[% WRAPPER inc/wrapper.tt page_title='Add a new Area' ajax=1 %]
+<div class="row justify-content-md-center">
+	<div class="col-md-auto">
+	[% PROCESS inc/form.tt %]
+	</div>
+</div>
+[% END %]

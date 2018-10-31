@@ -1,0 +1,2 @@
+---
+load_config_file: __path_to(root/forms/system/station/new/station_new.yml)__

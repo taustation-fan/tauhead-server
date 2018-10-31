@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+</head>
+<body>
+	<div class="modal-header">
+		<h4 id="modalLabel" class="modal-title">[% modal_title | html %]</h4>
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<div class="modal-body">
+			<div>
+				<div style="display: none" class="modal-message alert alert-success alert-dismissable" role="alert">
+					<a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>
+					<span class="msg"></span>
+				</div>
+			</div>
+		[% form %]
+		[% forms = {}; forms.include_ajax = 1; forms.ajax = [form]; forms.autosave = [form] %]
+		[% INCLUDE inc/ajax.tt %]
+		[% INCLUDE inc/autosave.tt %]
+	</div>
+</body>
+</html>

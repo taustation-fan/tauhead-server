@@ -1,0 +1,13 @@
+[% WRAPPER inc/wrapper.tt page_title='Update Vendor Itinerary' ajax=1 %]
+<div class="row justify-content-md-center">
+	<div class="col-md-auto">
+	[% IF data_error %]
+		<code>[% input_error | html %]</code>
+	[% ELSIF form.submitted %]
+		[% PROCESS inc/form.tt %]
+	[% ELSE %]
+		Submit data to this URL via the browser plugin.
+	[% END %]
+	</div>
+</div>
+[% END %]

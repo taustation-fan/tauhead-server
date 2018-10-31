@@ -1,0 +1,35 @@
+---
+load_config_file: __path_to(root/forms/inc/wrapper_modal.yml)__
+
+model_config:
+  resultset: User
+
+elements:
+  type: Fieldset
+  elements:
+    - type: '+TauHead::FormFu::Element::MessageContainer'
+    
+    - type: Password
+      name: password
+      label: Password
+      required: required
+      autofocus: autofocus
+      constraints:
+        - Required
+
+    - name: email
+      type: Email
+      label: Email
+      required: required
+      autocomplete: off
+      constraints:
+        - Required
+        - type: DBIC::Unique
+          resultset: User
+          column: email
+          message: 'That email address is already associated with an account'
+    
+    - name: send
+      type: ContentButton
+      field_type: submit
+      content: Change Email Address
