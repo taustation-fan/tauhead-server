@@ -1,0 +1,53 @@
+---
+load_config_file: __path_to(root/forms/inc/wrapper.yml)__
+default_args:
+  elements:
+    Text:
+      constraint: SingleValue
+model_config:
+  resultset: Area
+
+elements:
+  - type: '+TauHead::FormFu::Element::MessageContainer'
+
+  - name: system
+    label: System
+    constraints:
+      - type: Required
+
+  - name: station
+    label: Station
+    constraints:
+      - type: Required
+
+  - name: level
+    label: Level
+    constraints:
+      - type: Required
+      - type: Integer
+
+  - name: affiliation
+    label: Affiliation
+    constraints:
+      - type: Required
+
+  - name: law_level
+    label: Law Level
+    type: Radiogroup
+    values: [ 'low', 'medium', 'high' ]
+    constraints:
+      - type: Required
+      - type: AutoSet
+
+  - name: orwellian_level
+    label: Orwellian Level
+    type: Radiogroup
+    values: [ 'low', 'medium', 'high' ]
+    constraints:
+      - type: Required
+      - type: AutoSet
+
+  - name: submit
+    type: ContentButton
+    field_type: submit
+    content: Submit
