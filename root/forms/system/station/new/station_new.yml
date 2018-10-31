@@ -29,6 +29,22 @@ elements:
     constraints:
       - type: Required
 
+  - name: law_level
+    label: Law Level
+    type: Radiogroup
+    values: [ low, medium, high ]
+    constraints:
+      - type: Required
+      - type: AutoSet
+
+  - name: orwellian_level
+    label: Orwellian Level
+    type: Radiogroup
+    values: [ low, medium, high ]
+    constraints:
+      - type: Required
+      - type: AutoSet
+
   - name: has_open_ruins_sewers
     label: Has Open Ruins Sewers
     type: Checkbox
