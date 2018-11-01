@@ -74,7 +74,7 @@
 					};
 					(function() { // DON'T EDIT BELOW THIS LINE
 					var d = document, s = d.createElement('script');
-					s.src = '[% c.conf.disqus_domain %]/embed.js';
+					s.src = '[% c.config.disqus_domain %]/embed.js';
 					s.setAttribute('data-timestamp', +new Date());
 					(d.head || d.body).appendChild(s);
 					})();
@@ -132,6 +132,6 @@
 		[% INCLUDE $datatables_script %]
 	</script>
 	[% END %]
-	<script id="dsq-count-scr" src="[% c.conf.disqus_domain %]/count.js" async></script>
+	<script id="dsq-count-scr" src="[% c.config.disqus_domain %]/count.js" async></script>
 </body>
 </html>
