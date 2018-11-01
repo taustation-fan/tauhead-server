@@ -1,0 +1,83 @@
+---
+load_config_file: __path_to(root/forms/inc/wrapper_api.yml)__
+default_args:
+  elements:
+    Text:
+      constraint:
+        - SingleValue
+        - Required
+
+elements:
+  - type: '+TauHead::FormFu::Element::MessageContainer'
+
+  - name: gct
+    label: GCT
+    filter:
+      - type: Regex
+        match: '$'
+        replace: ' GCT'
+
+  - name: auction_counter
+    type: Hidden
+    constraint:
+      - type: Integer
+      - type: Required
+      - type: SingleValue
+
+  - type: Repeatable
+    nested_name: auction
+    counter_name: auction_counter
+    increment_field_names: 1
+    attrs:
+      class: 'api-auction-auctions'
+    elements:
+      - type: Block
+        attributes:
+          class: row
+        elements:
+          - type: Block
+            attributes:
+              class: col
+            elements:
+              - name: auction_id
+                label: ''
+
+          - type: Block
+            attributes:
+              class: col
+            elements:
+              - name: item_slug
+                label: ''
+
+          - type: Block
+            attributes:
+              class: col
+            elements:
+              - name: seller_slug
+                label: ''
+
+          - type: Block
+            attributes:
+              class: col
+            elements:
+              - name: seller_name
+                label: ''
+
+          - type: Block
+            attributes:
+              class: col
+            elements:
+              - name: quantity
+                label: ''
+
+          - type: Block
+            attributes:
+              class: col
+            elements:
+              - name: price
+                label: ''
+
+  - name: submit
+    type: ContentButton
+    field_type: submit
+    content: Save

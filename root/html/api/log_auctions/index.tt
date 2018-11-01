@@ -1,0 +1,22 @@
+[% WRAPPER inc/wrapper.tt page_title='API / Log Auctions' ajax=1 %]
+[% IF missing_items %]
+<div class="row justify-content-md-center">
+	<div class="col-md-10 alert alert-danger">
+		The following items are missing from the database -
+		you must add them first:
+		<ul>
+			[% FOREACH slug = missing_items %]
+			<li>
+				<a href="[% c.config.game_server_domain %]/item/[% slug %]" target="_blank" class="text-primary">[% slug | html %]</a>
+			</li>
+			[% END %]
+		</ul>
+	</div>
+</div>
+[% END %]
+<div class="row justify-content-md-center">
+	<div class="col-md-10">
+		[% PROCESS inc/form.tt %]
+	</div>
+</div>
+[% END %]

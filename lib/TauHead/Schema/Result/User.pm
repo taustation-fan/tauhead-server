@@ -97,6 +97,13 @@ __PACKAGE__->has_many(
     { cascade_copy      => 0, cascade_delete => 0 },
 );
 
+__PACKAGE__->has_many(
+    "auction_listing_records",
+    "TauHead::Schema::Result::AuctionListingRecord",
+    { "foreign.user_id" => "self.id" },
+    { cascade_copy      => 0, cascade_delete => 0 },
+);
+
 __PACKAGE__->many_to_many( "preferences", "user_preferences", "preference", );
 
 sub last_login {

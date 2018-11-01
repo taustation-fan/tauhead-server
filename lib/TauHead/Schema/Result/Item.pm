@@ -179,6 +179,13 @@ __PACKAGE__->might_have(
 
 __PACKAGE__->many_to_many( "vendors", "vendor_items", "vendor", );
 
+__PACKAGE__->has_many(
+    "auction_listings",
+    "TauHead::Schema::Result::AuctionListing",
+    { "foreign.item_slug" => "self.slug" },
+    { cascade_copy        => 0, cascade_delete => 0 },
+);
+
 sub item_component_names {
     return
         "item_component_armor",
