@@ -212,4 +212,16 @@ sub in_game_link {
         $self->slug;
 }
 
+sub auction_listings_by_newest {
+    my ($self) = @_;
+
+    return $self->search_related(
+        'auction_listings',
+        undef,
+        {
+            order_by => ['first_seen_datetime DESC'],
+        },
+    );
+}
+
 1;
