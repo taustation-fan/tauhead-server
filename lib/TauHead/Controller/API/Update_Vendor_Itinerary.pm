@@ -41,7 +41,7 @@ sub auto : Private {
 
     $self->require_login($c);
 
-    $c->check_any_user_role(qw( api admin ));
+    $c->check_any_user_role(qw( api_update_vendor_itinerary api admin ));
 }
 
 sub index : Path('/api/update_vendor_itinerary') : Args(0) : FormConfig { }
