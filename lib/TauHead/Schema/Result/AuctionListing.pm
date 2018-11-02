@@ -7,6 +7,8 @@ use warnings;
 
 use base 'DBIx::Class::Core';
 
+use POSIX qw( floor );
+
 __PACKAGE__->load_components(
     'InflateColumn::DateTime',
 );
@@ -62,5 +64,16 @@ __PACKAGE__->belongs_to(
     { "foreign.slug" => "self.item_slug" },
     { cascade_copy   => 0, cascade_delete => 0 },
 );
+
+sub unit_price {
+    my ( $self ) = @_;
+
+    my $quantity = $self->quantity;
+    my $price    = $self->price;
+
+    return $price if 1 == $quantity;
+
+    return floor( $price/$quantity );
+}
 
 1;

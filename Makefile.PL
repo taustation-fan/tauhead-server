@@ -44,6 +44,7 @@ requires 'Data::GUID::URLSafe';
 requires 'DateTime::Format::MySQL';
 requires 'HTML::Escape';
 requires 'MIME::Lite';
+requires 'POSIX';
 requires 'Proc::ProcessTable';
 requires 'Scalar::Util';
 requires 'Template::Plugin::HtmlToText';
