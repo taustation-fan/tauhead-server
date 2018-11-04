@@ -245,7 +245,7 @@ sub index_FORM_VALID {
                 if ( !$comp->in_storage ) {
                     my @values = map { $comp_params->{$_} }
                         @{ $comp->api_update_columns };
-                    if ( all { ( !defined $_ ) || ( 0 == $_ ) || ( '' eq $_ ) } @values ) {
+                    if ( all { ( !defined $_ ) || ( '' eq $_ ) || ( '0' eq $_ ) } @values ) {
                         # hide Fieldset
                         $comp_block->attributes({
                             style => 'visibility: hidden; position: absolute',
