@@ -40,6 +40,32 @@ sub index :Path :Args(0) :FormConfig {
         },
     );
 
+    my $listing_rs = $model->resultset('AuctionListing');
+
+    my $subquery = $listing_rs->search(
+        undef,
+        {
+            '+select' => [
+                { '' => \'DATE_SUB(MAX(me.last_seen_datetime), INTERVAL 90 SECOND)' },
+            ],
+            '+as' => [
+                'cutoff_datetime'
+            ]
+        }
+    );
+
+    $c->stash->{latest_auctions} = $listing_rs->search(
+        {
+            last_seen_datetime => {
+                '>=' => $subquery->get_column('cutoff_datetime')->as_query,
+            },
+        },
+        {
+            prefetch => ['item'],
+            order_by => [ \'(me.price/me.quantity)', { -desc => 'me.last_seen_datetime' } ],
+        }
+    );
+
     return;
 }
 

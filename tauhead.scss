@@ -100,13 +100,15 @@ label.error {
 	}
 	.odd,
 	.even,
-        .area-search,
+	.area-search,
+	.latest-auctions,
 	.recent-updates {
 		z-index: 1;
 	}
 	.odd:after,
 	.even:after,
         .area-search:after,
+	.latest-auctions:after,
 	.recent-updates:after {
 		content: "";
 		top: 0;
@@ -131,6 +133,11 @@ label.error {
 		background-size: cover;
 		background-position-x: left;
 		background-image: url(/static/images/landing_hero_huge.jpg);
+	}
+	.latest-auctions:after {
+		background-size: cover;
+		background-position-x: left;
+		background-image: url(/static/images/area_backgrounds/market-bg.jpg);
 	}
 	.recent-updates:after {
 		background-size: cover;

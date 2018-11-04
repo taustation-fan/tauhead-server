@@ -52,6 +52,12 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("auction_id");
 
+sub sqlt_deploy_hook {
+    my ($self, $sqlt_table) = @_;
+
+    $sqlt_table->add_index(name => 'last_seen_datetimex', fields => ['last_seen_datetime']);
+}
+
 __PACKAGE__->has_many(
     "auction_listing_records",
     "TauHead::Schema::Result::AuctionListingRecord",

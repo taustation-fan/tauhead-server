@@ -37,14 +37,6 @@
 	<div class="col-md area-search">
 		[% form %]
 	</div>
-	<div class="col-md recent-updates">
-		<h4>Recent Updates</h4>
-		<ul class="list-group">
-			<li class="list-group-item d-flex">
-				News goes here...
-			</li>
-		</ul>
-	</div>
 	[% IF c.check_user_roles('admin') %]
 	<div class="w-100"></div>
 	<div class="col col-md-8 col-lg-6 offset-md-2 offset-lg-3">
@@ -53,5 +45,36 @@
 		</a>
 	</div>
 	[% END %]
+</div>
+<div class="row homepage">
+	<div class="col-md latest-auctions">
+		<h4>Latest Auctions</h4>
+		<table class="table">
+			<tr>
+				<th scope="col">Item</th>
+				<th scope="col">When</th>
+				<th scope="col">Quantity</th>
+				<th scope="col">Price</th>
+				<th scope="col">Unit Price</th>
+			</tr>
+			[% FOREACH listing = latest_auctions.all %]
+			<tr>
+				<td><a href="[% listing.item.build_uri(c) %]">[% listing.item.name %]</a></td>
+				<td>[% listing.last_seen_gct | html %]</td>
+				<td>[% listing.quantity | html %]</td>
+				<td>[% listing.price | html %]</td>
+				<td>[% listing.unit_price | html %]</td>
+			</tr>
+			[% END %]
+		</table>
+	</div>
+	<div class="col-md recent-updates">
+		<h4>Recent Updates</h4>
+		<ul class="list-group">
+			<li class="list-group-item d-flex">
+				News goes here...
+			</li>
+		</ul>
+	</div>
 </div>
 [% END %]
