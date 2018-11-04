@@ -32,7 +32,7 @@ body {
 }
 
 body .container.content {
-	background-color: #242634;
+	background-color: $body-bg;
 	a {
 		color: $body-color;
 	}
@@ -48,6 +48,14 @@ body .container.content {
 	.page-link {
 		color: darken($body-color, 20%);
 		background-color: darken($green, 20%);
+	}
+}
+
+body .container.footer {
+	@extend .bg-primary;
+	background-color: lighten($body-bg, 20%);
+	a {
+		color: rgba(255, 255, 255, 0.75);
 	}
 }
 

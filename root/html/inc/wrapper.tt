@@ -10,7 +10,7 @@
 	<link rel="mask-icon" href="[% c.uri_for('/static/icons/safari-pinned-tab.svg') %]" color="#5bbad5">
 	<link rel="shortcut icon" href="[% c.uri_for('/static/icons/favicon.ico') %]">
 	<meta name="msapplication-config" content="[% c.uri_for('/static/icons/browserconfig.xml') %]">
-	<link rel="stylesheet" href="[% c.uri_for('/static/tauhead.min.css', {v=>4} ) %]">
+	<link rel="stylesheet" href="[% c.uri_for('/static/tauhead.min.css', {v=>6} ) %]">
 	[% IF dataTable %]
 		<link rel="stylesheet" href="[% c.uri_for('/static/dataTables.bootstrap4.min.css') %]">
 	[% END %]
@@ -84,18 +84,18 @@
 			</div>
 		</div>
 	</div>
-	<div class="container">
-		<footer class="small">
-			<a href="[% c.uri_for('/privacy') %]">TauHead Privacy Policy</a>
-			<br />
-			This website is a private project and not an official offer by the creators
-			of Tau Station.
-			<br />
-			Visit the official game website at
-			<a href="https://taustation.space" target="_blank">https://taustation.space</a>.
-			<br />
-			Tau Station pictures by courtesy of Makes Dreams Happen SASU, France.
-		</footer>
+	<div class="container footer">
+		<div class="row">
+			<div class="col small">
+				<a href="[% c.uri_for('/privacy') %]">TauHead Privacy Policy</a>
+				<br />
+				This website is a private project and not an official offer by the creators
+				of Tau Station.
+				Visit the official game website at
+				<a href="https://taustation.space" target="_blank">https://taustation.space</a>.
+				Tau Station pictures by courtesy of Makes Dreams Happen SASU, France.
+			</div>
+		</div>
 	</div>
 	[% IF modal %]
 	<div id="modalDialog" class="modal modal-form fade" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modalLabel">
