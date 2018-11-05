@@ -6,19 +6,37 @@
 </div>
 <div class="row">
 	<div class="col col-md-2 col-lg-3 offset-md-2 offset-lg-3">
-        Affiliation
+        Level
     </div>
     <div class="col col-md-8 col-lg-6">
-		[% station.affiliation | html %]
+		[% station.level | html %]
 		</ul>
 	</div>
 </div>
 <div class="row">
 	<div class="col col-md-2 col-lg-3 offset-md-2 offset-lg-3">
-        Level
+        Affiliation
     </div>
     <div class="col col-md-8 col-lg-6">
-		[% station.level | html %]
+		[% station.affiliation | ucfirst | html %]
+		</ul>
+	</div>
+</div>
+<div class="row">
+	<div class="col col-md-2 col-lg-3 offset-md-2 offset-lg-3">
+        Law Level
+    </div>
+    <div class="col col-md-8 col-lg-6">
+		[% station.law_level | ucfirst | html %]
+		</ul>
+	</div>
+</div>
+<div class="row">
+	<div class="col col-md-2 col-lg-3 offset-md-2 offset-lg-3">
+        Orwellian Level
+    </div>
+    <div class="col col-md-8 col-lg-6">
+		[% station.orwellian_level | ucfirst | html %]
 		</ul>
 	</div>
 </div>
