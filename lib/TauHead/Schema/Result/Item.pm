@@ -101,6 +101,10 @@ __PACKAGE__->add_columns(
     {   data_type   => "decimal",
         size        => [ 12, 2 ],
         is_nullable => 0,
+        extra => {
+            th_display => 1,
+            th_export => 1,
+        },
     },
 
     "description",
