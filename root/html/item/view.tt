@@ -75,7 +75,8 @@
 		<h4>Auction Listings Recorded:</h4>
 		<table class="table">
 			<tr>
-				<th scope="col">When</th>
+				<th scope="col">First Seen</th>
+				<th scope="col">Last Seen</th>
 				<th scope="col">Quantity</th>
 				<th scope="col">Price</th>
 				<th scope="col">Unit Price</th>
@@ -83,9 +84,10 @@
 			[% FOREACH listing = item.auction_listings_by_newest %]
 			<tr>
 				<td>[% listing.first_seen_gct | html %]</td>
+				<td>[% listing.last_seen_gct | html %]</td>
 				<td>[% listing.quantity | html %]</td>
-				<td>[% listing.price | html %]</td>
-				<td>[% listing.unit_price | html %]</td>
+				<td>[% listing.price_simple | html %]</td>
+				<td>[% listing.unit_price_simple | html %]</td>
 			</tr>
 			[% END %]
 		</table>
