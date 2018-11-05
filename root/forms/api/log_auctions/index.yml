@@ -76,6 +76,9 @@ elements:
             elements:
               - name: price
                 label: ''
+            constraints:
+              - type: Regex
+                common: ['num', 'decimal', {'-places': '0,2'}]
 
   - name: submit
     type: ContentButton

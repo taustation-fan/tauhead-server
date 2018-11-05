@@ -30,9 +30,9 @@ __PACKAGE__->add_columns(
         is_nullable    => 1,
     },
     "price",
-    {   data_type      => "integer",
-        extra          => { unsigned => 1 },
-        is_nullable    => 1,
+    {   data_type      => "decimal",
+        size           => [ 12, 2 ],
+        is_nullable    => 0,
     },
     "seller_slug",
     { data_type => "varchar", is_nullable => 0, size => 255 },
@@ -77,9 +77,37 @@ sub unit_price {
     my $quantity = $self->quantity;
     my $price    = $self->price;
 
-    return $price if 1 == $quantity;
+    my $up = $price / $quantity;
 
-    return floor( $price/$quantity );
+    return sprintf "%.2f", $up;
+}
+
+sub unit_price_simple {
+    my ( $self ) = @_;
+
+    my $quantity = $self->quantity;
+    my $price    = $self->price;
+
+    my $up = $price / $quantity;
+
+    if ( sprintf("%.2f", $up) == floor($up) ) {
+        return floor($up);
+    }
+
+    return sprintf "%.2f", $up;
+}
+
+sub price_simple {
+    my ( $self ) = @_;
+    # If there are no decimal places, return an integer
+
+    my $price = $self->price;
+
+    if ( sprintf("%.2f", $price) == floor($price) ) {
+        return floor($price);
+    }
+
+    return sprintf "%.2f", $price;
 }
 
 1;

@@ -62,8 +62,8 @@
 				<td><a href="[% listing.item.build_uri(c) %]">[% listing.item.name %]</a></td>
 				<td>[% listing.last_seen_gct | html %]</td>
 				<td>[% listing.quantity | html %]</td>
-				<td>[% listing.price | html %]</td>
-				<td>[% listing.unit_price | html %]</td>
+				<td>[% listing.price_simple | html %]</td>
+				<td>[% listing.unit_price_simple | html %]</td>
 			</tr>
 			[% END %]
 		</table>
