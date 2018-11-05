@@ -203,7 +203,7 @@ sub logout : Global : Args(0) {
 
     $c->delete_session;
 
-    $c->response->redirect( $c->uri_for('/system/list') );
+    $c->response->redirect( $c->uri_for('/') );
     $c->detach;
 }
 
