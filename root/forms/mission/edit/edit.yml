@@ -1,2 +1,3 @@
 ---
-load_config_file: __path_to(root/forms/mission/new/mission_new.yml)__
+load_config_file:
+  - __path_to(root/forms/mission/new/mission_new.yml)__

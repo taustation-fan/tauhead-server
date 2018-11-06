@@ -1,5 +1,7 @@
 ---
-load_config_file: __path_to(root/forms/inc/wrapper.yml)__
+load_config_file:
+  - __path_to(root/forms/inc/core.yml)__
+  - __path_to(root/forms/inc/default_args.yml)__
 default_args:
   elements:
     'Texts|Textarea|Checkbox':

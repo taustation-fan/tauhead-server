@@ -3,29 +3,29 @@ elements:
   - name: iDisplayStart
     constraints:
       - type: Integer
-  
+
   - name: iDisplayLength
     constraints:
       - type: Integer
       - type: Set
         set: [ 10, 25, 50, 100 ]
-  
+
   - name: sEcho
     constraints:
       - type: Integer
-  
+
   - name: iSortingCols
     constraints:
       - type: Bool
-  
+
   - name: iSortCol_0
     constraints:
       - type: Integer
-  
+
   - name: sSortDir_0
     constraints:
       - type: Set
         set: [ 'asc', 'desc' ]
-  
+
 constraints:
   - type: SingleValue

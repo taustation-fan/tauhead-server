@@ -1,2 +1,3 @@
 ---
-load_config_file: __path_to(root/forms/inc/wrapper_datatables.yml)__
+load_config_file:
+  - __path_to(root/forms/inc/wrapper_datatables.yml)__

@@ -1,13 +1,14 @@
 ---
-load_config_file: __path_to(root/forms/inc/wrapper_modal.yml)__
+load_config_file:
+  - __path_to(root/forms/inc/wrapper_modal.yml)__
 
 elements:
   type: Fieldset
   elements:
     - type: '+TauHead::FormFu::Element::MessageContainer'
-    
+
     - type: '+TauHead::FormFu::Element::UserPreferences'
-    
+
     - name: send
       type: ContentButton
       field_type: submit

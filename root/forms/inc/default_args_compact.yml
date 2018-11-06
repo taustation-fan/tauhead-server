@@ -1,21 +1,4 @@
 ---
-auto_id: '%f_%n'
-attrs:
-  role: form
-  novalidate: novalidate
-
-plugin:
-  - '+TauHead::FormFu::Plugin::PathID'
-
-roles:
-  - JQueryValidation
-
-localize_class: 'TauHead::FormFu::I18N'
-
-auto_error_field_class: error
-error_container_tag: label
-auto_error_container_class: error
-
 default_args:
   elements:
     'Email|Text|Textarea|Select|Password|TauHead::FormFu::Element::NewPassword|TauHead::FormFu::Element::JSON':

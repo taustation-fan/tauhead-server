@@ -1,5 +1,7 @@
 ---
-load_config_file: __path_to(root/forms/inc/wrapper_api.yml)__
+load_config_file:
+  - __path_to(root/forms/inc/core.yml)__
+  - __path_to(root/forms/inc/default_args_compact.yml)__
 default_args:
   elements:
     Text:
