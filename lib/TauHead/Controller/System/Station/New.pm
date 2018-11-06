@@ -32,6 +32,16 @@ sub station_new_FORM_VALID {
 
     my $station = $form->model->create;
 
+    if ( my $links = $form->params->{interstellar} ) {
+        my $link_rs = $c->model('DB')->resultset('InterstellarLink');
+        for my $other (@{ $links }) {
+            $link_rs->create({
+                station_a => $station->id,
+                station_b => $other,
+            });
+        }
+    }
+
     $self->add_log( $c, 'station/add',
         {
             description => "Added a new station",

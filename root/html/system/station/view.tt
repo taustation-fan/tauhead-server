@@ -83,6 +83,7 @@
 
 <div class="row">
 	<div class="col-auto offset-md-2 offset-lg-3">
+		<h4>Areas</h4>
 		<ul class="list-group">
 		[% FOREACH area = areas.all %]
 			<li class="list-group-item d-flex justify-content-between align-items-center">
@@ -118,6 +119,23 @@
 		</ul>
 	</div>
 </div>
+
+[% IF station.interstellar_links %]
+<div class="row">
+	<div class="col-auto offset-md-2 offset-lg-3">
+        <h4>Has Interstellar Links To Stations</h4>
+		<ul class="list-group">
+		[% FOREACH other_station = station.interstellar_destinations %]
+	        <li class="list-group-item d-flex justify-content-between align-items-center">
+	            <a href="[% c.uri_for('/system', other_station.system.slug, 'station', other_station.slug) %]">
+	                [% other_station.name | html %]
+	            </a>
+	        </li>
+	    [% END %]
+		</ul>
+	</div>
+</div>
+[% END %]
 
 [% IF area_missions.count %]
 <div class="row">

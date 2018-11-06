@@ -20,6 +20,12 @@ sub edit_FORM_NOT_SUBMITTED {
     my $form    = $c->stash->{form};
     my $station = $c->stash->{station};
 
+    my @existing_links = $station->interstellar_links->all;
+    my @other_ids = map {
+        ( $station->id == $_->station_a ) ? $_->station_b : $_->station_a;
+    } @existing_links;
+    $form->get_field('interstellar')->default(\@other_ids);
+
     $form->model->default_values($station);
 }
 
@@ -39,6 +45,33 @@ sub edit_FORM_VALID {
     my $station = $c->stash->{station};
 
     $form->model->update($station);
+
+    if ( $form->params->{interstellar} ) {
+        my $links = $form->param_array('interstellar');
+        my $link_rs = $c->model('DB')->resultset('InterstellarLink');
+        my @existing_links = $station->interstellar_links->all;
+        my @other_ids = map {
+            ( $station->id == $_->station_a ) ? $_->station_b : $_->station_a;
+        } @existing_links;
+
+        for my $target (@{ $links }) {
+            if ( grep { $target == $_ } @other_ids ) {
+                next;
+            }
+            $link_rs->create({
+                station_a => $station->id,
+                station_b => $target,
+            });
+        }
+        # remove any unchecked
+        for my $link (@existing_links) {
+            my $target_id = ( $station->id == $link->station_a ) ? $link->station_b : $link->station_a;
+            if ( grep { $target_id == $_ } @$links ) {
+                next;
+            }
+            $link->delete;
+        }
+    }
 
     $self->add_log( $c, 'station/edit',
         {

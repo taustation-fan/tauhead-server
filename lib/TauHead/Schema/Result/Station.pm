@@ -88,6 +88,33 @@ __PACKAGE__->has_many(
     { cascade_copy      => 0, cascade_delete => 0 },
 );
 
+__PACKAGE__->has_many(
+    "interstellar_links",
+    "TauHead::Schema::Result::InterstellarLink",
+    [
+        { "foreign.station_a" => "self.id" },
+        { "foreign.station_b" => "self.id" },
+    ]
+);
+
+sub interstellar_destinations {
+    my ( $self ) = @_;
+
+    my $id = $self->id;
+    my @dest;
+
+    for my $link ( $self->interstellar_links ) {
+        if ( $id == $link->station_a ) {
+            push @dest, $link->exit;
+        }
+        else {
+            push @dest, $link->entry;
+        }
+    }
+
+    return [ sort { $a->id <=> $b->id } @dest ];
+}
+
 # direct children - not sub-areas
 sub child_areas_sorted {
     my ($self) = @_;

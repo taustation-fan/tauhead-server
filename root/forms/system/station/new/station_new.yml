@@ -72,6 +72,13 @@ elements:
     constraints:
       - type: Integer
 
+  - name: interstellar
+    label: Stations With Interstellar Links Here
+    type: '+TauHead::FormFu::Element::AllStations'
+    ignore_self_from_stash: 1
+    constraints:
+      - type: AutoSet
+
   - name: submit
     type: ContentButton
     field_type: submit
