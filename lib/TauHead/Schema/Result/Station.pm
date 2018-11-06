@@ -52,6 +52,8 @@ __PACKAGE__->add_columns(
     },
     "has_open_ruins_sewers",
     { data_type => "boolean", is_nullable => 0, default_value => 0 },
+    "govt_center_has_daily_rations",
+    { data_type => "boolean", is_nullable => 0, default_value => 1 },
     "description",
     { data_type => "mediumtext", is_nullable => 0 },
 );

@@ -49,6 +49,10 @@ elements:
     label: Has Open Ruins Sewers
     type: Checkbox
 
+  - name: govt_center_has_daily_rations
+    label: "Gov't Center Has Daily Rations"
+    type: Checkbox
+
   - name: description
     label: Description
     type: Textarea

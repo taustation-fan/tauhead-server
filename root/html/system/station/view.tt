@@ -10,7 +10,6 @@
     </div>
     <div class="col col-md-8 col-lg-6">
 		[% station.level | html %]
-		</ul>
 	</div>
 </div>
 <div class="row">
@@ -19,7 +18,6 @@
     </div>
     <div class="col col-md-8 col-lg-6">
 		[% station.affiliation | ucfirst | html %]
-		</ul>
 	</div>
 </div>
 <div class="row">
@@ -28,7 +26,6 @@
     </div>
     <div class="col col-md-8 col-lg-6">
 		[% station.law_level | ucfirst | html %]
-		</ul>
 	</div>
 </div>
 <div class="row">
@@ -37,17 +34,28 @@
     </div>
     <div class="col col-md-8 col-lg-6">
 		[% station.orwellian_level | ucfirst | html %]
-		</ul>
 	</div>
 </div>
 <div class="row">
 	<div class="col col-md-2 col-lg-3 offset-md-2 offset-lg-3">
         Has open ruins sewers?
     </div>
+	[% SET has_open_ruins_sewers = station.has_open_ruins_sewers %]
     <div class="col col-md-8 col-lg-6">
-		[% SET has_open_ruins_sewers = station.has_open_ruins_sewers ? 'Yes' : 'No' %]
-		[% has_open_ruins_sewers | html %]
-		</ul>
+		<span class="[% IF has_open_ruins_sewers %] bg-info px-2[% END %]">
+			[% has_open_ruins_sewers ? 'Yes' : 'No' %]
+		</span>
+	</div>
+</div>
+<div class="row">
+	<div class="col col-md-2 col-lg-3 offset-md-2 offset-lg-3">
+        Gov't Center has daily rations?
+    </div>
+	[% SET govt_center_has_daily_rations = station.govt_center_has_daily_rations %]
+    <div class="col col-md-8 col-lg-6">
+		<span class="[% IF !govt_center_has_daily_rations %] bg-warning px-2[% END %]">
+			[% govt_center_has_daily_rations ? 'Yes' : 'No' %]
+		</span>
 	</div>
 </div>
 
@@ -58,7 +66,6 @@
     </div>
     <div class="col col-md-8 col-lg-6">
 		[% station.description | html | html_line_break %]
-		</ul>
 	</div>
 </div>
 [% END %]
