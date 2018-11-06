@@ -11,8 +11,6 @@ elements:
     autofocus: 1
     constraints:
       - type: Required
-      - type: 'DBIC::Unique'
-        resultset: System
 
   - name: slug
     label: URI Slug
