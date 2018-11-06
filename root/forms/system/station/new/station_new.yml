@@ -55,6 +55,10 @@ elements:
     label: "Gov't Center Has Daily Rations"
     type: Checkbox
 
+  - name: has_public_shuttles
+    label: Has Public Shuttles
+    type: Checkbox
+
   - name: description
     label: Description
     type: Textarea

@@ -54,6 +54,8 @@ __PACKAGE__->add_columns(
     { data_type => "boolean", is_nullable => 0, default_value => 0 },
     "govt_center_has_daily_rations",
     { data_type => "boolean", is_nullable => 0, default_value => 1 },
+    "has_public_shuttles",
+    { data_type => "boolean", is_nullable => 0, default_value => 1 },
     "description",
     { data_type => "mediumtext", is_nullable => 0 },
 );
