@@ -13,6 +13,9 @@ sub area : Chained('../station') : CaptureArgs(1) {
     my $area = $c->model('DB')->resultset('Area')->find( { station_id => $station->id, slug => $slug } )
         or return $self->not_found($c);
 
+    if ( my $parent = $area->parent_area ) {
+        $self->add_breadcrumb( $c, [ $c->uri_for( '/system', $system->slug, 'station', $station->slug, 'area', $parent->slug ), $parent->name ] );
+    }
     $self->add_breadcrumb( $c, [ $c->uri_for( '/system', $system->slug, 'station', $station->slug, 'area', $area->slug ), $area->name ] );
 
     $c->stash->{area} = $area;
