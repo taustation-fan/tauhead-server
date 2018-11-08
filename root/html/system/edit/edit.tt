@@ -1,4 +1,4 @@
-[% WRAPPER inc/wrapper.tt page_title='Edit System' ajax=1 %]
+[% WRAPPER inc/wrapper.tt page_title='Edit System' %]
 <div class="row justify-content-md-center">
 	<div class="col-md-auto">
 	[% PROCESS inc/form.tt %]

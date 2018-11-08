@@ -1,4 +1,4 @@
-[% WRAPPER inc/wrapper.tt page_title='API / Update Items' ajax=1 %]
+[% WRAPPER inc/wrapper.tt page_title='API / Update Items' %]
 <div class="row justify-content-md-center">
 	<div class="col-md-10">
 		[% PROCESS inc/form.tt %]

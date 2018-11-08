@@ -1,4 +1,4 @@
-[% WRAPPER inc/wrapper.tt page_title='Area Search' ajax=1 %]
+[% WRAPPER inc/wrapper.tt page_title='Area Search' %]
 [% IF form.submitted_and_valid %]
 <div class="row">
 	<div class="col-auto offset-md-2 offset-lg-3">

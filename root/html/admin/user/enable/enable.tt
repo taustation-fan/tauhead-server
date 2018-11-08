@@ -1,4 +1,4 @@
-[% WRAPPER inc/wrapper.tt page_title='Enable Account' ajax=1 %]
+[% WRAPPER inc/wrapper.tt page_title='Enable Account' %]
 <div class="row justify-content-md-center">
 	<div class="col-md-auto">
 	[% PROCESS inc/form.tt %]
