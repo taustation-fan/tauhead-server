@@ -2,7 +2,7 @@
 load_config_file:
   - __path_to(root/forms/inc/core.yml)__
   - __path_to(root/forms/inc/default_args.yml)__
-action: __uri_for(/area-search)__
+action: __uri_for(/stations-by-area)__
 
 elements:
   type: Fieldset
@@ -19,7 +19,7 @@ elements:
         - Required
         - SingleValue
         - AutoSet
-    
+
     - name: area
       type: Select
       label: Area-type
@@ -57,7 +57,7 @@ elements:
         - Required
         - SingleValue
         - AutoSet
-    
+
     - name: submit
       type: Submit
       value: Search

@@ -1,4 +1,4 @@
-[% WRAPPER inc/wrapper.tt page_title='Area Search' %]
+[% WRAPPER inc/wrapper.tt page_title='Search Stations by Area' %]
 [% IF form.submitted_and_valid %]
 <div class="row">
 	<div class="col-auto offset-md-2 offset-lg-3">
@@ -33,7 +33,7 @@
 [% END %]
 <div class="row">
 	<div class="col-md-auto offset-md-2 offset-lg-3">
-		[% PROCESS inc/form.tt %]
+		[% PROCESS inc/form.tt no_ajax=1 %]
 	</div>
 </div>
 [% END %]

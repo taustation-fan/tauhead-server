@@ -28,7 +28,7 @@ The root page (/)
 
 =cut
 
-sub index :Path :Args(0) :FormConfig {
+sub index :Path :Args(0) :FormConfig('stations_by_area') {
     my ( $self, $c ) = @_;
 
     my $model = $c->model('DB');
@@ -75,28 +75,6 @@ sub auto : Private {
     $c->load_status_msgs;
 
     return 1;
-}
-
-sub area_search :Path('area-search') : Chained('/') : Args(0) : FormConfig('index') {
-}
-
-sub area_search_FORM_VALID {
-    my ( $self, $c ) = @_;
-
-    my $form = $c->stash->{form};
-    $c->stash->{query_with} = $form->param_value('with');
-    $c->stash->{query_area} = $form->param_value('area');
-
-    my $model = $c->model('DB');
-
-    $c->stash->{systems} = $model->resultset('System')->search(
-        undef,
-        {
-            order_by => ['sort_order', 'slug'],
-        },
-    );
-
-    return;
 }
 
 =head2 default
