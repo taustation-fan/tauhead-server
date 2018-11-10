@@ -28,7 +28,7 @@ The root page (/)
 
 =cut
 
-sub index :Path :Args(0) :FormConfig('stations_by_area') {
+sub index :Path :Args(0) :FormConfig('stations_by_area/stations_by_area') {
     my ( $self, $c ) = @_;
 
     my $model = $c->model('DB');
