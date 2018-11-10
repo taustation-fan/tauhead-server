@@ -91,7 +91,7 @@ __PACKAGE__->add_columns(
     {   data_type         => "enum",
         is_nullable       => 0,
         extra => {
-            list => [qw( common uncommon rare epic )],
+            list => [qw( common uncommon rare epic heirloom )],
             th_display => 1,
             th_export => 1,
         },
