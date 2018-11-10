@@ -155,7 +155,7 @@ elements:
         label: Rarity
         constraints:
           - type: Set
-            set: ['common', 'uncommon', 'rare', 'epic']
+            set: ['common', 'uncommon', 'rare', 'epic', 'heirloom']
           - type: Required
 
       - type: Fieldset
