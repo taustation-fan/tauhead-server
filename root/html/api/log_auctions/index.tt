@@ -16,18 +16,7 @@
 [% END %]
 <div class="row justify-content-md-center">
 	<div class="col-md-10">
-		[% IF rest.ok %]
-			[% IF rest.message %]
-			<div class="col-md-10 success alert-success">
-				[% rest.message | html %]
-			</div>
-			[% END %]
-			<script type="text/javascript">
-				window.setTimeout(	window.close, 300 );
-			</script>
-		[% ELSE %]
-			[% PROCESS inc/form.tt %]
-		[% END %]
+		[% INCLUDE inc/form_auto_close.tt %]
 	</div>
 </div>
 [% END %]
