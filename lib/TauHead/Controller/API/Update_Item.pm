@@ -45,7 +45,6 @@ sub index_FORM_VALID {
     my $form   = $c->stash->{form};
     my $params = $form->params;
     my $schema = $c->model('DB');
-    my $update = $form->valid('submit');
     my $changed;
 
     my $slug = $params->{slug};
@@ -55,6 +54,7 @@ sub index_FORM_VALID {
 
     # Item-type
     my $item_type_slug  = $params->{item_type_slug};
+    my $item_type_name  = $params->{item_type_name};
     my $item_type_field = $form->get_field('item_type_name');
     my $item_type = $schema->resultset('ItemType')->find_or_new({
         slug => $item_type_slug,
@@ -64,19 +64,12 @@ sub index_FORM_VALID {
         $item_type_field->parent->remove_element( $item_type_field );
 
     }
-    elsif ( $update ) {
-        my $name = $params->{item_type_name};
-
-        if ( !defined $name || !length $name ) {
-            return $self->invalidate_form( $c, 'item_type_name', 'Required' );
-        }
-
-        $item_type->name( $name );
+    elsif ( defined($item_type_name) && length $item_type_name ) {
+        $item_type->name( $item_type_name );
         $item_type->insert;
     }
     else {
-        $item_type_field->constraint('Required');
-        $form->process;
+        return $self->invalidate_form( $c, 'item_type_name', 'Required' );
     }
 
     # Item
@@ -88,56 +81,13 @@ sub index_FORM_VALID {
 
     if ( $item->in_storage ) {
         if ( @changed_cols ) {
-            if ($update) {
-                $changed = 1;
-                $item->update;
-            }
-            else {
-                $form->add_attrs({ class => 'border-danger' });
-                $form->element({
-                    type    => 'Block',
-                    content => 'Item changed - will update',
-                    attrs => {
-                        class => 'alert alert-api alert-danger',
-                    },
-                });
-
-                $item->discard_changes;
-                for my $key ( @changed_cols ) {
-                    if ( ! $update ) {
-                        $form->get_field({ name => $key })
-                            ->add_attrs({ class => 'alert-danger' })
-                            ->comment(sprintf("Changed: was '%s'", $item->$key));
-                    }
-                }
-            }
-        }
-        else {
-            $form->add_attrs({ class => 'border-success' });
-            $form->element({
-                type    => 'Block',
-                content => 'No change required',
-                attrs => {
-                    class => 'alert alert-api alert-success',
-                },
-            });
+            $changed = 1;
+            $item->update;
         }
     }
     else { # new item
-        if ($update) {
-            $changed = 1;
-            $item->insert;
-        }
-        else {
-            $form->add_attrs({ class => 'border-warning' });
-            $form->element({
-                type    => 'Block',
-                content => 'Item is new - will be added',
-                attrs => {
-                    class => 'alert alert-api alert-warning',
-                },
-            });
-        }
+        $changed = 1;
+        $item->insert;
     }
 
     # Item components
@@ -148,11 +98,7 @@ sub index_FORM_VALID {
         my $comp_params = $params->{$comp_type};
         my $has_params  = scalar grep {length $_} values %$comp_params;
 
-        if ( !$comp->in_storage && !$has_params ) {
-            # hide Fieldset
-            $comp_block->attributes({
-                style => 'visibility: hidden; position: absolute',
-            });
+        if ( !$has_params ) {
             next;
         }
 
@@ -160,11 +106,8 @@ sub index_FORM_VALID {
         if ( !$comp->in_storage ) {
             my @values = map { $comp_params->{$_} }
                 @{ $comp->api_update_columns };
+
             if ( all { ( !defined $_ ) || ( 0 == $_ ) || ( '' eq $_ ) } @values ) {
-                # hide Fieldset
-                $comp_block->attributes({
-                    style => 'visibility: hidden; position: absolute',
-                });
                 next;
             }
         }
@@ -186,77 +129,35 @@ sub index_FORM_VALID {
 
         if ( $comp->in_storage ) {
             if ( @changed_cols ) {
-                if ($update) {
-                    if ($has_params) {
-                        $comp->update;
-                    }
-                    else {
-                        $comp->delete;
-                    }
-                    $changed = 1;
+                if ($has_params) {
+                    $comp->update;
                 }
                 else {
-                    my $msg = $has_params
-                        ? sprintf( '%s changed - will update', camel2words($comp_type) )
-                        : sprintf( '%s will be deleted', camel2words($comp_type) );
-
-                    $comp_block->add_attrs({ class => 'border-danger' });
-                    $comp_block->element({
-                        type    => 'Block',
-                        content => $msg,
-                        attrs => {
-                            class => 'alert alert-api alert-danger',
-                        },
-                    });
-
-                    if ( $has_params && ! $update ) {
-                        $comp->discard_changes;
-                        for my $key ( @changed_cols ) {
-                            $comp_block->get_field({ nested_name => "$comp_type.$key" })
-                                ->add_attrs({ class => 'alert-danger' })
-                                ->comment(sprintf("Changed: was '%s'", $comp->$key));
-                        }
-                    }
+                    $comp->delete;
                 }
+                $changed = 1;
             }
         }
         elsif ($has_params) { # not in storage - new component
-            if ($update) {
-                $changed = 1;
-                $comp->insert;
-            }
-            else {
-                $comp_block->add_attrs({ class => 'border-warning' });
-                $comp_block->element({
-                    type    => 'Block',
-                    content => sprintf( '%s is new - will be added', camel2words($comp_type) ),
-                    attrs => {
-                        class => 'alert alert-api alert-warning',
-                    },
-                });
-            }
+            $changed = 1;
+            $comp->insert;
         }
     }
 
-    if ( $update ) {
-        my $msg = $changed ? "Item updated" : "No change required";
+    $self->add_log( $c, 'api/update_item',
+        {
+            description => "API Updated Item",
+        },
+    );
 
-        # redirect to Item page
-        my $redirect = $c->uri_for( "/item", $item->slug, { mid => $c->set_status_msg($msg) } );
+    my $msg = $changed ? "Item updated" : "No change required";
 
-        $c->stash->{rest} = {
-            ok       => 1,
-            redirect => $redirect->as_string,
-        };
+    $c->stash->{rest} = {
+        ok      => 1,
+        message => $msg,
+    };
 
-        $self->add_log( $c, 'api/update_item',
-            {
-                description => "API Updated Item",
-            },
-        );
-
-        $c->detach;
-    }
+    $c->detach;
 }
 
 sub end : ActionClass('Serialize') { }
