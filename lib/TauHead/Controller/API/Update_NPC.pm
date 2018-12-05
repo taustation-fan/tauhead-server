@@ -13,6 +13,7 @@ my @npc_fields = (
     'name',
     'slug',
     'genotype',
+    'avatar',
     'description',
 );
 

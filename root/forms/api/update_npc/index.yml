@@ -27,6 +27,13 @@ elements:
 
   - name: genotype
     label: Genotype
+    constraints:
+      - '+TauHead::FormFu::Constraint::Slug'
+
+  - name: avatar
+    label: Avatar
+    constraints:
+      - '+TauHead::FormFu::Constraint::Slug'
 
   - name: description
     label: Description

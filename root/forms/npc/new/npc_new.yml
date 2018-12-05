@@ -20,6 +20,16 @@ elements:
       - type: Required
       - type: '+TauHead::FormFu::Constraint::Slug'
 
+  - name: genotype
+    label: Genotype
+    constraints:
+      - type: '+TaUHead::FormFu::Constraint::Slug'
+
+  - name: avatar
+    label: Avatar
+    constraints:
+      - type: '+TaUHead::FormFu::Constraint::Slug'
+
   - name: description
     label: Description
     type: Textarea

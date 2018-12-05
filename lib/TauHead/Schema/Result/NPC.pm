@@ -24,6 +24,8 @@ __PACKAGE__->add_columns(
     { data_type => "varchar", is_nullable => 1, size => 128 },
     "armor_slug",
     { data_type => "varchar", is_nullable => 1, size => 128 },
+    "avatar",
+    { data_type => "varchar", is_nullable => 0, size => 128, default_value => "default" },
     "genotype",
     {   data_type   => "enum",
         is_nullable => 1,
