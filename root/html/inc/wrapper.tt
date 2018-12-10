@@ -27,7 +27,7 @@
 <body>
 	[% INCLUDE inc/nav.tt %]
 
-	<div class="container content">
+	<div class="container-fluid content">
 	[% INCLUDE inc/breadcrumbs.tt %]
 		[% IF status_msg %]
 		<div class="row">
@@ -54,7 +54,7 @@
 	</div>
 
 	[% IF comment_request %]
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row align-items-center">
 			<div class="col small alert alert-dark">
 				[% comment_request | html %]
@@ -62,7 +62,7 @@
 		</div>
 	</div>
 	[% END %]
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
 			<div class="col">
 				<div id="disqus_thread"></div>
@@ -84,7 +84,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="container footer">
+	<div class="container-fluid footer">
 		<div class="row">
 			<div class="col small">
 				<a href="[% c.uri_for('/privacy') %]">TauHead Privacy Policy</a>

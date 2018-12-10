@@ -31,7 +31,7 @@ body {
 	background-image: url(/static/images/background.jpg);
 }
 
-body .container.content {
+body .container-fluid.content {
 	background-color: $body-bg;
 	a {
 		color: $body-color;
@@ -51,11 +51,18 @@ body .container.content {
 	}
 }
 
-body .container.footer {
+body .container-fluid.footer {
 	@extend .bg-primary;
 	background-color: lighten($body-bg, 20%);
 	a {
 		color: rgba(255, 255, 255, 0.75);
+	}
+}
+
+@include media-breakpoint-down(sm) {
+	body .container-fluid {
+		padding-left: 0;
+		padding-right: 0;
 	}
 }
 
@@ -64,6 +71,10 @@ body .container.footer {
 	a {
 		color: $body-color;
 	}
+}
+
+.list-group-item {
+	padding: 0.25rem;
 }
 
 .list-group-item,
@@ -85,7 +96,7 @@ label.error {
 	@extend .w-100;
 }
 
-.list-group .list-group .list-group-item {
+form .list-group .list-group .list-group-item {
 	padding-left: 2.5rem;
 }
 
@@ -242,6 +253,13 @@ label.error {
 .item-framed-img img {
     padding: 10%;
     max-width: 100%;
+}
+
+// tables
+
+.table th,
+.table td {
+    padding: 0.05rem;
 }
 
 // footer
