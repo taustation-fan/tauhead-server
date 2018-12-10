@@ -7,12 +7,13 @@
 
 $(document).ready(function(){
     $("#dataTable").dataTable({
-        "bProcessing"	: true,
-        "bServerSide"	: true, // server-side paging and sorting
-        "sAjaxSource"	: "[% c.uri_for('/item/list', logTableParams) %]",
-        "bFilter"		: false, // hide search box
-        "aaSorting" 	: [], // don't sort results returned by server
-        "columnDefs"    : [
+        "bProcessing" : true,
+        "bServerSide" : true, // server-side paging and sorting
+        "sAjaxSource" : "[% c.uri_for('/item/list', logTableParams) %]",
+        "bFilter"     : false, // hide search box
+        "aaSorting"   : [], // don't sort results returned by server
+        "autoWidth"   : false,
+        "columnDefs"  : [
             { "orderable": false, "targets": 6 } // don't allow sorting by in-game link
         ]
     });

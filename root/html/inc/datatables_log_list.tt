@@ -7,10 +7,11 @@
 
 $(document).ready(function(){
     $("#dataTable").dataTable({
-        "bProcessing"	: true,
-        "bServerSide"	: true, // server-side paging and sorting
-        "sAjaxSource"	: "[% c.uri_for('/log/list', logTableParams) %]",
-        "bFilter"		: false, // hide search box
-        "aaSorting"	  : [] // don't sort results returned by server
+        "bProcessing" : true,
+        "bServerSide" : true, // server-side paging and sorting
+        "sAjaxSource" : "[% c.uri_for('/log/list', logTableParams) %]",
+        "bFilter"     : false, // hide search box
+        "aaSorting"   : [], // don't sort results returned by server
+        "autoWidth"   : false
     });
 });
