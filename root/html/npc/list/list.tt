@@ -27,6 +27,6 @@
 			Add a new NPC
 		</a>
 	</div>
+	[% END %]
 </div>
-[% END %]
 [% END %]

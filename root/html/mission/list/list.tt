@@ -28,6 +28,6 @@
 			Add a new Mission
 		</a>
 	</div>
+	[% END %]
 </div>
-[% END %]
 [% END %]
