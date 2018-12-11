@@ -54,13 +54,13 @@
 
 [% IF npc.count_related('area_npcs') %]
 <div class="row mb-2">
-	<div class="col-auto offset-md-2 offset-lg-3">
-        <h4>Areas this NPC can be found in</h4>
+	<div class="col offset-md-2 offset-lg-3">
+		<h4>Areas this NPC can be found in</h4>
 		<ul class="list-group">
 		[% FOREACH area = npc.areas %][% station = area.station %]
-	        <li class="list-group-item d-flex justify-content-between align-items-center">
-	            <a href="[% area.build_uri(c) %]">
-	                [% area.name | html %]
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+				<a href="[% area.build_uri(c) %]">
+					[% area.name | html %]
 					<small>
 						[% IF area.parent_area %]
 							, [% area.parent_area.name | html %]
@@ -68,9 +68,9 @@
 						, [% station.name | html %]
 						, [% station.system.name | html %]
 					</small>
-	            </a>
-	        </li>
-	    [% END %]
+				</a>
+			</li>
+		[% END %]
 		</ul>
 	</div>
 </div>
@@ -78,16 +78,16 @@
 
 [% IF npc.count_related('mission_npcs') %]
 <div class="row">
-	<div class="col-auto offset-md-2 offset-lg-3">
-        <h4>Missions this NPC is involved in</h4>
+	<div class="col offset-md-2 offset-lg-3">
+		<h4>Missions this NPC is involved in</h4>
 		<ul class="list-group">
 		[% FOREACH mission = npc.missions %]
-	        <li class="list-group-item d-flex justify-content-between align-items-center">
-	            <a href="[% c.uri_for('/mission', mission.slug) %]">
-	                [% mission.name | html %]
-	            </a>
-	        </li>
-	    [% END %]
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+				<a href="[% c.uri_for('/mission', mission.slug) %]">
+					[% mission.name | html %]
+				</a>
+			</li>
+		[% END %]
 		</ul>
 	</div>
 </div>

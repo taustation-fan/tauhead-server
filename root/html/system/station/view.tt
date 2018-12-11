@@ -6,42 +6,42 @@
 </div>
 <div class="row">
 	<div class="col col-md-2 col-lg-3 offset-md-2 offset-lg-3">
-        Level
-    </div>
-    <div class="col col-md-8 col-lg-6">
+		Level
+	</div>
+	<div class="col col-md-8 col-lg-6">
 		[% station.level | html %]
 	</div>
 </div>
 <div class="row">
 	<div class="col col-md-2 col-lg-3 offset-md-2 offset-lg-3">
-        Affiliation
-    </div>
-    <div class="col col-md-8 col-lg-6">
+		Affiliation
+	</div>
+	<div class="col col-md-8 col-lg-6">
 		[% station.affiliation | ucfirst | html %]
 	</div>
 </div>
 <div class="row">
 	<div class="col col-md-2 col-lg-3 offset-md-2 offset-lg-3">
-        Law Level
-    </div>
-    <div class="col col-md-8 col-lg-6">
+		Law Level
+	</div>
+	<div class="col col-md-8 col-lg-6">
 		[% station.law_level | ucfirst | html %]
 	</div>
 </div>
 <div class="row">
 	<div class="col col-md-2 col-lg-3 offset-md-2 offset-lg-3">
-        Orwellian Level
-    </div>
-    <div class="col col-md-8 col-lg-6">
+		Orwellian Level
+	</div>
+	<div class="col col-md-8 col-lg-6">
 		[% station.orwellian_level | ucfirst | html %]
 	</div>
 </div>
 <div class="row">
 	<div class="col col-md-2 col-lg-3 offset-md-2 offset-lg-3">
-        Has open ruins sewers?
-    </div>
+		Has open ruins sewers?
+	</div>
 	[% SET has_open_ruins_sewers = station.has_open_ruins_sewers %]
-    <div class="col col-md-8 col-lg-6">
+	<div class="col col-md-8 col-lg-6">
 		<span class="[% IF has_open_ruins_sewers %] bg-info px-2[% END %]">
 			[% has_open_ruins_sewers ? 'Yes' : 'No' %]
 		</span>
@@ -49,10 +49,10 @@
 </div>
 <div class="row">
 	<div class="col col-md-2 col-lg-3 offset-md-2 offset-lg-3">
-        Gov't Center has daily rations?
-    </div>
+		Gov't Center has daily rations?
+	</div>
 	[% SET govt_center_has_daily_rations = station.govt_center_has_daily_rations %]
-    <div class="col col-md-8 col-lg-6">
+	<div class="col col-md-8 col-lg-6">
 		<span class="[% IF !govt_center_has_daily_rations %] bg-warning px-2[% END %]">
 			[% govt_center_has_daily_rations ? 'Yes' : 'No' %]
 		</span>
@@ -60,10 +60,10 @@
 </div>
 <div class="row">
 	<div class="col col-md-2 col-lg-3 offset-md-2 offset-lg-3">
-        Has Public Shuttles?
-    </div>
+		Has Public Shuttles?
+	</div>
 	[% SET has_public_shuttles = station.has_public_shuttles %]
-    <div class="col col-md-8 col-lg-6">
+	<div class="col col-md-8 col-lg-6">
 		<span class="[% IF !has_public_shuttles %] bg-warning px-2[% END %]">
 			[% has_public_shuttles ? 'Yes' : 'No' %]
 		</span>
@@ -73,9 +73,9 @@
 [% IF station.description.length %]
 <div class="row">
 	<div class="col col-md-2 col-lg-3 offset-md-2 offset-lg-3">
-        Description
-    </div>
-    <div class="col col-md-8 col-lg-6">
+		Description
+	</div>
+	<div class="col col-md-8 col-lg-6">
 		[% station.description | html | html_line_break %]
 	</div>
 </div>
@@ -122,16 +122,16 @@
 
 [% IF station.interstellar_links %]
 <div class="row">
-	<div class="col-auto offset-md-2 offset-lg-3">
-        <h4>Has Interstellar Links To Stations</h4>
+	<div class="col offset-md-2 offset-lg-3">
+		<h4>Has Interstellar Links To Stations</h4>
 		<ul class="list-group">
 		[% FOREACH other_station = station.interstellar_destinations %]
-	        <li class="list-group-item d-flex justify-content-between align-items-center">
-	            <a href="[% c.uri_for('/system', other_station.system.slug, 'station', other_station.slug) %]">
-	                [% other_station.name | html %]
-	            </a>
-	        </li>
-	    [% END %]
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+				<a href="[% c.uri_for('/system', other_station.system.slug, 'station', other_station.slug) %]">
+					[% other_station.name | html %]
+				</a>
+			</li>
+		[% END %]
 		</ul>
 	</div>
 </div>
@@ -139,16 +139,16 @@
 
 [% IF area_missions.count %]
 <div class="row">
-	<div class="col-auto offset-md-2 offset-lg-3">
-        <h4>Missions that visit this Station</h4>
+	<div class="col offset-md-2 offset-lg-3">
+		<h4>Missions that visit this Station</h4>
 		<ul class="list-group">
 		[% FOREACH mission = area_missions.all %]
-	        <li class="list-group-item d-flex justify-content-between align-items-center">
-	            <a href="[% c.uri_for('/mission', mission.slug) %]">
-	                [% mission.name | html %]
-	            </a>
-	        </li>
-	    [% END %]
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+				<a href="[% c.uri_for('/mission', mission.slug) %]">
+					[% mission.name | html %]
+				</a>
+			</li>
+		[% END %]
 		</ul>
 	</div>
 </div>

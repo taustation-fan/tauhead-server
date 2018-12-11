@@ -1,15 +1,15 @@
 [% IF breadcrumbs.size %][% SET current_uri = c.req.uri %]
 <div class="row justify-content-center">
-    <div class="col col-lg-8">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-            [% FOREACH crumb IN breadcrumbs %]
-                <li class="breadcrumb-item[% IF crumb.0 == current_uri %] active" aria-current="page"[% ELSE %]"[% END %]>
-                    <a href="[% crumb.0 %]">[% crumb.1 | html %]</a>
-                </li>
-            [% END %]
-            </ol>
-        </nav>
-    </div>
+	<div class="col col-lg-8">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+			[% FOREACH crumb IN breadcrumbs %]
+				<li class="breadcrumb-item[% IF crumb.0 == current_uri %] active" aria-current="page"[% ELSE %]"[% END %]>
+					<a href="[% crumb.0 %]">[% crumb.1 | html %]</a>
+				</li>
+			[% END %]
+			</ol>
+		</nav>
+	</div>
 </div>
 [% END %]

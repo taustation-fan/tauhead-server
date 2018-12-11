@@ -49,21 +49,21 @@
 
 [% IF item.count_related('vendor_items') %]
 <div class="row mb-2">
-	<div class="col-auto offset-md-2 offset-lg-3">
-        <h4>Vendors who sell this item:</h4>
+	<div class="col offset-md-2 offset-lg-3">
+		<h4>Vendors who sell this item:</h4>
 		<ul class="list-group">
 		[% FOREACH vendor = item.vendors %]
-	        <li class="list-group-item d-flex justify-content-between align-items-center">
-	            <a href="[% vendor.build_uri(c) %]">
-	                [% vendor.name | html %]
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+				<a href="[% vendor.build_uri(c) %]">
+					[% vendor.name | html %]
 					<small>([% vendor.area.station.name | html %])</small>
-	            </a>
+				</a>
 				[% vendor_item = vendor.search_related( 'vendor_items', { 'item_slug' => item.slug }, {'rows' => 1}) %]
 				<span class="badge badge-info">
 					[% vendor_item.price %] [% vendor_item.price_unit | ucfirst %]
 				</span>
-	        </li>
-	    [% END %]
+			</li>
+		[% END %]
 		</ul>
 	</div>
 </div>

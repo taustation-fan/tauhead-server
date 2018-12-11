@@ -1,20 +1,20 @@
 [% logTableParams = {} %]
 [% FOR param IN known_params %]
-    [% IF c.request.param(param) %]
-        [% logTableParams.$param = c.request.param(param).first %]
-    [% END %]
+	[% IF c.request.param(param) %]
+		[% logTableParams.$param = c.request.param(param).first %]
+	[% END %]
 [% END %]
 
 $(document).ready(function(){
-    $("#dataTable").dataTable({
-        "bProcessing" : true,
-        "bServerSide" : true, // server-side paging and sorting
-        "sAjaxSource" : "[% c.uri_for('/item/list', logTableParams) %]",
-        "bFilter"     : false, // hide search box
-        "aaSorting"   : [], // don't sort results returned by server
-        "autoWidth"   : false,
-        "columnDefs"  : [
-            { "orderable": false, "targets": 6 } // don't allow sorting by in-game link
-        ]
-    });
+	$("#dataTable").dataTable({
+		"bProcessing" : true,
+		"bServerSide" : true, // server-side paging and sorting
+		"sAjaxSource" : "[% c.uri_for('/item/list', logTableParams) %]",
+		"bFilter"	 : false, // hide search box
+		"aaSorting"   : [], // don't sort results returned by server
+		"autoWidth"   : false,
+		"columnDefs"  : [
+			{ "orderable": false, "targets": 6 } // don't allow sorting by in-game link
+		]
+	});
 });

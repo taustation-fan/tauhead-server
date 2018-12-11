@@ -5,10 +5,10 @@
 	</div>
 </div>
 <div class="row">
-    <div class="col-auto">
-    [% FOREACH graph IN mermaid_graphs %]
-        <div class="mermaid">[% graph %]</div>
-    [% END %]
-    </div>
+	<div class="col">
+	[% FOREACH graph IN mermaid_graphs %]
+		<div class="mermaid">[% graph %]</div>
+	[% END %]
+	</div>
 </div>
 [% END %]

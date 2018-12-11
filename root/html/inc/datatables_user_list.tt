@@ -1,15 +1,15 @@
 $(document).ready(function(){
-    $("#dataTable").dataTable({
-        "bProcessing" : true,
-        "bServerSide" : true, // server-side paging and sorting
-        "sAjaxSource" : "[% c.uri_for('/admin/user/list') %]",
-        "bFilter"     : false, // hide search box
-        "aaSorting"   : [], // don't sort results returned by server
-        "autoWidth"   : false,
-        "aoColumns"   : [
-            null,
-            null,
-            { "bSortable" : false } // don't allow sorting by 'status'
-        ]
-    });
+	$("#dataTable").dataTable({
+		"bProcessing" : true,
+		"bServerSide" : true, // server-side paging and sorting
+		"sAjaxSource" : "[% c.uri_for('/admin/user/list') %]",
+		"bFilter"	 : false, // hide search box
+		"aaSorting"   : [], // don't sort results returned by server
+		"autoWidth"   : false,
+		"aoColumns"   : [
+			null,
+			null,
+			{ "bSortable" : false } // don't allow sorting by 'status'
+		]
+	});
 });

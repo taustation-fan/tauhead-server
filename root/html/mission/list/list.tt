@@ -11,7 +11,7 @@
 				<a href="[% c.uri_for('/mission', mission.slug) %]">
 					[% mission.name | html %]
 				</a>
-                [% IF mission.level %]<small>(level [% mission.level | html %])</small>[% END %]
+				[% IF mission.level %]<small>(level [% mission.level | html %])</small>[% END %]
 				[% IF c.check_user_roles('admin') %]
 				<a href="[% c.uri_for('/mission', mission.slug, 'edit') %]" class="badge badge-secondary">
 					edit
