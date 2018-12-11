@@ -1,60 +1,54 @@
 [% WRAPPER inc/wrapper.tt page_title=npc.name
 	comment_request="If you see this NPC in an Area or involved in a Mission not listed above, please leave a comment below, and let us know!"
 %]
-<div class="row">
-	<div class="col-auto offset-md-2 offset-lg-3">
+<div class="row mb-2">
+	<div class="col-middle-quarter-1">
 		<h3>[% npc.name | html %]</h3>
-	</div>
-</div>
 
-[% IF npc.primary_weapon_slug %]
-<div class="row mb-2">
-	<div class="col col-6 col-md-3 col-lg-2 offset-md-2 offset-lg-3">
-		Primary Weapon:
-	</div>
-	<div class="col">
-		<a href="[% c.uri_for('/item', npc.primary_weapon_slug) %]">
-			[% npc.primary_weapon.name | html %]
-		</a>
-	</div>
-</div>
-[% END %]
+		<dl class="row">
+			[% IF npc.primary_weapon_slug %]
+			<dt class="col-3 col-md-6">Primary Weapon</dt>
+			<dd class="col-9 col-md-6">
+				<a href="[% c.uri_for('/item', npc.primary_weapon_slug) %]">
+					[% npc.primary_weapon.name | html %]
+				</a>
+			</dd>
+			[% END %]
 
-[% IF npc.armor_slug %]
-<div class="row mb-2">
-	<div class="col col-6 col-md-3 col-lg-2 offset-md-2 offset-lg-3">
-		Armor:
-	</div>
-	<div class="col">
-		<a href="[% c.uri_for('/item', npc.armor_slug) %]">
-			[% npc.armor.name | html %]
-		</a>
-	</div>
-</div>
-[% END %]
+			[% IF npc.armor_slug %]
+			<dt class="col-3 col-md-6">Armor</dt>
+			<dd class="col-9 col-md-6">
+				<a href="[% c.uri_for('/item', npc.armor_slug) %]">
+					[% npc.armor.name | html %]
+				</a>
+			</dd>
+			[% END %]
 
-[% IF npc.genotype %]
-<div class="row mb-2">
-	<div class="col col-6 col-md-3 col-lg-2 offset-md-2 offset-lg-3">
-		Genotype:
-	</div>
-	<div class="col">
-		[% npc.genotype | ucfirst | html %]
-	</div>
-</div>
-[% END %]
+			[% IF npc.genotype %]
+			<dt class="col-3 col-md-6">Genotype</dt>
+			<dd class="col-9 col-md-6">[% npc.genotype | ucfirst | html %]</dd>
+			[% END %]
+		</dl>
 
-[% IF npc.description.length %]
-<div class="row mb-2">
-	<div class="col col-md-8 col-lg-6 offset-md-2 offset-lg-3">
-		[% npc.description | html | html_line_break %]
+		[% IF npc.description.length %]
+		<div>
+			[% npc.description | html | html_line_break %]
+		</div>
+		[% END %]
+	</div>
+
+	<div class="col-middle-quarter-2">[% SET avatar_url = c.uri_for('/static/images/avatar', npc.avatar _ '.png') %]
+		<div class="slot">
+			<div class="avatar-framed-img">
+				<a href="[% avatar_url %]" rel="nofollow"><img src="[% avatar_url %]"></a>
+			</div>
+		</div>
 	</div>
 </div>
-[% END %]
 
 [% IF npc.count_related('area_npcs') %]
 <div class="row mb-2">
-	<div class="col offset-md-2 offset-lg-3">
+	<div class="col-middle-half">
 		<h4>Areas this NPC can be found in</h4>
 		<ul class="list-group">
 		[% FOREACH area = npc.areas %][% station = area.station %]
@@ -77,8 +71,8 @@
 [% END %]
 
 [% IF npc.count_related('mission_npcs') %]
-<div class="row">
-	<div class="col offset-md-2 offset-lg-3">
+<div class="row mb-2">
+	<div class="col-middle-half">
 		<h4>Missions this NPC is involved in</h4>
 		<ul class="list-group">
 		[% FOREACH mission = npc.missions %]
@@ -94,8 +88,8 @@
 [% END %]
 
 [% IF c.check_user_roles('admin') %]
-<div class="row">
-	<div class="col-auto offset-md-2 offset-lg-3">
+<div class="row mb-2">
+	<div class="col-middle-half">
 		<a href="[% c.uri_for('/npc', npc.slug, 'edit') %]" class="btn btn-outline-secondary btn-sm" role="button">
 			Edit NPC
 		</a>

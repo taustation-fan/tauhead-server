@@ -1,6 +1,6 @@
 [% WRAPPER inc/wrapper.tt page_title='Privacy Policy' %]
-<div class="row justify-content-md-center">
-	<div class="col-md-auto">
+<div class="row">
+	<div class="col-middle-half">
 		<h3>Privacy Policy</h3>
 		<p>
 			Creating an account requires you to supply a username, email address,

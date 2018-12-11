@@ -1,5 +1,5 @@
 [% WRAPPER inc/wrapper.tt page_title='API / Update NPC' %]
-<div class="row justify-content-md-center">
+<div class="row">
 	<div class="col-md-10">
 		[% PROCESS inc/form.tt %]
 	</div>

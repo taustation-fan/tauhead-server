@@ -1,7 +1,7 @@
 [% WRAPPER inc/wrapper.tt page_title='TauHead' modal=1 %]
 [% forms.include_ajax = 1 %]
-<div class="row justify-content-center">
-	<div class="col-md-auto">
+<div class="row">
+	<div class="col-middle-half">
 		<table class="table table-bordered table-striped table-responsive">
 			<tr>
 				<td>Username:</td>

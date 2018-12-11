@@ -1,6 +1,6 @@
 [% WRAPPER inc/wrapper.tt page_title='GTC Conversion' %]
-<div class="row justify-content-md-center">
-	<div class="col-md-auto">
+<div class="row">
+	<div class="col-middle-half">
 		[% form %]
 		[% IF datetime_oe %]
 		<div class="alert alert-primary" role="alert">

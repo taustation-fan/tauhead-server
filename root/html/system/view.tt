@@ -1,12 +1,11 @@
 [% WRAPPER inc/wrapper.tt page_title=system.name %]
 <div class="row">
-	<div class="col-auto offset-md-2 offset-lg-3">
+	<div class="col-middle-half">
 		<h3>[% system.name | html %]</h3>
 	</div>
-</div>
+	<div class="w-100"></div>
 
-<div class="row">
-	<div class="col-auto offset-md-2 offset-lg-3">
+	<div class="col-middle-half">
 		<ul class="list-group">
 		[% FOREACH station = stations.all %]
 			<li class="list-group-item d-flex justify-content-between align-items-center">
@@ -22,10 +21,11 @@
 		[% END %]
 		</ul>
 	</div>
+	<div class="w-100"></div>
 </div>
 [% IF c.check_user_roles('admin') %]
 <div class="row">
-	<div class="col-auto offset-md-2 offset-lg-3">
+	<div class="col-middle-half">
 		<a href="[% c.uri_for('/system', system.slug, 'edit') %]" class="btn btn-outline-secondary btn-sm" role="button">
 			Edit System
 		</a>

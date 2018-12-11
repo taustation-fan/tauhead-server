@@ -1,77 +1,44 @@
 [% WRAPPER inc/wrapper.tt page_title=system.name _ ' / ' _ station.name %]
-<div class="row">
-	<div class="col-auto offset-md-2 offset-lg-3">
+<div class="row mb-2">
+	<div class="col-middle-half">
 		<h3>[% station.name | html %]</h3>
-	</div>
-</div>
-<div class="row">
-	<div class="col col-md-2 col-lg-3 offset-md-2 offset-lg-3">
-		Level
-	</div>
-	<div class="col col-md-8 col-lg-6">
-		[% station.level | html %]
-	</div>
-</div>
-<div class="row">
-	<div class="col col-md-2 col-lg-3 offset-md-2 offset-lg-3">
-		Affiliation
-	</div>
-	<div class="col col-md-8 col-lg-6">
-		[% station.affiliation | ucfirst | html %]
-	</div>
-</div>
-<div class="row">
-	<div class="col col-md-2 col-lg-3 offset-md-2 offset-lg-3">
-		Law Level
-	</div>
-	<div class="col col-md-8 col-lg-6">
-		[% station.law_level | ucfirst | html %]
-	</div>
-</div>
-<div class="row">
-	<div class="col col-md-2 col-lg-3 offset-md-2 offset-lg-3">
-		Orwellian Level
-	</div>
-	<div class="col col-md-8 col-lg-6">
-		[% station.orwellian_level | ucfirst | html %]
-	</div>
-</div>
-<div class="row">
-	<div class="col col-md-2 col-lg-3 offset-md-2 offset-lg-3">
-		Has open ruins sewers?
-	</div>
-	[% SET has_open_ruins_sewers = station.has_open_ruins_sewers %]
-	<div class="col col-md-8 col-lg-6">
-		<span class="[% IF has_open_ruins_sewers %] bg-info px-2[% END %]">
-			[% has_open_ruins_sewers ? 'Yes' : 'No' %]
-		</span>
-	</div>
-</div>
-<div class="row">
-	<div class="col col-md-2 col-lg-3 offset-md-2 offset-lg-3">
-		Gov't Center has daily rations?
-	</div>
-	[% SET govt_center_has_daily_rations = station.govt_center_has_daily_rations %]
-	<div class="col col-md-8 col-lg-6">
-		<span class="[% IF !govt_center_has_daily_rations %] bg-warning px-2[% END %]">
-			[% govt_center_has_daily_rations ? 'Yes' : 'No' %]
-		</span>
-	</div>
-</div>
-<div class="row">
-	<div class="col col-md-2 col-lg-3 offset-md-2 offset-lg-3">
-		Has Public Shuttles?
-	</div>
-	[% SET has_public_shuttles = station.has_public_shuttles %]
-	<div class="col col-md-8 col-lg-6">
-		<span class="[% IF !has_public_shuttles %] bg-warning px-2[% END %]">
-			[% has_public_shuttles ? 'Yes' : 'No' %]
-		</span>
+
+		<dl class="row">
+			<dt class="col-6">Level</dt>
+			<dd class="col-6">[% station.level | html %]</dd>
+
+			<dt class="col-6">Affiliation</dt>
+			<dd class="col-6">[% station.affiliation | ucfirst | html %]</dd>
+
+			<dt class="col-6">Law Level</dt>
+			<dd class="col-6">[% station.law_level | ucfirst | html %]</dd>
+
+			<dt class="col-6">Orwellian Level</dt>
+			<dd class="col-6">[% station.orwellian_level | ucfirst | html %]</dd>
+
+			<dt class="col-6">Has open ruins sewers?</dt>
+			[% SET has_open_ruins_sewers = station.has_open_ruins_sewers %]
+			<dd class="col-6[% IF has_open_ruins_sewers %] bg-info px-2[% END %]">
+				[% has_open_ruins_sewers ? 'Yes' : 'No' %]
+			</dd>
+
+			<dt class="col-6">Gov't Center has daily rations?</dt>
+			[% SET govt_center_has_daily_rations = station.govt_center_has_daily_rations %]
+			<dd class="col-6[% IF !govt_center_has_daily_rations %] bg-warning px-2[% END %]">
+				[% govt_center_has_daily_rations ? 'Yes' : 'No' %]
+			</dd>
+
+			<dt class="col-6">Has Public Shuttles?</dt>
+			[% SET has_public_shuttles = station.has_public_shuttles %]
+			<dd class="col-6[% IF !has_public_shuttles %] bg-warning px-2[% END %]">
+				[% has_public_shuttles ? 'Yes' : 'No' %]
+			</dd>
+		</dl>
 	</div>
 </div>
 
-<div class="row">
-	<div class="col-auto offset-md-2 offset-lg-3">
+<div class="row mb-2">
+	<div class="col-middle-half">
 		<h4>Areas</h4>
 		<ul class="list-group">
 		[% FOREACH area = areas.all %]
@@ -110,8 +77,8 @@
 </div>
 
 [% IF station.interstellar_links %]
-<div class="row">
-	<div class="col offset-md-2 offset-lg-3">
+<div class="row mb-2">
+	<div class="col-middle-half">
 		<h4>Has Interstellar Links To Stations</h4>
 		<ul class="list-group">
 		[% FOREACH other_station = station.interstellar_destinations %]
@@ -127,8 +94,8 @@
 [% END %]
 
 [% IF area_missions.count %]
-<div class="row">
-	<div class="col offset-md-2 offset-lg-3">
+<div class="row mb-2">
+	<div class="col-middle-half">
 		<h4>Missions that visit this Station</h4>
 		<ul class="list-group">
 		[% FOREACH mission = area_missions.all %]
@@ -144,8 +111,8 @@
 [% END %]
 
 [% IF c.check_user_roles('admin') %]
-<div class="row">
-	<div class="col-auto offset-md-2 offset-lg-3">
+<div class="row mb-2">
+	<div class="col-middle-half">
 		<a href="[% c.uri_for('/system', system.slug, 'station', station.slug, 'edit') %]" class="btn btn-outline-secondary btn-sm" role="button">
 			Edit Station
 		</a>

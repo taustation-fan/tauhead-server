@@ -1,6 +1,6 @@
 [% IF breadcrumbs.size %][% SET current_uri = c.req.uri %]
-<div class="row justify-content-center">
-	<div class="col col-lg-8">
+<div class="row">
+	<div class="col-middle-half">
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb">
 			[% FOREACH crumb IN breadcrumbs %]

@@ -1,0 +1,40 @@
+<div class="row mb-2">
+	<div class="col-12 col-md-5 offset-md-1">
+		<h3>[% area.name | html %]</h3>
+		[% IF area.aka.length %]
+		<div><small>([% area.aka | html %])</small></div>
+		[% END %]
+
+		[% IF area.area_description_short.length %]
+		<div>
+			[% area.area_description_short | html | html_line_break %]
+		</div>
+		[% END %]
+
+		[% IF area.area_description_long.length %]
+		<div>
+			[% area.area_description_long | html | html_line_break %]
+		</div>
+		[% END %]
+	</div>
+
+	<div class="col-12 col-md-5">
+		[% IF area.content_img %]
+			[% IF area.content_side_img %]
+				<div class="area_content_img" style="background-image:url('[% area.content_img %]')">
+					<a href="[% area.content_side_img %]" rel="nofollow"><img src="[% area.content_side_img %]"></a>
+				</div>
+			[% ELSE %]
+				<div class="area_content_img">
+					<a href="[% area.content_img %]" rel="nofollow"><img src="[% area.content_img %]"></a>
+				</div>
+			[% END %]
+		[% END %]
+		[% IF area.hero_img %]
+			<div class="area_hero_img"><a href="[% area.hero_img %]" rel="nofollow"><img src="[% area.hero_img %]"></a></div>
+		[% END %]
+		[% IF area.other_img %]
+			<div class="area_other_img"><a href="[% area.other_img %]" rel="nofollow"><img src="[% area.other_img %]"></a></div>
+		[% END %]
+	</div>
+</div>

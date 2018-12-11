@@ -1,0 +1,20 @@
+<div class="row mb-2">
+	<div class="col-middle-half">
+		<h3>[% area.name | html %]</h3>
+		[% IF area.aka.length %]
+		<div><small>([% area.aka | html %])</small></div>
+		[% END %]
+
+		[% IF area.area_description_short.length %]
+		<div>
+			[% area.area_description_short | html | html_line_break %]
+		</div>
+		[% END %]
+
+		[% IF area.area_description_long.length %]
+		<div>
+			[% area.area_description_long | html | html_line_break %]
+		</div>
+		[% END %]
+	</div>
+</div>

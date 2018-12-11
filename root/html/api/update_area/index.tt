@@ -1,6 +1,6 @@
 [% WRAPPER inc/wrapper.tt page_title='API / Update Area' %]
-<div class="row justify-content-md-center">
-	<div class="col-md-auto">
+<div class="row">
+	<div class="col-md-auto flex-md-shrink-1">
 		[% PROCESS inc/form.tt %]
 	</div>
 </div>

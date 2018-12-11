@@ -1,6 +1,6 @@
 [% WRAPPER inc/wrapper.tt page_title='User Admin' %]
-<div class="row justify-content-center">
-	<div class="col-md-auto">
+<div class="row">
+	<div class="col-middle-half">
 		<table class="table table-bordered table-striped">
 			<tr>
 				<td>Username:</td>

@@ -1,16 +1,16 @@
 [% WRAPPER inc/wrapper.tt page_title=vendor.name %]
 <div class="row">
-	<div class="col-auto offset-md-2 offset-lg-3">
+	<div class="col offset-md-2 offset-lg-3">
 		<h3>[% vendor.name | html %]</h3>
 	</div>
 </div>
 <div class="row">
-	<div class="col-auto offset-md-2 offset-lg-3">
+	<div class="col offset-md-2 offset-lg-3">
 		Is Corporation: [% vendor.is_corporation ? 'Yes' : 'No' %]
 	</div>
 </div>
 <div class="row">
-	<div class="col-auto offset-md-2 offset-lg-3">
+	<div class="col offset-md-2 offset-lg-3">
 		Area: [% SET area = vendor.area %]
 		<a href="[% area.build_uri(c) %]">
 			[% area.name | html %]
@@ -19,7 +19,7 @@
 </div>
 
 <div class="row">
-	<div class="col-auto offset-md-2 offset-lg-3">
+	<div class="col offset-md-2 offset-lg-3">
 		<h4>Itinerary</h4>
 	</div>
 </div>
@@ -61,7 +61,7 @@
 
 [% IF c.check_user_roles('admin') %]
 <div class="row">
-	<div class="col-auto offset-md-2 offset-lg-3">
+	<div class="col offset-md-2 offset-lg-3">
 		<a href="[% c.uri_for('/system', system.slug, 'station', station.slug, 'area', area.slug, 'vendor', vendor.slug, 'edit') %]" class="btn btn-outline-secondary btn-sm" role="button">
 			Edit Vendor
 		</a>

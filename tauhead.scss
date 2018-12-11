@@ -66,6 +66,28 @@ body .container-fluid.footer {
 	}
 }
 
+.col-middle-half {
+	@extend .col;
+	@extend .col-md-8;
+	@extend .offset-md-2;
+	@extend .col-lg-6;
+	@extend .offset-lg-3;
+}
+
+.col-middle-quarter-1 {
+	@extend .col-12;
+	@extend .col-md-4;
+	@extend .offset-md-2;
+	@extend .col-lg-3;
+	@extend .offset-lg-3;
+}
+
+.col-middle-quarter-2 {
+	@extend .col-12;
+	@extend .col-md-4;
+	@extend .col-lg-3;
+}
+
 .breadcrumb {
 	background-color: $green;
 	a {
@@ -74,7 +96,7 @@ body .container-fluid.footer {
 }
 
 .list-group-item {
-	padding: 0.25rem;
+	padding: .5rem .5rem;
 }
 
 .list-group-item,
@@ -195,25 +217,21 @@ form .list-group .list-group .list-group-item {
 	background: none;
 }
 
-.area-with-img {
-	min-height: 700px;
-}
-
 .area_images {
 	overflow: hidden;
 }
 
 .area_content_img img {
 	width: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
+//	position: absolute;
+//	top: 0;
+//	left: 0;
 }
 
-.area_content_img img:nth-child(2) {
-	width: 50%;
-	z-index: 10;
-}
+//.area_content_img img:nth-child(2) {
+//	width: 50%;
+//	z-index: 10;
+//}
 
 .area_hero_img img,
 .area_other_img img {
@@ -224,13 +242,14 @@ form .list-group .list-group .list-group-item {
 // item view
 
 .slot {
-    background-color: #121b24;
+    float: left;
 }
 
 .item-framed-img {
     background-position: 0;
     background-size: contain;
     background-repeat: no-repeat;
+    background-color: #121b24;
     position: relative;
 }
 
@@ -255,6 +274,17 @@ form .list-group .list-group .list-group-item {
     max-width: 100%;
 }
 
+// NPC
+
+.avatar-framed-img {
+	background: linear-gradient(180deg,#131b2f 0,#0e365f);
+	border: 2px solid #263e61;
+}
+
+.avatar-framed-img img {
+	max-width: 100%;
+}
+
 // tables
 
 .table th,
@@ -269,10 +299,6 @@ $footer-height: 60px;
 html {
 	position: relative;
 	min-height: 100%;
-}
-
-body {
-	margin-bottom: $footer-height;
 }
 
 footer {

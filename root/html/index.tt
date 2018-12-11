@@ -1,6 +1,6 @@
 [% WRAPPER inc/wrapper.tt page_title='TauHead' %]
 <div class="row">
-	<div class="col-auto offset-md-2 offset-lg-3">
+	<div class="col offset-md-2 offset-lg-3">
 		<h3>Explore the universe of <a href="http://taustation.space/" target="_blank">Tau Station</a></h3>
 	</div>
 </div>

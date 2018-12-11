@@ -1,6 +1,6 @@
 [% WRAPPER inc/wrapper.tt page_title='API / Log Auctions' %]
 [% IF missing_items %]
-<div class="row justify-content-md-center">
+<div class="row">
 	<div class="col-md-10 alert alert-danger">
 		The following items are missing from the database -
 		you must add them first:
@@ -14,7 +14,7 @@
 	</div>
 </div>
 [% END %]
-<div class="row justify-content-md-center">
+<div class="row">
 	<div class="col-md-10">
 		[% INCLUDE inc/form_auto_close.tt %]
 	</div>

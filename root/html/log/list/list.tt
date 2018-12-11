@@ -1,6 +1,6 @@
 [% WRAPPER inc/wrapper.tt page_title='System Logs' dataTable=1 datatables_script='inc/datatables_log_list.tt' %]
-<div class="row justify-content-md-center">
-	<div class="col-md-auto">
+<div class="row">
+	<div class="col">
 	[% IF legend %]
 		<strong>Filtering by [% legend %]</strong>
 	[% END %]

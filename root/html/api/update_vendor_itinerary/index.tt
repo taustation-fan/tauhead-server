@@ -1,6 +1,6 @@
 [% WRAPPER inc/wrapper.tt page_title='Update Vendor Itinerary' %]
-<div class="row justify-content-md-center">
-	<div class="col-md-auto">
+<div class="row">
+	<div class="col-md-auto flex-md-shrink-1">
 	[% IF data_error %]
 		<code>[% input_error | html %]</code>
 	[% ELSIF form.submitted %]

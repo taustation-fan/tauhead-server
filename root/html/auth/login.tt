@@ -1,6 +1,6 @@
 [% WRAPPER inc/wrapper.tt page_title='Log In' %]
-<div class="row justify-content-md-center">
-	<div class="col-md-auto">
+<div class="row">
+	<div class="col-middle-half">
 		[% PROCESS inc/form.tt %]
 		<p>
 			<a href="[% c.uri_for('/recover-username') %]">Forgotten username</a>
