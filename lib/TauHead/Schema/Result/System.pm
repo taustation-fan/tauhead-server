@@ -25,8 +25,6 @@ __PACKAGE__->add_columns(
     { data_type => "varchar", is_nullable => 0, size => 128 },
     "slug",
     { data_type => "varchar", is_nullable => 0, size => 128 },
-    "description",
-    { data_type => "mediumtext", is_nullable => 0 },
 );
 
 __PACKAGE__->set_primary_key("id");

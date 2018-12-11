@@ -16,18 +16,6 @@
 	</div>
 </div>
 
-[% IF mission.description.length %]
-<div class="row">
-	<div class="col col-md-2 col-lg-3 offset-md-2 offset-lg-3">
-		Description
-	</div>
-	<div class="col col-md-8 col-lg-6">
-		[% mission.description | html | html_line_break %]
-		</ul>
-	</div>
-</div>
-[% END %]
-
 [% IF mission.mermaid %]
 <div class="row">
 	<div class="col offset-md-2 offset-lg-3">

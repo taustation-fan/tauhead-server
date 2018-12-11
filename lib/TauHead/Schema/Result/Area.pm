@@ -51,8 +51,6 @@ __PACKAGE__->add_columns(
     { data_type => "mediumtext", is_nullable => 1 },
     "area_description_long",
     { data_type => "mediumtext", is_nullable => 1 },
-    "description",
-    { data_type => "mediumtext", is_nullable => 0 },
 );
 
 __PACKAGE__->set_primary_key("id");

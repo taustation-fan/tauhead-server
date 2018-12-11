@@ -59,14 +59,6 @@ elements:
     label: Has Public Shuttles
     type: Checkbox
 
-  - name: description
-    label: Description
-    type: Textarea
-    rows: 8
-    constraints:
-      - type: MaxLength
-        max: 4000000
-
   - name: sort_order
     label: Sort Order
     constraints:

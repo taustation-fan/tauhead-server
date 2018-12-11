@@ -35,18 +35,6 @@
 		</div>
 		[% END %]
 
-		[% IF area.description.length %]
-		<div class="row mb-2">
-			<div class="col col-md-2 col-lg-3 offset-md-2 offset-lg-3">
-				Description
-			</div>
-			<div class="col col-md-8 col-lg-6">
-				[% area.description | html | html_line_break %]
-				</ul>
-			</div>
-		</div>
-		[% END %]
-
 		[% IF area.count_related('vendors') %]
 		<div class="row">
 			<div class="col offset-md-2 offset-lg-3">

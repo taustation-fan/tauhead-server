@@ -18,14 +18,6 @@
 	</div>
 </div>
 
-[% IF vendor.description.length %]
-<div class="row">
-	<div class="col-auto offset-md-2 offset-lg-3">
-		[% vendor.description | html | html_line_break %]
-	</div>
-</div>
-[% END %]
-
 <div class="row">
 	<div class="col-auto offset-md-2 offset-lg-3">
 		<h4>Itinerary</h4>

@@ -49,9 +49,6 @@ __PACKAGE__->add_columns(
         extra             => { list => [qw( credits bonds )] },
         is_nullable       => 0,
     },
-
-    "description",
-    { data_type => "mediumtext", is_nullable => 0 },
 );
 
 __PACKAGE__->set_primary_key("id");

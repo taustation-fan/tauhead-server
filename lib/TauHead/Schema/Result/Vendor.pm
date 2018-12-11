@@ -26,8 +26,6 @@ __PACKAGE__->add_columns(
     { data_type => "varchar", is_nullable => 0, size => 128 },
     "is_corporation",
     { data_type => "boolean", is_nullable => 0, default_value => 0 },
-    "description",
-    { data_type => "mediumtext", is_nullable => 0 },
 );
 
 __PACKAGE__->set_primary_key("id");

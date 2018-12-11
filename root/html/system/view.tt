@@ -4,13 +4,6 @@
 		<h3>[% system.name | html %]</h3>
 	</div>
 </div>
-[% IF npc.description.length %]
-<div class="row">
-	<div class="col-auto offset-md-2 offset-lg-3">
-		[% system.description | html | html_line_break %]
-	</div>
-</div>
-[% END %]
 
 <div class="row">
 	<div class="col-auto offset-md-2 offset-lg-3">

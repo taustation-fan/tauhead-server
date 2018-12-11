@@ -25,14 +25,6 @@ elements:
     constraints:
       - type: Integer
 
-  - name: description
-    label: Description
-    type: Textarea
-    rows: 8
-    constraints:
-      - type: MaxLength
-        max: 4000000
-
   - name: mermaid
     label: Mermaid JS Flowchart Markup
     type: Textarea

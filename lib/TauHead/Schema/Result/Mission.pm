@@ -25,8 +25,6 @@ __PACKAGE__->add_columns(
         extra             => { unsigned => 1 },
         is_nullable       => 1,
     },
-    "description",
-    { data_type => "mediumtext", is_nullable => 0 },
     "mermaid",
     { data_type => "mediumtext", is_nullable => 1 },
 );

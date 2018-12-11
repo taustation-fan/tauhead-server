@@ -30,14 +30,6 @@ elements:
     label: Is Corporation
     type: Checkbox
 
-  - name: description
-    label: Description
-    type: Textarea
-    rows: 8
-    constraints:
-      - type: MaxLength
-        max: 4000000
-
   - name: submit
     type: ContentButton
     field_type: submit
