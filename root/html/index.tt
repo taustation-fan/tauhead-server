@@ -6,7 +6,7 @@
 </div>
 <div class="row homepage">
 	[% FOREACH system = systems.all %]
-	<div class="col-md [% loop.parity %]">
+	<div class="col-12 col-sm-6 col-md-3 [% loop.parity %]">
 		<h4>
 			<a href="[% c.uri_for('/system', system.slug) %]">
 				[% system.name | html %]
@@ -34,20 +34,13 @@
 		</ul>
 	</div>
 	[% END %]
-	<div class="col-md area-search">
-		[% form %]
+	<div class="col-12 col-sm-6 col-md-3 order-2 order-sm-3 area-search">
+		[% stations_by_area_form %]
 	</div>
-	[% IF c.check_user_roles('admin') %]
-	<div class="w-100"></div>
-	<div class="col col-md-8 col-lg-6 offset-md-2 offset-lg-3">
-		<a href="[% c.uri_for('/system/new') %]" class="btn btn-outline-secondary btn-sm" role="button">
-			Add a new System
-		</a>
+	<div class="col-12 col-sm-6 col-md-3 order-3 order-sm-4 area-search">
+		[% route_planner_form %]
 	</div>
-	[% END %]
-</div>
-<div class="row homepage">
-	<div class="col-md latest-auctions">
+	<div class="col-12 col-md-6 order-1 order-sm-2 latest-auctions">
 		<h4>Latest Auctions</h4>
 		<table class="table">
 			<tr>
@@ -68,7 +61,7 @@
 			[% END %]
 		</table>
 	</div>
-	<div class="col-md recent-updates">
+	<div class="col-12 col-sm-6 col-md-3 order-4 order-sm-1 recent-updates">
 		<h4>Recent Updates</h4>
 		<ul class="list-group">
 			<li class="list-group-item d-flex">
@@ -77,4 +70,13 @@
 		</ul>
 	</div>
 </div>
+[% IF c.check_user_roles('admin') %]
+<div class="row">
+	<div class="col">
+		<a href="[% c.uri_for('/system/new') %]" class="btn btn-outline-secondary btn-sm" role="button">
+			Add a new System
+		</a>
+	</div>
+</div>
+[% END %]
 [% END %]

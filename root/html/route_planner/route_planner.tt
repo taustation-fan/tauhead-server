@@ -1,0 +1,36 @@
+[% WRAPPER inc/wrapper.tt page_title='Route Planner' open_iconic=1 %]
+[% IF form.submitted_and_valid %]
+<div class="row">
+	<div class="col-middle-half">
+		<h3>[%  start.name | html %] to [% end.name | html %]</h3>
+		<ul class="list-group">
+			[% FOREACH stage = route %]
+				[% IF stage.station %]
+					<li class="list-group-item">
+						<a href="[% stage.station.build_uri(c) %]">[% stage.station.name %]</a>
+					</li>
+				[% ELSE %]
+					<li class="list-group-item d-flex justify-content-between align-items-center pl-3 pl-md-5 pr-sm-3 pr-md-5">
+						<span>
+							<span class="oi oi-arrow-bottom" title="Arrow Bottom" aria-hidden="true"></span>
+							[% IF stage.interstellar %]Interstellar[% ELSE %]Local[% END %]
+						</span>
+						[% IF stage.local && !stage.has_public_shuttles %]
+							<span class="alert alert-warning my-0 py-0">
+								<span class="oi oi-info" title="Info" aria-hidden="true"></span>
+								No public shuttles
+							</span>
+						[% END %]
+					</li>
+				[% END %]
+			[% END %]
+		</ul>
+	</div>
+</div>
+[% END %]
+<div class="row">
+	<div class="col-middle-half">
+		[% PROCESS inc/form.tt no_ajax=1 %]
+	</div>
+</div>
+[% END %]

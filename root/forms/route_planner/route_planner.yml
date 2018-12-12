@@ -1,0 +1,32 @@
+---
+id: route_planner
+load_config_file:
+  - __path_to(root/forms/inc/core.yml)__
+  - __path_to(root/forms/inc/default_args.yml)__
+action: __uri_for(/route-planner)__
+
+elements:
+  type: Fieldset
+  legend: Route Planner
+  elements:
+    - name: start
+      type: '+TauHead::FormFu::Element::AllStationsSelect'
+      label: Start
+      empty_first: 1
+      constraints:
+        - Required
+        - SingleValue
+        - AutoSet
+
+    - name: end
+      type: '+TauHead::FormFu::Element::AllStationsSelect'
+      label: End
+      empty_first: 1
+      constraints:
+        - Required
+        - SingleValue
+        - AutoSet
+
+    - name: submit
+      type: Submit
+      value: Search

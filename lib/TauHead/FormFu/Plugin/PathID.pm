@@ -6,6 +6,9 @@ sub pre_process {
     my ($self) = @_;
 
     my $form = $self->form;
+
+    return if defined $form->id && length $form->id;
+
     my $req  = $form->stash->{context}->request;
     my $path = "formfu_" . $req->path;
 

@@ -1,7 +1,7 @@
 ---
 default_args:
   elements:
-    'Email|Text|Textarea|Select|Password|TauHead::FormFu::Element::NewPassword|TauHead::FormFu::Element::JSON':
+    'Email|Text|Textarea|Select|Password|TauHead::FormFu::Element::NewPassword|TauHead::FormFu::Element::JSON|TauHead::FormFu::Element::AllStationsSelect':
       auto_label: '%n'
       container_attrs:
         class: form-group

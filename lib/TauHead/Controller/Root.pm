@@ -28,7 +28,7 @@ The root page (/)
 
 =cut
 
-sub index :Path :Args(0) :FormConfig('stations_by_area/stations_by_area') {
+sub index :Path :Args(0) :Form {
     my ( $self, $c ) = @_;
 
     my $model = $c->model('DB');
@@ -65,6 +65,16 @@ sub index :Path :Args(0) :FormConfig('stations_by_area/stations_by_area') {
             order_by => [ \'(me.price/me.quantity)', { -desc => 'me.last_seen_datetime' } ],
         }
     );
+
+    my $form1 = $self->form->clone;
+    $form1->load_config_filestem('stations_by_area/stations_by_area');
+    $form1->process;
+    $c->stash->{stations_by_area_form} = $form1;
+
+    my $form2 = $self->form->clone;
+    $form2->load_config_filestem('route_planner/route_planner');
+    $form2->process;
+    $c->stash->{route_planner_form} = $form2;
 
     return;
 }

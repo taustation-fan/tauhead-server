@@ -1,4 +1,5 @@
 ---
+id: stations_by_area
 load_config_file:
   - __path_to(root/forms/inc/core.yml)__
   - __path_to(root/forms/inc/default_args.yml)__
