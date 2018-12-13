@@ -142,6 +142,7 @@ form .list-group .list-group .list-group-item {
 	.odd,
 	.even,
 	.area-search,
+	.route-planner,
 	.latest-auctions,
 	.recent-updates {
 		z-index: 1;
@@ -149,6 +150,7 @@ form .list-group .list-group .list-group-item {
 	.odd:after,
 	.even:after,
         .area-search:after,
+	.route-planner:after,
 	.latest-auctions:after,
 	.recent-updates:after {
 		content: "";
@@ -174,6 +176,11 @@ form .list-group .list-group .list-group-item {
 		background-size: cover;
 		background-position-x: left;
 		background-image: url(/static/images/landing_hero_huge.jpg);
+	}
+	.route-planner:after {
+		background-size: cover;
+		background-position-x: left;
+		background-image: url(/static/images/travel-bg.jpg);
 	}
 	.latest-auctions:after {
 		background-size: cover;
