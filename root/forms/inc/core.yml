@@ -6,6 +6,7 @@ attrs:
 
 plugin:
   - '+TauHead::FormFu::Plugin::PathID'
+  - '+TauHead::FormFu::Plugin::ReplaceQueryAfterLogin'
 
 roles:
   - JQueryValidation

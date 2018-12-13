@@ -1,11 +1,15 @@
 package TauHead::BaseController;
 use Moose;
 
+use Data::GUID::URLSafe;
 use DateTime;
 use JSON::MaybeXS;
 use MIME::Lite;
+use Storable qw( nfreeze );
 use Try::Tiny;
 use TauHead::Util qw( html2text );
+use URI;
+use URI::QueryParam;
 
 extends 'Catalyst::Controller::HTML::FormFu';
 
@@ -174,11 +178,21 @@ sub require_login {
 
     return 1 if $c->user_exists;
 
+    my $return = $c->request->uri->clone;
+
+    if ( 'POST' eq $c->req->method ) {
+        my $guid = Data::GUID->new->as_base64_urlsafe;
+
+        $c->session->{"restore_$guid"} = nfreeze( $c->req->params );
+
+        $return->query_param( restore => $guid );
+    }
+
     $c->response->redirect(
         $c->uri_for(
             "/login",
             {
-                return => $c->request->uri->as_string,
+                return => $return->as_string,
             },
         ),
     );

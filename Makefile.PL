@@ -47,6 +47,7 @@ requires 'MIME::Lite';
 requires 'POSIX';
 requires 'Proc::ProcessTable';
 requires 'Scalar::Util';
+requires 'Storable';
 requires 'Template::Plugin::HtmlToText';
 requires 'Try::Tiny';
 requires 'URI::Find::Schemeless';
