@@ -6,8 +6,22 @@
 		<ul class="list-group">
 			[% FOREACH stage = route %]
 				[% IF stage.station %]
-					<li class="list-group-item">
+					<li class="list-group-item d-flex justify-content-between align-items-center pl-3 pl-md-5 pr-sm-3 pr-md-5">
 						<a href="[% stage.station.build_uri(c) %]">[% stage.station.name %]</a>
+						[% IF 0 == stage.station.search_related_rs('areas', {slug => 'sickbay'}).count %]
+							<span class="alert alert-warning my-0 py-0">
+								<span class="oi oi-info" title="Info" aria-hidden="true"></span>
+								No Sickbay
+							</span>
+
+						[% END %]
+						[% IF 0 == stage.station.search_related_rs('areas', {slug => 'inn'}).count %]
+							<span class="alert alert-warning my-0 py-0">
+								<span class="oi oi-info" title="Info" aria-hidden="true"></span>
+								No Inn
+							</span>
+
+						[% END %]
 					</li>
 				[% ELSE %]
 					<li class="list-group-item d-flex justify-content-between align-items-center pl-3 pl-md-5 pr-sm-3 pr-md-5">
