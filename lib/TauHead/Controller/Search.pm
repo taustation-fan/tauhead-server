@@ -8,11 +8,11 @@ our @SEARCH_FIELDS = (
     # ResultSet  # search fields           # order
     [ Item    => [qw( name description )], 'name' ],
     [ NPC     => [qw( name description )], 'name' ],
-    [ Mission => [qw( name description )], 'name' ],
-    [ Vendor  => [qw( name description )], 'name' ],
-    [ Area    => [qw( name description )], 'name' ],
-    [ Station => [qw( name description )], 'name' ],
-    [ System  => [qw( name description )], 'name' ],
+    [ Mission => [qw( name )], 'name' ],
+    [ Vendor  => [qw( name )], 'name' ],
+    [ Area    => [qw( name area_description_short area_description_long )], 'name' ],
+    [ Station => [qw( name )], 'name' ],
+    [ System  => [qw( name )], 'name' ],
 );
 
 sub search : Chained('/') : Args(0) {
