@@ -301,7 +301,11 @@ html {
 	min-height: 100%;
 }
 
-footer {
+body {
+	margin-bottom: $footer-height;
+}
+
+.footer {
 	position: absolute;
 	bottom: 0;
 	height: $footer-height;
