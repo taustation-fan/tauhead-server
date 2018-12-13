@@ -10,14 +10,14 @@ sub route_planner : Path('/route-planner') : Args(0) : FormConfig {
 sub route_planner_FORM_VALID {
 	my ( $self, $c ) = @_;
 
-	my $form     = $c->stash->{form};
-	my $start_id = $form->param_value('start');
-	my $end_id   = $form->param_value('end');
+	my $form       = $c->stash->{form};
+	my $start_slug = $form->param_value('start');
+	my $end_slug   = $form->param_value('end');
 
 	my $station_rs = $c->model('DB')->resultset('Station');
 
-	my $start = $station_rs->find($start_id);
-	my $end   = $station_rs->find($end_id);
+	my $start = $station_rs->find({ slug => $start_slug });
+	my $end   = $station_rs->find({ slug => $end_slug });
 
 	my $this_start = $start;
 	my $this_end   = $end;

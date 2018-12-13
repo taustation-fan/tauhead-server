@@ -19,7 +19,7 @@ after BUILD => sub {
         my $ignore = $self->form->stash->{c}->stash->{station};
 
         if ($ignore) {
-            $cond{'me.id'} = { '!=' => $ignore->id };
+            $cond{'me.slug'} = { '!=' => $ignore->slug };
         }
     }
 
@@ -38,7 +38,7 @@ after BUILD => sub {
       my $system  = $station->system;
 
       push @options, [
-        $station->id,
+        $station->slug,
         sprintf( "%s, %s", $station->name, $system->name ),
       ];
     };
