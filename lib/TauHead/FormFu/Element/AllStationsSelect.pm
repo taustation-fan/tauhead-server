@@ -26,7 +26,7 @@ after BUILD => sub {
     my $station_rs = $rs->search(
       \%cond,
       {
-        prefetch => {'system'},
+        prefetch => 'system',
         order_by => [
             'system.sort_order',
             'me.sort_order',
