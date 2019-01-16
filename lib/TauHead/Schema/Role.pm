@@ -90,4 +90,33 @@ sub export_col_vals {
     return \@return;
 }
 
+sub json_export_columns {
+    my ( $self ) = @_;
+
+    my $info = $self->columns_info;
+    my @export;
+
+    for my $col ( $self->columns ) {
+        next unless exists $info->{$col}{extra}
+            && $info->{$col}{extra}{json_export};
+
+        push @export, $col;
+    }
+
+    return \@export;
+}
+
+sub json_export_hashref {
+    my ( $self ) = @_;
+
+    my %data = $self->get_columns;
+    my %return;
+
+    for my $col ( @{ $self->json_export_columns } ) {
+        $return{$col} = $data{$col};
+    }
+
+    return \%return;
+}
+
 1;

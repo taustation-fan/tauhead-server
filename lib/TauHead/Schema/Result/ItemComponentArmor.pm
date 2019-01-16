@@ -27,6 +27,7 @@ __PACKAGE__->add_columns(
             th_display => 1,
             th_display_ignore_false => 1,
             th_export => 1,
+            json_export => 1,
         },
     },
     "impact",
@@ -38,6 +39,7 @@ __PACKAGE__->add_columns(
             th_display => 1,
             th_display_ignore_false => 1,
             th_export => 1,
+            json_export => 1,
         },
     },
     "piercing",
@@ -49,6 +51,7 @@ __PACKAGE__->add_columns(
             th_display => 1,
             th_display_ignore_false => 1,
             th_export => 1,
+            json_export => 1,
         },
     },
 );

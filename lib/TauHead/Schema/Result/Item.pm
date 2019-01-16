@@ -16,6 +16,7 @@ __PACKAGE__->add_columns(
         size => 128,
         extra => {
             th_export => 1,
+            json_export => 1,
         },
     },
     "name",
@@ -25,6 +26,7 @@ __PACKAGE__->add_columns(
         size => 128,
         extra => {
             th_export => 1,
+            json_export => 1,
         },
     },
     "slug",
@@ -34,6 +36,7 @@ __PACKAGE__->add_columns(
         size => 128,
         extra => {
             th_export => 1,
+            json_export => 1,
         },
     },
     "image",
@@ -43,6 +46,7 @@ __PACKAGE__->add_columns(
         size => 128,
         extra => {
             th_export => 1,
+            json_export => 1,
         },
     },
 
@@ -53,6 +57,7 @@ __PACKAGE__->add_columns(
         extra => {
             th_display => 1,
             th_export => 1,
+            json_export => 1,
         },
     },
 
@@ -74,6 +79,7 @@ __PACKAGE__->add_columns(
             th_display => 1,
             th_display_ignore_false => 1,
             th_export => 1,
+            json_export => 1,
         },
     },
 
@@ -84,6 +90,7 @@ __PACKAGE__->add_columns(
         extra => {
             th_display => 1,
             th_export => 1,
+            json_export => 1,
         },
     },
 
@@ -94,6 +101,7 @@ __PACKAGE__->add_columns(
             list => [qw( common uncommon rare epic heirloom )],
             th_display => 1,
             th_export => 1,
+            json_export => 1,
         },
     },
 
@@ -104,6 +112,7 @@ __PACKAGE__->add_columns(
         extra => {
             th_display => 1,
             th_export => 1,
+            json_export => 1,
         },
     },
 
