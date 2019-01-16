@@ -27,14 +27,15 @@ sub list : Path('') : Args(0) : FormConfig {
         },
     );
 
-    # my %params = (
+    my %params = (
+        stale => 1,
     #     ip_address  => sub { sprintf "IP Address: %s", html2text( $_[0] ) },
     #     user_id     => sub { sprintf "user #%d", html2text( $_[0] ) },
     #     guid        => sub { sprintf "GUID: %s", html2text( $_[0] ) },
     #     owner_id    => sub { sprintf "association with user #%d", html2text( $_[0] ) },
-    # );
+    );
 
-    $c->stash->{known_params} = [];#[ keys %params ];
+    $c->stash->{known_params} = [ keys %params ];
 
     my %cond = (
         'vendor_items.id' => [
@@ -55,6 +56,10 @@ sub list : Path('') : Args(0) : FormConfig {
             }
         ]
     );
+
+    if ( $c->request->param('stale') ) {
+        $cond{'description'} = '';
+    }
     # for my $param ( keys %params ) {
     #     if ( my $query = scalar $c->request->param( $param ) ) {
     #         $cond{$param} = $query;
