@@ -8,8 +8,15 @@ BEGIN { extends 'TauHead::BaseController' }
 sub item : Chained('/') : CaptureArgs(1) {
     my ( $self, $c, $slug ) = @_;
 
-    my $item = $c->model('DB')->resultset('Item')->find( { slug => $slug } )
-        or return $self->not_found($c);
+    my $item = $c->model('DB')->resultset('Item')->search(
+        { slug => $slug },
+        {
+            prefetch => [ map { 'item_component_'.$_ } qw( armor medical mod weapon ) ],
+        }
+    )->first;
+
+    return $self->not_found($c)
+        if !$item;
 
     $c->stash->{item} = $item;
 }
@@ -19,7 +26,27 @@ sub view : PathPart('') : Chained('item') : Args(0) {
 
     my $item = $c->stash->{item};
 
+    if ( $c->request->accepts('application/json') )  {
+        return $self->_view_json($c);
+    }
+
     $c->stash->{disqus_url} = $c->uri_for( '/item', $item->slug );
+}
+
+sub _view_json {
+    my ( $self, $c ) = @_;
+
+    my $item = $c->stash->{item};
+
+    my $out = $item->json_export_hashref;
+
+    for my $rel_name (map { 'item_component_'.$_ } qw( armor medical mod weapon )) {
+        if ( my $rel = $item->$rel_name ) {
+            $out->{$rel_name} = $rel->json_export_hashref;
+        }
+    }
+
+    $c->stash->{rest} = $out;
 }
 
 sub download : Path('/item/download') : Args(0) : FormConfig {
@@ -73,7 +100,7 @@ sub download_FORM_VALID {
     $c->detach;
 }
 
-sub end : ActionClass('RenderView') { }
+sub end : ActionClass('Serialize') { }
 
 __PACKAGE__->meta->make_immutable;
 
