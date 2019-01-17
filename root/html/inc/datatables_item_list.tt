@@ -14,7 +14,7 @@ $(document).ready(function(){
 		"aaSorting"   : [], // don't sort results returned by server
 		"autoWidth"   : false,
 		"columnDefs"  : [
-			{ "orderable": false, "targets": 6 } // don't allow sorting by in-game link
+			{ "orderable": false, "targets": [% column_labels.max %] }[%# don't allow sorting by in-game link %]
 		]
 	});
 });
