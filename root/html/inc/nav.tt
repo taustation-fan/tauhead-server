@@ -11,8 +11,25 @@
 			<li class="nav-item">
 				<a href="[% c.uri_for('/vendor/list') %]" class="nav-link">Vendors</a>
 			</li>
-			<li class="nav-item">
-				<a href="[% c.uri_for('/item/list') %]" class="nav-link">Items</a>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarItemsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Items <b class="caret"></b>
+				</a>
+				<div class="dropdown-menu" aria-labelledby="navbarAdminDropdown">
+					<a class="dropdown-item" href="[% c.uri_for('/item/list', {'item_type' => 'weapon'}) %]">Weapon</a>
+					<a class="dropdown-item" href="[% c.uri_for('/item/list', {'item_type' => 'armor'}) %]">Armor</a>
+					<a class="dropdown-item" href="[% c.uri_for('/item/list', {'item_type' => 'medical'}) %]">Medical</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="[% c.uri_for('/item/list', {'item_type' => 'blueprint'}) %]">Blueprint</a>
+					<a class="dropdown-item" href="[% c.uri_for('/item/list', {'item_type' => 'event'}) %]">Event</a>
+					<a class="dropdown-item" href="[% c.uri_for('/item/list', {'item_type' => 'mission'}) %]">Mission</a>
+					<a class="dropdown-item" href="[% c.uri_for('/item/list', {'item_type' => 'mod'}) %]">Mod</a>
+					<a class="dropdown-item" href="[% c.uri_for('/item/list', {'item_type' => 'ration'}) %]">Ration</a>
+					<a class="dropdown-item" href="[% c.uri_for('/item/list', {'item_type' => 'trade-good'}) %]">Trade Good</a>
+					<a class="dropdown-item" href="[% c.uri_for('/item/list', {'item_type' => 'vip'}) %]">VIP</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="[% c.uri_for('/item/list') %]">All Items</a>
+				</div>
 			</li>
 			<li class="nav-item">
 				<a href="[% c.uri_for('/npc/list') %]" class="nav-link">NPCs</a>

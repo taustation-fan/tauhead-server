@@ -27,15 +27,11 @@ sub list : Path('') : Args(0) : FormConfig {
         },
     );
 
-    my %params = (
-        stale => 1,
-    #     ip_address  => sub { sprintf "IP Address: %s", html2text( $_[0] ) },
-    #     user_id     => sub { sprintf "user #%d", html2text( $_[0] ) },
-    #     guid        => sub { sprintf "GUID: %s", html2text( $_[0] ) },
-    #     owner_id    => sub { sprintf "association with user #%d", html2text( $_[0] ) },
+    my @known_params = qw(
+        stale
+        item_type
     );
-
-    $c->stash->{known_params} = [ keys %params ];
+    $c->stash->{known_params} = \@known_params;
 
     my %cond = (
         'vendor_items.id' => [
@@ -60,15 +56,17 @@ sub list : Path('') : Args(0) : FormConfig {
     if ( $c->request->param('stale') ) {
         $cond{'description'} = '';
     }
-    # for my $param ( keys %params ) {
-    #     if ( my $query = scalar $c->request->param( $param ) ) {
-    #         $cond{$param} = $query;
-    #         try {
-    #             $c->stash->{legend} = $params{$param}->( $query );
-    #         };
-    #         last;
-    #     }
-    # }
+
+    my $item_type = scalar $c->request->param('item_type');
+    my $type;
+    if ( defined( $item_type )
+        && ( $item_type =~ /^[a-z-]+\z/ )
+        && ( $type = $c->model('DB')->resultset('ItemType')->find({ slug => $item_type }) )
+        )
+    {
+        $cond{'item_type_slug'} = $item_type;
+        $c->stash->{legend} = $type->name;
+    }
 
     return unless $c->request->accepts('application/json');
 
