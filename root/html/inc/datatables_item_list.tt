@@ -54,9 +54,22 @@ $(document).ready(function(){
 				select.append( '<option value="[% rarity %]">[% rarity %]</option>' );
 				[% END %]
 			});
+			[%# Vendor Sold filter %]
+			this.api().columns(3).every(function() {
+				var column = this;
+				var select = $('<select><option value="">Search</option></select>')
+					.appendTo( $(column.footer()).empty() )
+					.on( 'change', function() {
+						column
+							.search( $(this).val(), false, false )
+							.draw();
+					} );
+				select.append( '<option value="Yes">Yes</option>' );
+				select.append( '<option value="No">No</option>' );
+			});
 			[%# Weapon-Type filer %]
 			[% IF item_type == 'weapon' %]
-			this.api().columns(3).every(function() {
+			this.api().columns(4).every(function() {
 				var column = this;
 				var select = $('<select><option value="">Search</option></select>')
 					.appendTo( $(column.footer()).empty() )

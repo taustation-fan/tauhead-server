@@ -11,11 +11,12 @@ sub list : Path('') : Args(0) : FormConfig {
     my ( $self, $c ) = @_;
 
     my $default_columns = [
-        [ 'me.name'   => 'Name' ],
-        [ 'me.tier'   => 'Tier' ],
-        [ 'me.rarity' => 'Rarity' ],
-        [ 'me.value'  => 'Value' ],
-        [ 'me.mass'   => 'Mass' ],
+        [ 'me.name'         => 'Name' ],
+        [ 'me.tier'         => 'Tier' ],
+        [ 'me.rarity'       => 'Rarity' ],
+        [ 'vendor_items.id' => 'Vendor Sold' ],
+        [ 'me.value'        => 'Value' ],
+        [ 'me.mass'         => 'Mass' ],
     ];
 
     my %item_type_search = (
@@ -25,6 +26,7 @@ sub list : Path('') : Args(0) : FormConfig {
                 [ 'me.name'   => 'Name' ],
                 [ 'me.tier'   => 'Tier' ],
                 [ 'me.rarity' => 'Rarity' ],
+                [ 'vendor_items.id' => 'Vendor Sold' ],
                 [ 'item_component_armor.energy'   => 'Energy' ],
                 [ 'item_component_armor.impact'   => 'Impact' ],
                 [ 'item_component_armor.piercing' => 'Piercing' ],
@@ -36,6 +38,7 @@ sub list : Path('') : Args(0) : FormConfig {
                 [ 'me.name'   => 'Name' ],
                 [ 'me.tier'   => 'Tier' ],
                 [ 'me.rarity' => 'Rarity' ],
+                [ 'vendor_items.id' => 'Vendor Sold' ],
                 [ 'item_component_medical.base_toxicity'  => 'Toxicity' ],
                 [ 'item_component_medical.strength_boost' => 'Str' ],
                 [ 'item_component_medical.agility_boost'  => 'Agi' ],
@@ -48,11 +51,12 @@ sub list : Path('') : Args(0) : FormConfig {
                 [ 'me.name'   => 'Name' ],
                 [ 'me.tier'   => 'Tier' ],
                 [ 'me.rarity' => 'Rarity' ],
-                [ 'item_component_weapon.weapon_type' => 'Type' ],
+                [ 'vendor_items.id' => 'Vendor Sold' ],
+                [ 'item_component_weapon.weapon_type'     => 'Type' ],
                 [ 'item_component_weapon.energy_damage'   => 'Energy' ],
                 [ 'item_component_weapon.impact_damage'   => 'Impact' ],
                 [ 'item_component_weapon.piercing_damage' => 'Piercing' ],
-                [ 'item_component_weapon.accuracy'    => 'Accuracy' ],
+                [ 'item_component_weapon.accuracy'        => 'Accuracy' ],
             ],
         },
     );
@@ -74,7 +78,7 @@ sub list : Path('') : Args(0) : FormConfig {
                     }
                 )->get_column('weapon_type');
 
-                my $search_weapon = scalar $c->request->param('sSearch_3');
+                my $search_weapon = scalar $c->request->param('sSearch_4');
                 if ( defined( $search_weapon ) && $search_weapon =~ /^[\w\s]+\z/ ) {
                     $search_cond{'item_component_weapon.weapon_type'} = $search_weapon;
                 }
@@ -83,11 +87,11 @@ sub list : Path('') : Args(0) : FormConfig {
         $item_type = $c->model('DB')->resultset('ItemType')->find({ slug => $item_type });
     }
 
-    my @add_join;
+    my @join_columns = qw( vendor_items );
     my @use_columns;
     if ( $item_type && exists $item_type_search{ $item_type->slug } ) {
         my $spec = $item_type_search{ $item_type->slug };
-        push @add_join, $spec->{join};
+        push @join_columns, $spec->{join};
         @use_columns = @{ $spec->{columns} };
     }
     else {
@@ -117,6 +121,45 @@ sub list : Path('') : Args(0) : FormConfig {
         $search_cond{'me.rarity'} = $rarity;
     }
 
+    my $vendor_sold = scalar $c->request->param('sSearch_3');
+    if ( defined( $vendor_sold )  && 'Yes' eq $vendor_sold ) {
+        $search_cond{'vendor_items.id'} = [
+            {
+                '=' => $c->model('DB')->resultset('VendorItem')->search(
+                    {
+                        'item_slug' => { -ident => 'me.slug' },
+                    },
+                    {
+                        alias    => 'vi',
+                        group_by => ['vi.id'],
+                        rows     => 1,
+                    },
+                )->get_column('id')->as_query,
+            }
+        ];
+    }
+    elsif ( defined( $vendor_sold )  && 'No' eq $vendor_sold ) {
+        $search_cond{'vendor_items.id'} = undef;
+    }
+    else {
+        $search_cond{'vendor_items.id'} = [
+            '-or' => {
+                '=' => $c->model('DB')->resultset('VendorItem')->search(
+                    {
+                        'item_slug' => { -ident => 'me.slug' },
+                    },
+                    {
+                        alias    => 'vi',
+                        group_by => ['vi.id'],
+                        rows     => 1,
+                    },
+                )->get_column('id')->as_query,
+            }, {
+                '=' => undef,
+            }
+        ];
+    }
+
     if ( $c->request->param('stale') ) {
         $search_cond{description} = '';
     }
@@ -126,8 +169,8 @@ sub list : Path('') : Args(0) : FormConfig {
         $c->stash->{legend} = $item_type->name;
     }
 
-    if ( @add_join ) {
-        $search_attrs{join} = \@add_join;
+    if ( @join_columns ) {
+        $search_attrs{join} = \@join_columns;
     }
 
     $c->stash->{column_labels} = [
@@ -184,6 +227,9 @@ sub list : Path('') : Args(0) : FormConfig {
                 push @cols, sprintf q{<a href="%s" class="list-title">%s</a>},
                     $c->uri_for( '/item', $item->slug )->as_string,
                     $item->name;
+            }
+            elsif ( 'vendor_items_id' eq $column ) {
+                push @cols, ( $item->get_column('vendor_items_id') ? 'Yes' : 'No' );
             }
             else {
                 push @cols, $item->get_column($column);
