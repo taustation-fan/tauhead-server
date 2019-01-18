@@ -14,6 +14,13 @@
 			</thead>
 			<tbody>
 			</tbody>
+			<tfoot>
+				<tr>
+				[% FOR label IN column_labels %]
+					<th></th>
+				[% END %]
+				</tr>
+			</tfoot>
 		</table>
 	</div>
 </div>
