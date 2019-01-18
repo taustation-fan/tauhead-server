@@ -54,7 +54,6 @@ sub list : Path('') : Args(0) : FormConfig {
     );
 
     my %search_cond = ();
-    my $item_rs = $c->model('DB')->resultset('Item');
 
     my $item_type = scalar $c->request->param('item_type');
     if ( defined( $item_type ) && $item_type =~ /^[a-z-]+\z/ ) {
@@ -127,7 +126,11 @@ sub list : Path('') : Args(0) : FormConfig {
         'In-game Link',
     ];
 
-    $c->stash->{max_tier} = $item_rs->get_column('tier')->max;
+    my $max_tier_rs = $c->model('DB')->resultset('Item');
+    if ( $item_type ) {
+        $max_tier_rs = $max_tier_rs->search({ item_type_slug => $item_type->slug });
+    }
+    $c->stash->{max_tier} = $max_tier_rs->get_column('tier')->max;
 
     return unless $c->request->accepts('application/json');
 
@@ -144,7 +147,7 @@ sub list : Path('') : Args(0) : FormConfig {
         %{ $dataTablesParams{attrs} },
     );
 
-    my $rs = $item_rs->search(
+    my $rs = $c->model('DB')->resultset('Item')->search(
         \%search_cond,
         \%search_attrs,
     );
