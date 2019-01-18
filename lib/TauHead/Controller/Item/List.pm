@@ -11,18 +11,20 @@ sub list : Path('') : Args(0) : FormConfig {
     my ( $self, $c ) = @_;
 
     my $default_columns = [
-        [ 'me.name'  => 'Name' ],
-        [ 'me.tier'  => 'Tier' ],
-        [ 'me.value' => 'Value' ],
-        [ 'me.mass'  => 'Mass' ],
+        [ 'me.name'   => 'Name' ],
+        [ 'me.tier'   => 'Tier' ],
+        [ 'me.rarity' => 'Rarity' ],
+        [ 'me.value'  => 'Value' ],
+        [ 'me.mass'   => 'Mass' ],
     ];
 
     my %item_type_search = (
         armor => {
             join => 'item_component_armor',
             columns => [
-                [ 'me.name'  => 'Name' ],
-                [ 'me.tier'  => 'Tier' ],
+                [ 'me.name'   => 'Name' ],
+                [ 'me.tier'   => 'Tier' ],
+                [ 'me.rarity' => 'Rarity' ],
                 [ 'item_component_armor.energy'   => 'Energy' ],
                 [ 'item_component_armor.impact'   => 'Impact' ],
                 [ 'item_component_armor.piercing' => 'Piercing' ],
@@ -31,8 +33,9 @@ sub list : Path('') : Args(0) : FormConfig {
         medical => {
             join => 'item_component_medical',
             columns => [
-                [ 'me.name'  => 'Name' ],
-                [ 'me.tier'  => 'Tier' ],
+                [ 'me.name'   => 'Name' ],
+                [ 'me.tier'   => 'Tier' ],
+                [ 'me.rarity' => 'Rarity' ],
                 [ 'item_component_medical.base_toxicity'  => 'Toxicity' ],
                 [ 'item_component_medical.strength_boost' => 'Str' ],
                 [ 'item_component_medical.agility_boost'  => 'Agi' ],
@@ -42,8 +45,9 @@ sub list : Path('') : Args(0) : FormConfig {
         weapon => {
             join => 'item_component_weapon',
             columns => [
-                [ 'me.name'  => 'Name' ],
-                [ 'me.tier'  => 'Tier' ],
+                [ 'me.name'   => 'Name' ],
+                [ 'me.tier'   => 'Tier' ],
+                [ 'me.rarity' => 'Rarity' ],
                 [ 'item_component_weapon.weapon_type' => 'Type' ],
                 [ 'item_component_weapon.energy_damage'   => 'Energy' ],
                 [ 'item_component_weapon.impact_damage'   => 'Impact' ],
@@ -70,7 +74,7 @@ sub list : Path('') : Args(0) : FormConfig {
                     }
                 )->get_column('weapon_type');
 
-                my $search_weapon = scalar $c->request->param('sSearch_2');
+                my $search_weapon = scalar $c->request->param('sSearch_3');
                 if ( defined( $search_weapon ) && $search_weapon =~ /^[\w\s]+\z/ ) {
                     $search_cond{'item_component_weapon.weapon_type'} = $search_weapon;
                 }
@@ -108,6 +112,11 @@ sub list : Path('') : Args(0) : FormConfig {
         $search_cond{'me.tier'} = $tier;
     }
 
+    my $rarity = scalar $c->request->param('sSearch_2');
+    if ( defined( $rarity )  && $rarity =~ /^[\w]+\z/ ) {
+        $search_cond{'me.rarity'} = $rarity;
+    }
+
     if ( $c->request->param('stale') ) {
         $search_cond{description} = '';
     }
@@ -131,6 +140,20 @@ sub list : Path('') : Args(0) : FormConfig {
         $max_tier_rs = $max_tier_rs->search({ item_type_slug => $item_type->slug });
     }
     $c->stash->{max_tier} = $max_tier_rs->get_column('tier')->max;
+
+    my $rarity_rs = $c->model('DB')->resultset('Item')->search(
+        undef,
+        {
+            select   => ['rarity'],
+            as       => ['rarity'],
+            distinct => 1,
+            order_by => ['rarity'],
+        }
+    );
+    if ( $item_type ) {
+        $rarity_rs = $rarity_rs->search({ item_type_slug => $item_type->slug });
+    }
+    $c->stash->{rarities} = $rarity_rs->get_column('rarity');
 
     return unless $c->request->accepts('application/json');
 

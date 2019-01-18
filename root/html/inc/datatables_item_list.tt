@@ -24,6 +24,7 @@ $(document).ready(function(){
 			}
 		],
 		initComplete: function() {
+			[%# Tier filter %]
 			this.api().columns(1).every(function() {
 				var column = this;
 				var select = $('<select><option value="">Search</option></select>')
@@ -38,8 +39,24 @@ $(document).ready(function(){
 					select.append( '<option value="' + i + '">' + i + '</option>' );
 				}
 			});
-			[% IF item_type == 'weapon' %]
+			[%# Rarity filter %]
 			this.api().columns(2).every(function() {
+				var column = this;
+				var select = $('<select><option value="">Search</option></select>')
+					.appendTo( $(column.footer()).empty() )
+					.on( 'change', function() {
+						column
+							.search( $(this).val(), false, false )
+							.draw();
+					} );
+				var max_tier = [% max_tier %];
+				[% FOR rarity IN rarities.all %]
+				select.append( '<option value="[% rarity %]">[% rarity %]</option>' );
+				[% END %]
+			});
+			[%# Weapon-Type filer %]
+			[% IF item_type == 'weapon' %]
+			this.api().columns(3).every(function() {
 				var column = this;
 				var select = $('<select><option value="">Search</option></select>')
 					.appendTo( $(column.footer()).empty() )
