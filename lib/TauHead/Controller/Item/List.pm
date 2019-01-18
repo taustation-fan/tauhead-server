@@ -44,11 +44,11 @@ sub list : Path('') : Args(0) : FormConfig {
             columns => [
                 [ 'me.name'  => 'Name' ],
                 [ 'me.tier'  => 'Tier' ],
+                [ 'item_component_weapon.weapon_type' => 'Type' ],
                 [ 'item_component_weapon.energy_damage'   => 'Energy' ],
                 [ 'item_component_weapon.impact_damage'   => 'Impact' ],
                 [ 'item_component_weapon.piercing_damage' => 'Piercing' ],
                 [ 'item_component_weapon.accuracy'    => 'Accuracy' ],
-                [ 'item_component_weapon.weapon_type' => 'Type' ],
             ],
         },
     );
@@ -70,7 +70,7 @@ sub list : Path('') : Args(0) : FormConfig {
                     }
                 )->get_column('weapon_type');
 
-                my $search_weapon = scalar $c->request->param('sSearch_6');
+                my $search_weapon = scalar $c->request->param('sSearch_2');
                 if ( defined( $search_weapon ) && $search_weapon =~ /^[\w\s]+\z/ ) {
                     $search_cond{'item_component_weapon.weapon_type'} = $search_weapon;
                 }
