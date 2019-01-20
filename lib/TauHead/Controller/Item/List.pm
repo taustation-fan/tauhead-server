@@ -52,6 +52,7 @@ sub list : Path('') : Args(0) : FormConfig {
                 [ 'me.tier'   => 'Tier' ],
                 [ 'me.rarity' => 'Rarity' ],
                 [ 'vendor_items.id' => 'Vendor Sold' ],
+                [ 'item_component_weapon.is_long_range'   => 'Long Range' ],
                 [ 'item_component_weapon.weapon_type'     => 'Type' ],
                 [ 'item_component_weapon.energy_damage'   => 'Energy' ],
                 [ 'item_component_weapon.impact_damage'   => 'Impact' ],
@@ -78,7 +79,12 @@ sub list : Path('') : Args(0) : FormConfig {
                     }
                 )->get_column('weapon_type');
 
-                my $search_weapon = scalar $c->request->param('sSearch_4');
+                my $long_range = scalar $c->request->param('sSearch_4');
+                if ( defined( $long_range ) && $long_range =~ /^[01]\z/ ) {
+                    $search_cond{'item_component_weapon.is_long_range'} = $long_range;
+                }
+
+                my $search_weapon = scalar $c->request->param('sSearch_5');
                 if ( defined( $search_weapon ) && $search_weapon =~ /^[\w\s]+\z/ ) {
                     $search_cond{'item_component_weapon.weapon_type'} = $search_weapon;
                 }

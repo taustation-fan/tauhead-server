@@ -67,21 +67,34 @@ $(document).ready(function(){
 				select.append( '<option value="Yes">Yes</option>' );
 				select.append( '<option value="No">No</option>' );
 			});
-			[%# Weapon-Type filer %]
 			[% IF item_type == 'weapon' %]
-			this.api().columns(4).every(function() {
-				var column = this;
-				var select = $('<select><option value="">Search</option></select>')
-					.appendTo( $(column.footer()).empty() )
-					.on( 'change', function() {
-						column
-							.search( $(this).val(), false, false )
-							.draw();
-					} );
-				[% FOR weapon_type IN weapon_types.all %]
-				select.append( '<option value="[% weapon_type %]">[% weapon_type %]</option>' );
-				[% END %]
-			});
+				[%# Long range filter %]
+				this.api().columns(4).every(function() {
+					var column = this;
+					var select = $('<select><option value="">Search</option></select>')
+						.appendTo( $(column.footer()).empty() )
+						.on( 'change', function() {
+							column
+								.search( $(this).val(), false, false )
+								.draw();
+						} );
+					select.append( '<option value="0">0</option>' );
+					select.append( '<option value="1">1</option>' );
+				});
+				[%# Weapon-Type filter %]
+				this.api().columns(5).every(function() {
+					var column = this;
+					var select = $('<select><option value="">Search</option></select>')
+						.appendTo( $(column.footer()).empty() )
+						.on( 'change', function() {
+							column
+								.search( $(this).val(), false, false )
+								.draw();
+						} );
+					[% FOR weapon_type IN weapon_types.all %]
+					select.append( '<option value="[% weapon_type %]">[% weapon_type %]</option>' );
+					[% END %]
+				});
 			[% END %]
 		}
 	});
