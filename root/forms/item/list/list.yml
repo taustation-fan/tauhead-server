@@ -1,3 +1,41 @@
 ---
 load_config_file:
   - __path_to(root/forms/inc/wrapper_datatables.yml)__
+
+elements:
+  - name: item_type
+    constraints:
+      - type: Regex
+        regex: '[a-z-]+'
+        anchored: 1
+
+  - name: sSearch_1
+    comment: Tier
+    constraints:
+      - type: Integer
+
+  - name: sSearch_2
+    comment: Rarity
+    constraints:
+      - type: Regex
+        regex: '[\w]+'
+        anchored: 1
+
+  - name: sSearch_3
+    comment: Vendor Sold
+    constraints:
+      - type: Regex
+        regex: '(Yes|No)'
+        anchored: 1
+
+  - name: sSearch_4
+    comment: Long Range
+    constraints:
+      - type: Bool
+
+  - name: sSearch_5
+    comment: Weapon Type
+    constraints:
+      - type: Regex
+        regex: '[\w\s]+'
+        anchored: 1

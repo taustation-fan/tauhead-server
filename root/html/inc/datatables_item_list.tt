@@ -67,7 +67,7 @@ $(document).ready(function(){
 				select.append( '<option value="Yes">Yes</option>' );
 				select.append( '<option value="No">No</option>' );
 			});
-			[% IF item_type == 'weapon' %]
+			[% IF item_type.slug == 'weapon' %]
 				[%# Long range filter %]
 				this.api().columns(4).every(function() {
 					var column = this;

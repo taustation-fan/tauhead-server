@@ -7,8 +7,30 @@ use TauHead::Util qw( html2text );
 
 BEGIN { extends 'TauHead::BaseController' }
 
-sub list : Path('') : Args(0) : FormConfig {
+sub list : Path('') : Args(0) : FormConfig { }
+
+sub list_FORM_NOT_SUBMITTED {
     my ( $self, $c ) = @_;
+
+    # No problem - default all-items list
+    return $self->_list( $c );
+}
+
+sub list_FORM_VALID {
+    my ( $self, $c ) = @_;
+
+    return $self->_list( $c );
+}
+
+sub _list {
+    my ( $self, $c ) = @_;
+
+    my $form = $c->stash->{form};
+    my $item_type = $form->param_value('item_type');
+
+    if ( $item_type ) {
+        $item_type = $c->model('DB')->resultset('ItemType')->find({ slug => $item_type });
+    }
 
     my $default_columns = [
         [ 'me.name'         => 'Name' ],
@@ -62,37 +84,6 @@ sub list : Path('') : Args(0) : FormConfig {
         },
     );
 
-    my %search_cond = ();
-
-    my $item_type = scalar $c->request->param('item_type');
-    if ( defined( $item_type ) && $item_type =~ /^[a-z-]+\z/ ) {
-        $c->stash->{item_type} = $item_type;
-
-        if ( 'weapon' eq $item_type ) {
-            $c->stash->{weapon_types} = $c->model('DB')->resultset('ItemComponentWeapon')->search(
-                    undef,
-                    {
-                        select   => ['weapon_type'],
-                        as       => ['weapon_type'],
-                        distinct => 1,
-                        order_by => ['weapon_type'],
-                    }
-                )->get_column('weapon_type');
-
-                my $long_range = scalar $c->request->param('sSearch_4');
-                if ( defined( $long_range ) && $long_range =~ /^[01]\z/ ) {
-                    $search_cond{'item_component_weapon.is_long_range'} = $long_range;
-                }
-
-                my $search_weapon = scalar $c->request->param('sSearch_5');
-                if ( defined( $search_weapon ) && $search_weapon =~ /^[\w\s]+\z/ ) {
-                    $search_cond{'item_component_weapon.weapon_type'} = $search_weapon;
-                }
-        }
-
-        $item_type = $c->model('DB')->resultset('ItemType')->find({ slug => $item_type });
-    }
-
     my @join_columns = qw( vendor_items );
     my @use_columns;
     if ( $item_type && exists $item_type_search{ $item_type->slug } ) {
@@ -104,7 +95,34 @@ sub list : Path('') : Args(0) : FormConfig {
         @use_columns = @$default_columns;
     }
 
-    my @use_as = map { my $x = $_->[0]; $x =~ s/\./_/g; $x } @use_columns;
+    if ( $c->request->accepts('application/json') ) {
+        $self->_output_json( $c, $item_type, \@use_columns, \@join_columns );
+    }
+    else {
+        $self->_output_html( $c, $item_type, \@use_columns );
+    }
+
+    return;
+}
+
+sub _output_html {
+    my ( $self, $c, $item_type, $use_columns ) = @_;
+
+    if ( $item_type  ) {
+        $c->stash->{item_type} = $item_type;
+
+        if ( 'weapon' eq $item_type->slug ) {
+            $c->stash->{weapon_types} = $c->model('DB')->resultset('ItemComponentWeapon')->search(
+                    undef,
+                    {
+                        select   => ['weapon_type'],
+                        as       => ['weapon_type'],
+                        distinct => 1,
+                        order_by => ['weapon_type'],
+                    }
+                )->get_column('weapon_type');
+        }
+    }
 
     my @known_params = qw(
         stale
@@ -112,23 +130,76 @@ sub list : Path('') : Args(0) : FormConfig {
     );
     $c->stash->{known_params} = \@known_params;
 
+    if ( $item_type ) {
+        $c->stash->{legend} = $item_type->name;
+    }
+
+    $c->stash->{column_labels} = [
+        ( map { $_->[1] } @$use_columns ),
+        'In-game Link',
+    ];
+
+    my $max_tier_rs = $c->model('DB')->resultset('Item');
+    if ( $item_type ) {
+        $max_tier_rs = $max_tier_rs->search({ item_type_slug => $item_type->slug });
+    }
+    $c->stash->{max_tier} = $max_tier_rs->get_column('tier')->max;
+
+    my $rarity_rs = $c->model('DB')->resultset('Item')->search(
+        undef,
+        {
+            select   => ['rarity'],
+            as       => ['rarity'],
+            distinct => 1,
+            order_by => ['rarity'],
+        }
+    );
+    if ( $item_type ) {
+        $rarity_rs = $rarity_rs->search({ item_type_slug => $item_type->slug });
+    }
+    $c->stash->{rarities} = $rarity_rs->get_column('rarity');
+
+    return;
+}
+
+sub _output_json {
+    my ( $self, $c, $item_type, $use_columns, $join_columns ) = @_;
+
+    my $form = $c->stash->{form};
+
+    my %search_cond = ();
+
+    if ( $item_type && 'weapon' eq $item_type->slug ) {
+        my $long_range = $form->param_value('sSearch_4');
+        if ( $long_range ) {
+            $search_cond{'item_component_weapon.is_long_range'} = $long_range;
+        }
+
+        my $search_weapon = $form->param_value('sSearch_5');
+        if ( $search_weapon ) {
+            $search_cond{'item_component_weapon.weapon_type'} = $search_weapon;
+        }
+    }
+
+    my @use_as = map { my $x = $_->[0]; $x =~ s/\./_/g; $x } @$use_columns;
+
     my %search_attrs = (
-        '+select' => [ map { $_->[0] } @use_columns ],
+        '+select' => [ map { $_->[0] } @$use_columns ],
         '+as'     => \@use_as,
     );
 
-    my $tier = scalar $c->request->param('sSearch_1');
-    if ( defined( $tier )  && $tier =~ /^[0-9]+\z/ ) {
+    my $tier = $form->param_value('sSearch_1');
+    if ( $tier ) {
         $search_cond{'me.tier'} = $tier;
     }
 
-    my $rarity = scalar $c->request->param('sSearch_2');
-    if ( defined( $rarity )  && $rarity =~ /^[\w]+\z/ ) {
+    my $rarity = $form->param_value('sSearch_2');
+    if ( $rarity ) {
         $search_cond{'me.rarity'} = $rarity;
     }
 
-    my $vendor_sold = scalar $c->request->param('sSearch_3');
-    if ( defined( $vendor_sold )  && 'Yes' eq $vendor_sold ) {
+    my $vendor_sold = $form->param_value('sSearch_3');
+    if ( $vendor_sold  && 'Yes' eq $vendor_sold ) {
         $search_cond{'vendor_items.id'} = [
             {
                 '=' => $c->model('DB')->resultset('VendorItem')->search(
@@ -144,7 +215,7 @@ sub list : Path('') : Args(0) : FormConfig {
             }
         ];
     }
-    elsif ( defined( $vendor_sold )  && 'No' eq $vendor_sold ) {
+    elsif ( $vendor_sold  && 'No' eq $vendor_sold ) {
         $search_cond{'vendor_items.id'} = undef;
     }
     else {
@@ -172,44 +243,21 @@ sub list : Path('') : Args(0) : FormConfig {
 
     if ( $item_type ) {
         $search_cond{item_type_slug} = $item_type->slug;
-        $c->stash->{legend} = $item_type->name;
+    }
+    elsif ( $form->param_value('item_type') ) {
+        # item_type was passed, but it didn't match anything in the db.
+        # Still add the condition, to ensure we match no rows
+        $search_cond{item_type_slug} = $form->param_value('item_type');
     }
 
-    if ( @join_columns ) {
-        $search_attrs{join} = \@join_columns;
+    if ( @$join_columns ) {
+        $search_attrs{join} = $join_columns;
     }
-
-    $c->stash->{column_labels} = [
-        ( map { $_->[1] } @use_columns ),
-        'In-game Link',
-    ];
-
-    my $max_tier_rs = $c->model('DB')->resultset('Item');
-    if ( $item_type ) {
-        $max_tier_rs = $max_tier_rs->search({ item_type_slug => $item_type->slug });
-    }
-    $c->stash->{max_tier} = $max_tier_rs->get_column('tier')->max;
-
-    my $rarity_rs = $c->model('DB')->resultset('Item')->search(
-        undef,
-        {
-            select   => ['rarity'],
-            as       => ['rarity'],
-            distinct => 1,
-            order_by => ['rarity'],
-        }
-    );
-    if ( $item_type ) {
-        $rarity_rs = $rarity_rs->search({ item_type_slug => $item_type->slug });
-    }
-    $c->stash->{rarities} = $rarity_rs->get_column('rarity');
-
-    return unless $c->request->accepts('application/json');
 
     my %dataTablesParams = $self->process_data_tables(
         $c,
         {
-            colNames   => [ map { $_->[0] } @use_columns ],
+            colNames   => [ map { $_->[0] } @$use_columns ],
             sSortDir_0 => 'asc',
         },
     );
