@@ -103,6 +103,12 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("item_slug");
 
+sub sqlt_deploy_hook {
+    my ($self, $sqlt_table) = @_;
+
+    $sqlt_table->add_index(name => 'e_i_p_idx', fields => ['energy_damage', 'impact_damage', 'piercing_damage']);
+}
+
 __PACKAGE__->belongs_to(
     "item", "TauHead::Schema::Result::Item",
     { slug          => "item_slug" },
