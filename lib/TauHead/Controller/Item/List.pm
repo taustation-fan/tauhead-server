@@ -52,6 +52,7 @@ sub _list {
                 [ 'item_component_armor.energy'   => 'Energy' ],
                 [ 'item_component_armor.impact'   => 'Impact' ],
                 [ 'item_component_armor.piercing' => 'Piercing' ],
+                [ 'total_armor' => 'Total Armor', \'(item_component_armor.energy + item_component_armor.impact + item_component_armor.piercing) AS total_armor' ],
             ],
         },
         medical => {
@@ -79,6 +80,7 @@ sub _list {
                 [ 'item_component_weapon.energy_damage'   => 'Energy' ],
                 [ 'item_component_weapon.impact_damage'   => 'Impact' ],
                 [ 'item_component_weapon.piercing_damage' => 'Piercing' ],
+                [ 'total_armor' => 'Total Damage', \'(item_component_weapon.energy_damage + item_component_weapon.impact_damage + item_component_weapon.piercing_damage) AS total_armor' ],
                 [ 'item_component_weapon.accuracy'        => 'Accuracy' ],
             ],
         },
@@ -184,7 +186,7 @@ sub _output_json {
     my @use_as = map { my $x = $_->[0]; $x =~ s/\./_/g; $x } @$use_columns;
 
     my %search_attrs = (
-        '+select' => [ map { $_->[0] } @$use_columns ],
+        '+select' => [ map { exists $_->[2] ? $_->[2] : $_->[0] } @$use_columns ],
         '+as'     => \@use_as,
     );
 
