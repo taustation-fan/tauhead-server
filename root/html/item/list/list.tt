@@ -22,6 +22,13 @@
 				</tr>
 			</tfoot>
 		</table>
+		<p>
+			<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#item_list_opts" aria-expanded="false" aria-controls="item_list_opts">
+				Show / hide columns
+			</button>
+		</p>
+		<div class="collapse" id="item_list_opts">
+		</div>
 	</div>
 </div>
 [% IF c.user_exists %]

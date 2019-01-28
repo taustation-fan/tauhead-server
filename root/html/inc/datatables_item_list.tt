@@ -96,6 +96,23 @@ $(document).ready(function(){
 					[% END %]
 				});
 			[% END %]
+			[%# show/hide opts %]
+			var i=0;
+			var opts = $("#item_list_opts").first();
+			this.api().columns().every(function() {
+				let column = this;
+				let label  = column.header().innerText;
+				let id = "item_list_opts_"+i;
+				opts.append('<input type="checkbox" id="'+id+'" value="1" checked="checked"/>');
+				opts.append('<label for="'+id+'">'+label+'</label>');
+				opts.append('<br/>');
+				$("#"+id).change(function() {
+					let checked = this.checked;
+					column.visible(checked);
+					return true;
+				})
+				i++;
+			})
 		}
 	});
 });
