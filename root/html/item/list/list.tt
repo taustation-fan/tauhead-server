@@ -1,4 +1,4 @@
-[% WRAPPER inc/wrapper.tt page_title='Item List' dataTable=1 datatables_script='inc/datatables_item_list.tt' open_iconic=1 %]
+[% WRAPPER inc/wrapper.tt page_title='Item List' dataTable=1 datatables_script='inc/datatables_item_list.tt' open_iconic=1 include_scripts=('item_list.min.js') %]
 <div class="row">
 	<div class="col">
 	[% IF legend %]

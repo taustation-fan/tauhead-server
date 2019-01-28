@@ -97,18 +97,31 @@ $(document).ready(function(){
 				});
 			[% END %]
 			[%# show/hide opts %]
+			var hide_opts = tauhead_list_item_hide_opts_get('[% item_type.slug || "" %]');
 			var i=0;
 			var opts = $("#item_list_opts").first();
 			this.api().columns().every(function() {
 				let column = this;
 				let label  = column.header().innerText;
+				let save_key = label;
+				save_key.replace( /^\s+/, '' );
+				save_key.replace( /\s+$/, '' );
+				save_key.replace( /\s{2,}/, '' );
+				let default_checked = ' checked="checked" ';
+				if ( hide_opts.hasOwnProperty(save_key) && 1 === hide_opts[save_key] ) {
+					default_checked = '';
+					this.visible(false);
+				}
 				let id = "item_list_opts_"+i;
-				opts.append('<input type="checkbox" id="'+id+'" value="1" checked="checked"/>');
+				opts.append('<input type="checkbox" id="'+id+'" value="1" '+default_checked+'/>');
 				opts.append('<label for="'+id+'">'+label+'</label>');
 				opts.append('<br/>');
 				$("#"+id).change(function() {
 					let checked = this.checked;
 					column.visible(checked);
+					// save to localStorage
+					hide_opts[save_key] = checked ? 0 : 1;
+					tauhead_list_item_hide_opts_set( '[% item_type.slug || "" %]', hide_opts );
 					return true;
 				})
 				i++;

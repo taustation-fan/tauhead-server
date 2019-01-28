@@ -50,6 +50,10 @@
 			[% INCLUDE inc/ajax.tt %]
 		[% END %]
 
+		[% FOREACH script IN include_scripts %]
+			<script type="text/javascript" src="[% c.uri_for('/static/' _ script) %]"></script>
+		[% END %]
+
 		[% content %]
 	</div>
 

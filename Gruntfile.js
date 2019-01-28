@@ -11,8 +11,19 @@ module.exports = function(grunt) {
 					'dist/tauhead.min.css': 'tauhead.scss'
 				}
 			}
+		},
+		uglify: {
+			options: {
+				mangle: false
+			},
+			dist: {
+				files: {
+					'root/static/item_list.min.js': 'src/item_list.js'
+				}
+			}
 		}
 	});
 	grunt.loadNpmTasks('grunt-contrib-sass');
-	grunt.registerTask('default',['sass']);
+	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.registerTask('default',['sass', 'uglify']);
 }
