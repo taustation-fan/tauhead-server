@@ -173,7 +173,7 @@ sub _output_json {
 
     if ( $item_type && 'weapon' eq $item_type->slug ) {
         my $long_range = $form->param_value('sSearch_4');
-        if ( $long_range ) {
+        if ( defined($long_range) && length $long_range ) {
             $search_cond{'item_component_weapon.is_long_range'} = $long_range;
         }
 
