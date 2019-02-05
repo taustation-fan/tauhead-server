@@ -37,7 +37,7 @@ enable_catalyst_header: 0
 
 'Plugin::Session':
   dbic_class: 'DB::Session'
-  cookie_expires: 43200
+  cookie_expires: 86400
   cookie_name: 'tauhead'
   cookie_secure: 1
 
