@@ -23,12 +23,12 @@ elements:
   - name: genotype
     label: Genotype
     constraints:
-      - type: '+TaUHead::FormFu::Constraint::Slug'
+      - type: '+TauHead::FormFu::Constraint::Slug'
 
   - name: avatar
     label: Avatar
     constraints:
-      - type: '+TaUHead::FormFu::Constraint::Slug'
+      - type: '+TauHead::FormFu::Constraint::Slug'
 
   - name: description
     label: Description
