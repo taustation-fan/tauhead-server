@@ -22,6 +22,8 @@ my $ua = LWP::UserAgent->new;
 
 my @paths;
 
+# Items
+
 {
     push @paths, $schema->resultset('Item')->search(
         undef,
@@ -35,6 +37,8 @@ my @paths;
         },
     )->get_column('imagex')->all;
 }
+
+# Areas
 
 for my $col (qw( bg_img content_img content_side_img hero_img other_img )) {
     my $as = "${col}x";
@@ -50,6 +54,22 @@ for my $col (qw( bg_img content_img content_side_img hero_img other_img )) {
             ]
         },
     )->get_column($as)->all;
+}
+
+# NPCs
+
+{
+    push @paths, $schema->resultset('NPC')->search(
+        undef,
+        {
+            'select' => [
+                { 'distinct' => 'avatar', -as => 'avatarx' },
+            ],
+            'as' => [
+                'avatarx',
+            ]
+        },
+    )->get_column('avatarx')->all;
 }
 
 @paths = sort { $a cmp $b }
