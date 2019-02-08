@@ -34,13 +34,13 @@
 		</ul>
 	</div>
 	[% END %]
-	<div class="col-12 col-sm-6 col-md-3 order-2 order-sm-3 area-search">
+	<div class="col-12 col-sm-6 col-md-3 order-3 area-search">
 		[% stations_by_area_form %]
 	</div>
-	<div class="col-12 col-sm-6 col-md-3 order-3 order-sm-4 route-planner">
+	<div class="col-12 col-sm-6 col-md-3 order-1 route-planner">
 		[% route_planner_form %]
 	</div>
-	<div class="col-12 col-md-6 order-1 order-sm-2 latest-auctions">
+	<div class="col-12 col-md-6 order-2 latest-auctions">
 		<h4>Latest Auctions</h4>
 		<table class="table">
 			<tr>
@@ -61,7 +61,7 @@
 			[% END %]
 		</table>
 	</div>
-	<div class="col-12 col-sm-6 col-md-3 order-4 order-sm-1 recent-updates">
+	<div class="col-12 col-sm-6 col-md-3 order-4 recent-updates">
 		<h4>Recent Updates</h4>
 		<ul class="list-group">
 			<li class="list-group-item d-flex">
