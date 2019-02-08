@@ -32,9 +32,10 @@ sub station_new_FORM_VALID {
 
     my $station = $form->model->create;
 
-    if ( my $links = $form->params->{interstellar} ) {
+    my @links = $form->param_list('interstellar');
+    if ( @links ) {
         my $link_rs = $c->model('DB')->resultset('InterstellarLink');
-        for my $other (@{ $links }) {
+        for my $other (@links) {
             $link_rs->create({
                 station_a => $station->id,
                 station_b => $other,
