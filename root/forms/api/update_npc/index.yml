@@ -32,8 +32,6 @@ elements:
 
   - name: avatar
     label: Avatar
-    constraints:
-      - '+TauHead::FormFu::Constraint::Slug'
 
   - name: description
     label: Description
