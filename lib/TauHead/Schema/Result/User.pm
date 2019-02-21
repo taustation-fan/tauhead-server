@@ -106,6 +106,13 @@ __PACKAGE__->has_many(
 
 __PACKAGE__->many_to_many( "preferences", "user_preferences", "preference", );
 
+__PACKAGE__->has_many(
+    "data_gatherer",
+    "TauHead::Schema::Result::DataGatherer",
+    { "foreign.user_id" => "self.id" },
+    { cascade_copy      => 0, cascade_delete => 0 },
+);
+
 sub last_login {
     my ($self) = @_;
 
