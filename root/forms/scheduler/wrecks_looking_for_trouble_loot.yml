@@ -1,0 +1,20 @@
+---
+filters:
+    - TrimEdges
+
+constraints:
+    - SingleValue
+    - Required
+
+elements:
+    - type: '+TauHead::FormFu::Element::DataGathererStation'
+
+    - name: player_level
+      constraint:
+          - Integer
+
+    - name: campaign_level
+
+    - name: campaign_difficulty
+
+    - name: campaign_loot
