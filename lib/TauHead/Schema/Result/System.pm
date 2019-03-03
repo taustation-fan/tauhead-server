@@ -10,28 +10,21 @@ use base 'DBIx::Class::Core';
 __PACKAGE__->table("system");
 
 __PACKAGE__->add_columns(
-    "id",
-    {   data_type         => "integer",
-        extra             => { unsigned => 1 },
-        is_auto_increment => 1,
-        is_nullable       => 0,
-    },
+    "slug",
+    { data_type => "varchar", is_nullable => 0, size => 128 },
+    "name",
+    { data_type => "varchar", is_nullable => 0, size => 128 },
     "sort_order",
     {   data_type         => "integer",
         extra             => { unsigned => 1 },
         is_nullable       => 0,
     },
-    "name",
-    { data_type => "varchar", is_nullable => 0, size => 128 },
-    "slug",
-    { data_type => "varchar", is_nullable => 0, size => 128 },
 );
 
-__PACKAGE__->set_primary_key("id");
+__PACKAGE__->set_primary_key("slug");
 
 __PACKAGE__->add_unique_constraints(
     "name", ["name"],
-    "slug", ["slug"],
 );
 
 sub sqlt_deploy_hook {
@@ -43,7 +36,7 @@ sub sqlt_deploy_hook {
 __PACKAGE__->has_many(
     "stations",
     "TauHead::Schema::Result::Station",
-    { "foreign.system_id" => "self.id" },
+    { "foreign.system_slug" => "self.slug" },
     { cascade_copy      => 0, cascade_delete => 0 },
 );
 

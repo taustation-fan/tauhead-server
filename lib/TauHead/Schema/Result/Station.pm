@@ -16,11 +16,8 @@ __PACKAGE__->add_columns(
         is_auto_increment => 1,
         is_nullable       => 0,
     },
-    "system_id",
-    {   data_type         => "integer",
-        extra             => { unsigned => 1 },
-        is_nullable       => 0,
-    },
+    "system_slug",
+    { data_type => "varchar", is_nullable => 0, size => 128 },
     "sort_order",
     {   data_type         => "integer",
         extra             => { unsigned => 1 },
@@ -61,21 +58,20 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("id");
 
 __PACKAGE__->add_unique_constraints(
-    "system_id_name", ["system_id", "name"],
-    "system_id_slug", ["system_id", "slug"],
+    "name", ["name"],
+    "slug", ["slug"],
 );
 
 sub sqlt_deploy_hook {
     my ($self, $sqlt_table) = @_;
 
-    $sqlt_table->add_index(name => 'system_idx', fields => ['system_id']);
-    $sqlt_table->add_index(name => 'slugx', fields => ['slug']);
-    $sqlt_table->add_index(name => 'id_system_id_sort_orderx', fields => ['id', 'system_id', 'sort_order']);
+    $sqlt_table->add_index(name => 'system_slugx', fields => ['system_slug']);
+    $sqlt_table->add_index(name => 'id_system_slug_sort_orderx', fields => ['id', 'system_slug', 'sort_order']);
 }
 
 __PACKAGE__->belongs_to(
     "system", "TauHead::Schema::Result::System",
-    { id            => "system_id" },
+    { slug          => "system_slug" },
     { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
 );
 
