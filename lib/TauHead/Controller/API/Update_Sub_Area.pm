@@ -87,6 +87,7 @@ sub index_FORM_VALID {
              my $orig_value = $area->$key;
              my $new_value  = $form->param_value($key);
 
+             no warnings 'uninitialized';
              if ( $orig_value ne $new_value ) {
                  $form->get_field({ name => $key })
                      ->add_container_attrs({ class => 'alert-danger' })
