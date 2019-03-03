@@ -44,9 +44,14 @@ sub view : PathPart('') : Chained('station') : Args(0) {
 sub loot : PathPart('loot') : Chained('station') : Args(0) {
     my ( $self, $c ) = @_;
 
+    $self->_wrecks_salvage_loot($c);
+}
+
+sub _wrecks_salvage_loot {
+    my ( $self, $c ) = @_;
+
     my $station = $c->stash->{station};
 
-    # wrecks_salvage_loot
     my $action_count = $station->search_related(
         'action_counts',
         {
