@@ -16,10 +16,11 @@ __PACKAGE__->add_columns(
         is_auto_increment => 1,
         is_nullable       => 0,
     },
-    "station_id",
-    {   data_type         => "integer",
-        extra             => { unsigned => 1 },
-        is_nullable       => 0,
+    "station_slug",
+    {   data_type      => "varchar",
+        size           => 128,
+        is_foreign_key => 1,
+        is_nullable    => 0,
     },
     "parent_area_id",
     {   data_type         => "integer",
@@ -56,20 +57,20 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("id");
 
 __PACKAGE__->add_unique_constraints(
-    "station_id_name", ["station_id", "name"],
-    "station_id_slug", ["station_id", "slug"],
+    "station_slug_name", ["station_slug", "name"],
+    "station_slug_slug", ["station_slug", "slug"],
 );
 
 sub sqlt_deploy_hook {
     my ($self, $sqlt_table) = @_;
 
-    $sqlt_table->add_index(name => 'station_idx', fields => ['station_id']);
-    $sqlt_table->add_index(name => 'id_station_id_sort_orderx', fields => ['id', 'station_id', 'sort_order']);
+    $sqlt_table->add_index(name => 'station_slugx', fields => ['station_slug']);
+    $sqlt_table->add_index(name => 'id_station_slug_sort_orderx', fields => ['id', 'station_slug', 'sort_order']);
 }
 
 __PACKAGE__->belongs_to(
     "station", "TauHead::Schema::Result::Station",
-    { id            => "station_id" },
+    { slug          => "station_slug" },
     { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
 );
 

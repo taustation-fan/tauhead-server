@@ -10,12 +10,8 @@ use base 'DBIx::Class::Core';
 __PACKAGE__->table("station");
 
 __PACKAGE__->add_columns(
-    "id",
-    {   data_type         => "integer",
-        extra             => { unsigned => 1 },
-        is_auto_increment => 1,
-        is_nullable       => 0,
-    },
+    "slug",
+    { data_type => "varchar", is_nullable => 0, size => 128 },
     "system_slug",
     { data_type => "varchar", is_nullable => 0, size => 128 },
     "sort_order",
@@ -24,8 +20,6 @@ __PACKAGE__->add_columns(
         is_nullable       => 0,
     },
     "name",
-    { data_type => "varchar", is_nullable => 0, size => 128 },
-    "slug",
     { data_type => "varchar", is_nullable => 0, size => 128 },
     "affiliation",
     {   data_type         => "enum",
@@ -55,18 +49,17 @@ __PACKAGE__->add_columns(
     { data_type => "boolean", is_nullable => 0, default_value => 1 },
 );
 
-__PACKAGE__->set_primary_key("id");
+__PACKAGE__->set_primary_key("slug");
 
 __PACKAGE__->add_unique_constraints(
     "name", ["name"],
-    "slug", ["slug"],
 );
 
 sub sqlt_deploy_hook {
     my ($self, $sqlt_table) = @_;
 
     $sqlt_table->add_index(name => 'system_slugx', fields => ['system_slug']);
-    $sqlt_table->add_index(name => 'id_system_slug_sort_orderx', fields => ['id', 'system_slug', 'sort_order']);
+    $sqlt_table->add_index(name => 'slug_system_slug_sort_orderx', fields => ['slug', 'system_slug', 'sort_order']);
 }
 
 __PACKAGE__->belongs_to(
@@ -78,7 +71,7 @@ __PACKAGE__->belongs_to(
 __PACKAGE__->has_many(
     "areas",
     "TauHead::Schema::Result::Area",
-    { "foreign.station_id" => "self.id" },
+    { "foreign.station_slug" => "self.slug" },
     { cascade_copy      => 0, cascade_delete => 0 },
 );
 
@@ -86,19 +79,19 @@ __PACKAGE__->has_many(
     "interstellar_links",
     "TauHead::Schema::Result::InterstellarLink",
     [
-        { "foreign.station_a" => "self.id" },
-        { "foreign.station_b" => "self.id" },
+        { "foreign.station_a" => "self.slug" },
+        { "foreign.station_b" => "self.slug" },
     ]
 );
 
 sub interstellar_destinations {
     my ( $self ) = @_;
 
-    my $id = $self->id;
+    my $slug = $self->slug;
     my @dest;
 
     for my $link ( $self->interstellar_links ) {
-        if ( $id == $link->station_a ) {
+        if ( $slug == $link->station_a ) {
             push @dest, $link->exit;
         }
         else {
@@ -106,7 +99,7 @@ sub interstellar_destinations {
         }
     }
 
-    return [ sort { $a->id <=> $b->id } @dest ];
+    return [ sort { $a->slug <=> $b->slug } @dest ];
 }
 
 # direct children - not sub-areas
