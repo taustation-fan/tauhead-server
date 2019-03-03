@@ -1,9 +1,9 @@
 package TauHead::BaseController;
 use Moose;
 
+use Cpanel::JSON::XS;
 use Data::GUID::URLSafe;
 use DateTime;
-use JSON::MaybeXS;
 use MIME::Lite;
 use Storable qw( nfreeze );
 use Try::Tiny;
