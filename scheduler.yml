@@ -4,3 +4,6 @@
 
 -   trigger: wrecks_looking_for_trouble
     event: /scheduler/wrecks_looking_for_trouble
+
+-   trigger: wrecks_sewers_loot
+    event: /scheduler/wrecks_sewers_loot

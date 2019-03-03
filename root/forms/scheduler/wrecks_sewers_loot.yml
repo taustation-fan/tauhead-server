@@ -1,0 +1,19 @@
+---
+filters:
+    - TrimEdges
+
+constraints:
+    - Required
+
+elements:
+    - type: '+TauHead::FormFu::Element::DataGathererStation'
+
+    - name: player_level
+      constraint:
+          - SingleValue
+          - Integer
+
+    - name: campaign_loot
+      constraint:
+        - type: '+TauHead::FormFu::Constraint::ExactValueCount'
+          count: 2
