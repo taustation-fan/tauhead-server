@@ -100,6 +100,38 @@ sub download_FORM_VALID {
     $c->detach;
 }
 
+sub loot : PathPart('loot') : Chained('item') : Args(0) {
+    my ( $self, $c ) = @_;
+
+    my $item = $c->stash->{item};
+
+    $self->add_breadcrumb( $c, [ $item->build_uri($c), $item->name ] );
+
+    # wrecks_salvage_loot
+    my %cond = (
+        action => 'wrecks_salvage_loot',
+    );
+    my %attrs = (
+        '+select' => [{ sum => 'count', -as => 'sum_count' }],
+        group_by  => ['station_slug'],
+        prefetch  => { station => 'system' },
+        order_by  => ['me.sum_count DESC', 'station_slug'],
+    );
+
+    my $records_rs = $item->search_related(
+        'loot_counts',
+        \%cond,
+    );
+
+    if ( $records_rs->count ) {
+        $c->stash->{wrecks_salvage_loot} = $item->search_related(
+            'loot_counts',
+            \%cond,
+            \%attrs,
+        );
+    };
+}
+
 sub end : ActionClass('Serialize') { }
 
 __PACKAGE__->meta->make_immutable;

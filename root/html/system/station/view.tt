@@ -33,6 +33,18 @@
 			<dd class="col-6[% IF !has_public_shuttles %] bg-warning px-2[% END %]">
 				[% has_public_shuttles ? 'Yes' : 'No' %]
 			</dd>
+
+			<dt class="col-6">Loot Drops</dt>
+			[% SET action_counts = station.count_related('action_counts') %]
+			<dd class="col-6">
+				[% IF action_counts %]
+					<a href="[% c.uri_for('/system', station.system.slug, 'station', station.slug, 'loot') %]" class="bg-info">
+						View known loot drops
+					</a>
+				[% ELSE %]
+					No known loot drops
+				[% END %]
+			</dd>
 		</dl>
 	</div>
 </div>

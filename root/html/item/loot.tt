@@ -1,0 +1,24 @@
+[% WRAPPER inc/wrapper.tt page_title=item.name %]
+<div class="row mb-2">
+	<div class="col-middle-quarter-1">
+		<h3>[% item.name | html %]</h3>
+	</div>
+</div>
+
+[% IF wrecks_salvage_loot %]
+<div class="row mb-2">
+	<div class="col-middle-half">
+	<h4>The Wrecks - Search for salvageable goods</h4>
+		<ul class="list-group">
+		[% WHILE ( record = wrecks_salvage_loot.next ) %]
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+				<a href="[% c.uri_for('/system', record.station.system.slug, 'station', record.station.slug, 'loot') %]">
+					[% record.station.name | html %]
+				</a>
+			</li>
+		[% END %]
+		</ul>
+	</div>
+</div>
+[% END %]
+[% END %]

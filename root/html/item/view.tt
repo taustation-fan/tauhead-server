@@ -24,6 +24,18 @@
 			</dd>
 			[% END %]
 			[% END %]
+
+			<dt class="col-3 col-md-4">Loot Drops</dt>
+			[% SET loot_counts = item.count_related('loot_counts') %]
+			<dd class="col-9 col-md-8">
+				[% IF loot_counts %]
+					<a href="[% c.uri_for('/item', item.slug, 'loot') %]" class="bg-info">
+						View known drop sources
+					</a>
+				[% ELSE %]
+					No known loot drops
+				[% END %]
+			</dd>
 		</dl>
 
 		[% IF item.description.length %]
