@@ -28,15 +28,24 @@ sub auto : Private {
         return 0;
     }
 
-    # Verify data method
+    # Verify data action
     my $params = $c->request->body_parameters;
-    my $method = delete $params->{method};
-    my $max_method =
-        $c->model('DB')->resultset('DataGatherer')->result_source->column_info('method')->{size};
+    my $action;
 
-    if ( !defined($method) || !length($method) || length($method) > $max_method ) {
+    if ( exists $params->{action} ) {
+        $action = delete $params->{action};
+    }
+    elsif ( exists $params->{method} ) {
+        # Legacy method
+        $action = delete $params->{method};
+    }
+
+    my $max_action =
+        $c->model('DB')->resultset('DataGatherer')->result_source->column_info('action')->{size};
+
+    if ( !defined($action) || !length($action) || length($action) > $max_action ) {
         $c->stash->{rest} = {
-            error => "Bad 'method' parameter",
+            error => "Bad 'action' parameter",
         };
         return 0;
     }
@@ -63,7 +72,7 @@ sub auto : Private {
         return 0;
     }
 
-    $c->stash->{data_gatherer_method} = $method;
+    $c->stash->{data_gatherer_action} = $action;
     $c->stash->{data_gatherer_json}   = $json;
 
     return 1;
@@ -72,7 +81,7 @@ sub auto : Private {
 sub index : Path('/api/data_gatherer') : Args(0) {
     my ( $self, $c ) = @_;
 
-    my $method = $c->stash->{data_gatherer_method};
+    my $action = $c->stash->{data_gatherer_action};
     my $json   = $c->stash->{data_gatherer_json};
 
     try {
@@ -82,7 +91,7 @@ sub index : Path('/api/data_gatherer') : Args(0) {
                 claimed  => 0,
                 held     => 0,
                 complete => 0,
-                method   => $method,
+                action   => $action,
                 json     => $json,
                 datetime_created => \"NOW()",
                 datetime_updated => \"NOW()",

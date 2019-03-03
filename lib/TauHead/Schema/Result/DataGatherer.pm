@@ -40,7 +40,7 @@ __PACKAGE__->add_columns(
         default_value => 0,
         is_nullable => 0,
     },
-    "method",
+    "action",
     { data_type => "varchar", is_nullable => 0, size => 50 },
     "datetime_created",
     {   data_type                 => "datetime",
@@ -64,8 +64,8 @@ sub sqlt_deploy_hook {
     my ($self, $sqlt_table) = @_;
 
     $sqlt_table->add_index(
-        name => 'c_h_c_dt_c',
-        fields => ['claimed', 'held', 'complete', 'method', 'datetime_created'],
+        name => 'c_h_c_a_dt',
+        fields => ['claimed', 'held', 'complete', 'action', 'datetime_created'],
     );
 }
 
