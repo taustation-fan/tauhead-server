@@ -1,0 +1,25 @@
+---
+filters:
+    - TrimEdges
+
+constraints:
+    - SingleValue
+
+elements:
+    - type: '+TauHead::FormFu::Element::DataGathererStation'
+
+    - name: player_level
+      constraint:
+          - Required
+          - Integer
+
+    - name: salvage_success
+      constraint:
+        - Required
+        - Bool
+
+    - name: salvage_loot
+      constraint:
+        - type: Required
+          when:
+              field: salvage_success
