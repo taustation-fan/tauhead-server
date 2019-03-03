@@ -42,7 +42,7 @@ sub edit_FORM_VALID {
     $self->add_log( $c, 'system/edit',
         {
             description => "Added a new system",
-            system_id   => $system->id,
+            system_slug => $system->slug,
         },
     );
 

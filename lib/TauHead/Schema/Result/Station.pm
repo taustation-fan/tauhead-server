@@ -91,7 +91,7 @@ sub interstellar_destinations {
     my @dest;
 
     for my $link ( $self->interstellar_links ) {
-        if ( $slug == $link->station_a ) {
+        if ( $slug eq $link->station_a ) {
             push @dest, $link->exit;
         }
         else {
@@ -99,7 +99,7 @@ sub interstellar_destinations {
         }
     }
 
-    return [ sort { $a->slug <=> $b->slug } @dest ];
+    return [ sort { $a->slug cmp $b->slug } @dest ];
 }
 
 # direct children - not sub-areas

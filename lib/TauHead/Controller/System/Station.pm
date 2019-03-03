@@ -9,7 +9,7 @@ sub station : Chained('../system') : CaptureArgs(1) {
 
     my $system = $c->stash->{system};
 
-    my $station = $c->model('DB')->resultset('Station')->find( { system_id => $system->id, slug => $slug } )
+    my $station = $c->model('DB')->resultset('Station')->find( { system_slug => $system->slug, slug => $slug } )
         or return $self->not_found($c);
 
     $self->add_breadcrumb( $c, [ $c->uri_for( '/system', $system->slug, 'station', $station->slug ), $station->name ] );
@@ -27,7 +27,7 @@ sub view : PathPart('') : Chained('station') : Args(0) {
 
     $c->stash->{area_missions} = $c->model('DB')->resultset('Mission')->search(
         {
-            'station.id' => $station->id,
+            'station.slug' => $station->slug,
         },
         {
             join => [

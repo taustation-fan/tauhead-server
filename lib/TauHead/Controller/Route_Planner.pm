@@ -23,10 +23,10 @@ sub route_planner_FORM_VALID {
 	my $this_end   = $end;
 	my @route;
 
-	if ( $this_start->id == $this_end->id )  {
+	if ( $this_start->slug eq $this_end->slug )  {
 		@route = ( $this_start );
 	}
-	elsif ( $this_start->system_id == $this_end->system_id )  {
+	elsif ( $this_start->system_slug eq $this_end->system_slug )  {
 		@route = ( $this_start, $this_end );
 	}
 	else {
@@ -49,13 +49,13 @@ sub _jg_route {
 	my $first_jg = $route[0];
 	my $last_jg  = $route[-1];
 
-	if ( $s1->id != $first_jg->id ) {
+	if ( $s1->slug ne $first_jg->slug ) {
 		push @return, $s1;
 	}
 
 	push @return, @route;
 
-	if ( $s2->id != $last_jg->id ) {
+	if ( $s2->slug ne $last_jg->slug ) {
 		push @return, $s2;
 	}
 
@@ -70,20 +70,20 @@ sub _find_jg_route {
 	my $jg1 = $self->_this_or_same_system_jg( $c, $s1 );
 	my $jg2 = $self->_this_or_same_system_jg( $c, $s2 );
 
-	$seen->{ $jg1->id } = 1;
+	$seen->{ $jg1->slug } = 1;
 
 	my $targets = $jg1->interstellar_destinations;
 
 	for my $target (@$targets) {
-		if ( $seen->{ $target->id }++ ) {
+		if ( $seen->{ $target->slug }++ ) {
 			next;
 		}
 
-		if ( $jg0 && ( $jg0->id == $target->id ) ) {
+		if ( $jg0 && ( $jg0->slug eq $target->slug ) ) {
 			next;
 		}
 
-		if ( $jg2->system_id == $target->system_id ) {
+		if ( $jg2->system_slug eq $target->system_slug ) {
 			return $jg1, $target;
 		}
 		else {
@@ -106,8 +106,8 @@ sub _this_or_same_system_jg {
 		# currently assumes a single JG in each system
 		my $sibling_rs = $c->model('DB')->resultset('Station')->search(
 			{
-				system_id => $sx->system_id,
-				id		=> { '!=' => $sx->id },
+				system_slug => $sx->system_slug,
+				slug		=> { '!=' => $sx->slug },
 			}
 		);
 		for my $sibling ( $sibling_rs->all ) {
@@ -118,8 +118,8 @@ sub _this_or_same_system_jg {
 	}
 
 	die sprintf "failed to find a JG in this system: '%d', station: '%d'",
-		$sx->system_id,
-		$sx->id;
+		$sx->system_slug,
+		$sx->slug;
 }
 
 sub _route_to_stages {
@@ -135,7 +135,7 @@ sub _route_to_stages {
 
 		if ($to) {
 			my $stage = {};
-			if ( $from->system_id == $to->system_id ) {
+			if ( $from->system_slug eq $to->system_slug ) {
 				$stage->{local} = 1;
 				if ( $from->has_public_shuttles && $to->has_public_shuttles) {
 					$stage->{has_public_shuttles} = 1;

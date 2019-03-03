@@ -14,7 +14,7 @@ sub auto : Private {
 
 sub station_new : PathPart('station/new') : Chained('../../system') : Args(0) : FormConfig { }
 
-sub station_new_FORM_NOT_VALID {
+sub station_new_FORM_NOT_VALslug {
     my ( $self, $c ) = @_;
 
     $c->stash->{rest}
@@ -28,7 +28,7 @@ sub station_new_FORM_VALID {
     my $form   = $c->stash->{form};
     my $system = $c->stash->{system};
 
-    $form->add_valid( system_id => $system->id );
+    $form->add_valid( system_slug => $system->slug );
 
     my $station = $form->model->create;
 
@@ -37,7 +37,7 @@ sub station_new_FORM_VALID {
         my $link_rs = $c->model('DB')->resultset('InterstellarLink');
         for my $other (@links) {
             $link_rs->create({
-                station_a => $station->id,
+                station_a => $station->slug,
                 station_b => $other,
             });
         }
@@ -45,9 +45,9 @@ sub station_new_FORM_VALID {
 
     $self->add_log( $c, 'station/add',
         {
-            description => "Added a new station",
-            system_id   => $system->id,
-            station_id  => $station->id,
+            description  => "Added a new station",
+            system_slug  => $system->slug,
+            station_slug => $station->slug,
         },
     );
 

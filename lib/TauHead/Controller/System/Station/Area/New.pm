@@ -29,16 +29,16 @@ sub area_new_FORM_VALID {
     my $system  = $c->stash->{system};
     my $station = $c->stash->{station};
 
-    $form->add_valid( station_id => $station->id );
+    $form->add_valid( station_slug => $station->slug );
 
     my $area = $form->model->create;
 
     $self->add_log( $c, 'area/add',
         {
-            description => "Added a new area",
-            system_id   => $system->id,
-            station_id  => $station->id,
-            area_id     => $area->id,
+            description  => "Added a new area",
+            system_slug  => $system->slug,
+            station_slug => $station->slug,
+            area_id      => $area->id,
         },
     );
 

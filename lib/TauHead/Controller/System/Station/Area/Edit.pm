@@ -43,10 +43,10 @@ sub edit_FORM_VALID {
 
     $self->add_log( $c, 'station/edit',
         {
-            description => "Edited an area",
-            system_id   => $system->id,
-            station_id  => $station->id,
-            area_id     => $area->id,
+            description  => "Edited an area",
+            system_slug  => $system->slug,
+            station_slug => $station->slug,
+            area_id      => $area->id,
         },
     );
 

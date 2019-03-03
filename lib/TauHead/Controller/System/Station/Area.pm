@@ -10,7 +10,7 @@ sub area : Chained('../station') : CaptureArgs(1) {
     my $system  = $c->stash->{system};
     my $station = $c->stash->{station};
 
-    my $area = $c->model('DB')->resultset('Area')->find( { station_id => $station->id, slug => $slug } )
+    my $area = $c->model('DB')->resultset('Area')->find( { station_slug => $station->slug, slug => $slug } )
         or return $self->not_found($c);
 
     if ( my $parent = $area->parent_area ) {

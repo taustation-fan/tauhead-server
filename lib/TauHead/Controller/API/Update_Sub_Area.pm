@@ -36,15 +36,15 @@ sub index_FORM_VALID {
     # find station
      my $station_name = $form->param_value('station');
      my $station = $schema->resultset('Station')->find({
-         system_id => $system->id,
-         name      => $station_name,
+         system_slug => $system->slug,
+         name        => $station_name,
      }) or return $self->invalidate_form( $c, 'station', 'Station not found' );
 
      # find parent-area
      my $parent_area_slug = $form->param_value('parent_area_slug');
      my $parent_area = $schema->resultset('Area')->find({
-         station_id => $station->id,
-         slug       => $parent_area_slug,
+         station_slug => $station->slug,
+         slug         => $parent_area_slug,
      }) or return $self->invalidate_form( $c, 'parent_area_slug', 'Parent Area not found' );
 
      # find area

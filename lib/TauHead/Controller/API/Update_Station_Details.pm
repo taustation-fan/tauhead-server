@@ -37,8 +37,8 @@ sub index_FORM_VALID {
     # find station
      my $station_name = $form->param_value('station');
      my $station = $schema->resultset('Station')->find({
-         system_id => $system->id,
-         name      => $station_name,
+         system_slug => $system->slug,
+         name        => $station_name,
      }) or return $self->invalidate_form( $c, 'station', 'Station not found' );
 
      if ( $form->valid('submit') ) {
@@ -54,8 +54,8 @@ sub index_FORM_VALID {
 
          $self->add_log( $c, 'api/update_station_details',
              {
-                 description => "API Updated Station Details",
-                 station_id  => $station->id,
+                 description  => "API Updated Station Details",
+                 station_slug => $station->slug,
              },
          );
 
