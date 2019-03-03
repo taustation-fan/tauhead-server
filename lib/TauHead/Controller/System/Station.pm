@@ -45,6 +45,7 @@ sub loot : PathPart('loot') : Chained('station') : Args(0) {
     my ( $self, $c ) = @_;
 
     $self->_wrecks_salvage_loot($c);
+    $self->_wrecks_l4t_loot($c);
 }
 
 sub _wrecks_salvage_loot {
@@ -104,6 +105,58 @@ sub _wrecks_salvage_loot {
         $c->stash->{wrecks_salvage_loot_nothing}         = $loot_nothing;
         $c->stash->{wrecks_salvage_loot_nothing_percent} = $nothing_percent;
         $c->stash->{wrecks_salvage_loot_action_count}    = $action_count;
+    };
+}
+
+sub _wrecks_l4t_loot {
+    my ( $self, $c ) = @_;
+
+    my $station = $c->stash->{station};
+
+    my $action_count = $station->search_related(
+        'action_counts',
+        {
+            action => 'wrecks_looking_for_trouble_loot',
+        },
+        {
+            '+select' => [{ sum => 'count', -as => 'sum_count' }],
+            '+as'     => ['sum_count'],
+            rows      => 1,
+        },
+    )->first;
+
+    if ( $action_count && $action_count->count ) {
+        $action_count = $action_count->get_column('sum_count');
+
+        my $records_rs = $station->search_related(
+            'loot_counts',
+            {
+                action => 'wrecks_looking_for_trouble_loot',
+            },
+            {
+                '+select' => [{ sum => 'count' }],
+                '+as'     => ['sum_count'],
+                group_by  => ['item_slug'],
+                prefetch  => 'item',
+                order_by  => 'me.sum_count DESC',
+            }
+        );
+
+        my @result;
+
+        while ( my $record = $records_rs->next ) {
+            my $percent = $record->get_column('sum_count') / $action_count * 100;
+            $percent = sprintf "%.1f", $percent;
+
+            push @result, {
+                loot_count => $record,
+                item       => $record->item,
+                percent    => $percent,
+            };
+        }
+
+        $c->stash->{wrecks_looking_for_trouble_loot}                 = \@result;
+        $c->stash->{wrecks_looking_for_trouble_loot_action_count}    = $action_count;
     };
 }
 

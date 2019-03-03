@@ -21,4 +21,21 @@
 	</div>
 </div>
 [% END %]
+
+[% IF wrecks_looking_for_trouble_loot %]
+<div class="row mb-2">
+	<div class="col-middle-half">
+	<h4>The Wrecks - Looking For Trouble</h4>
+		<ul class="list-group">
+		[% WHILE ( record = wrecks_looking_for_trouble_loot.next ) %]
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+				<a href="[% c.uri_for('/system', record.station.system.slug, 'station', record.station.slug, 'loot') %]">
+					[% record.station.name | html %]
+				</a>
+			</li>
+		[% END %]
+		</ul>
+	</div>
+</div>
+[% END %]
 [% END %]

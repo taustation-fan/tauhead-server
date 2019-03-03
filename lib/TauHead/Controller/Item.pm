@@ -107,7 +107,15 @@ sub loot : PathPart('loot') : Chained('item') : Args(0) {
 
     $self->add_breadcrumb( $c, [ $item->build_uri($c), $item->name ] );
 
-    # wrecks_salvage_loot
+    $self->_wrecks_salvage_loot($c);
+    $self->_wrecks_l4t_loot($c);
+}
+
+sub _wrecks_salvage_loot {
+    my ( $self, $c ) = @_;
+
+    my $item = $c->stash->{item};
+
     my %cond = (
         action => 'wrecks_salvage_loot',
     );
@@ -125,6 +133,35 @@ sub loot : PathPart('loot') : Chained('item') : Args(0) {
 
     if ( $records_rs->count ) {
         $c->stash->{wrecks_salvage_loot} = $item->search_related(
+            'loot_counts',
+            \%cond,
+            \%attrs,
+        );
+    };
+}
+
+sub _wrecks_l4t_loot {
+    my ( $self, $c ) = @_;
+
+    my $item = $c->stash->{item};
+
+    my %cond = (
+        action => 'wrecks_looking_for_trouble_loot',
+    );
+    my %attrs = (
+        '+select' => [{ sum => 'count', -as => 'sum_count' }],
+        group_by  => ['station_slug'],
+        prefetch  => { station => 'system' },
+        order_by  => ['me.sum_count DESC', 'station_slug'],
+    );
+
+    my $records_rs = $item->search_related(
+        'loot_counts',
+        \%cond,
+    );
+
+    if ( $records_rs->count ) {
+        $c->stash->{wrecks_looking_for_trouble_loot} = $item->search_related(
             'loot_counts',
             \%cond,
             \%attrs,
