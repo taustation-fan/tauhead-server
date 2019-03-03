@@ -25,6 +25,7 @@ __PACKAGE__->add_columns(
     "parent_area_id",
     {   data_type         => "integer",
         extra             => { unsigned => 1 },
+        is_foreign_key => 1,
         is_nullable       => 1,
     },
     "sort_order",
@@ -78,7 +79,7 @@ __PACKAGE__->belongs_to(
     "parent_area",
     "TauHead::Schema::Result::Area",
     { "foreign.id" => "self.parent_area_id" },
-    { cascade_copy      => 0, cascade_delete => 0 },
+    { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
 );
 
 __PACKAGE__->has_many(
