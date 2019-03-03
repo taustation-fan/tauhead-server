@@ -49,4 +49,23 @@
 	</div>
 </div>
 [% END %]
+
+[% IF wrecks_sewers_loot %]
+<div class="row mb-2">
+	<div class="col-middle-half">
+		<h4>The Wrecks - Sewers, campaign completion loot</h4>
+		<ul class="list-group">
+		[% FOREACH record = wrecks_sewers_loot %]
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+				<a href="[% c.uri_for('/item', record.item.slug, 'loot') %]">[% record.item.name | html %]</a>
+				<span>
+					[% record.loot_count.get_column('sum_count') %] / [% wrecks_sewers_loot_action_count %]
+					([% record.percent %]%)
+				</span>
+			</li>
+		[% END %]
+		</ul>
+	</div>
+</div>
+[% END %]
 [% END %]
