@@ -98,6 +98,13 @@ __PACKAGE__->has_many(
     { cascade_copy           => 0, cascade_delete => 0 },
 );
 
+__PACKAGE__->has_many(
+    "l4t_campaigns",
+    "TauHead::Schema::Result::StationL4TCampaign",
+    { "foreign.station_slug" => "self.slug" },
+    { cascade_copy           => 0, cascade_delete => 0 },
+);
+
 sub interstellar_destinations {
     my ( $self ) = @_;
 
