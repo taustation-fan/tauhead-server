@@ -45,43 +45,8 @@ sub wrecks_salvage_loot : Private {
             datetime_updated => \"NOW()",
         });
 
-        my $json;
-        my $ok;
-        $ok = try {
-            $json = Cpanel::JSON::XS->new->decode( $result->json );
-            1;
-        };
-        if ( ! $ok ) {
-            $result->update({
-                held             => 1,
-                datetime_updated => \"NOW()",
-                message          => "json decode failed",
-            });
-            next;
-        }
-
-        $ok = try {
-            $form->process($json);
-            1;
-        }
-        catch {
-            $result->update({
-                held             => 1,
-                datetime_updated => \"NOW()",
-                message          => "form process failed",
-            });
-            return undef;
-        };
-        next unless $ok;
-
-        if ( !$form->submitted_and_valid ) {
-            $result->update({
-                held             => 1,
-                datetime_updated => \'NOW()',
-                message          => "form not valid",
-            });
-            next;
-        }
+        $self->_validate_result_json( $result, $form )
+            or next;
 
         my $params = $form->params;
         my $item;
@@ -148,6 +113,50 @@ sub wrecks_salvage_loot : Private {
     }
 
     return;
+}
+
+sub _validate_result_json {
+    my ( $self, $result, $form ) =  @_;
+
+    my $json;
+    my $ok;
+    $ok = try {
+        $json = Cpanel::JSON::XS->new->decode( $result->json );
+        1;
+    };
+    if ( ! $ok ) {
+        $result->update({
+            held             => 1,
+            datetime_updated => \"NOW()",
+            message          => "json decode failed",
+        });
+        return;
+    }
+
+    $ok = try {
+        $form->process($json);
+        1;
+    }
+    catch {
+        $result->update({
+            held             => 1,
+            datetime_updated => \"NOW()",
+            message          => "form process failed",
+        });
+        return undef;
+    };
+    return unless $ok;
+
+    if ( !$form->submitted_and_valid ) {
+        $result->update({
+            held             => 1,
+            datetime_updated => \'NOW()',
+            message          => "form not valid",
+        });
+        return;
+    }
+
+    return 1;
 }
 
 __PACKAGE__->meta->make_immutable;
