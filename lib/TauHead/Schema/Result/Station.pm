@@ -84,6 +84,20 @@ __PACKAGE__->has_many(
     ]
 );
 
+__PACKAGE__->has_many(
+    "action_counts",
+    "TauHead::Schema::Result::StationActionCount",
+    { "foreign.station_slug" => "self.slug" },
+    { cascade_copy           => 0, cascade_delete => 0 },
+);
+
+__PACKAGE__->has_many(
+    "loot_counts",
+    "TauHead::Schema::Result::StationLootCount",
+    { "foreign.station_slug" => "self.slug" },
+    { cascade_copy           => 0, cascade_delete => 0 },
+);
+
 sub interstellar_destinations {
     my ( $self ) = @_;
 

@@ -195,6 +195,13 @@ __PACKAGE__->has_many(
     { cascade_copy        => 0, cascade_delete => 0 },
 );
 
+__PACKAGE__->has_many(
+    "loot_counts",
+    "TauHead::Schema::Result::StationLootCount",
+    { "foreign.item_slug" => "self.slug" },
+    { cascade_copy        => 0, cascade_delete => 0 },
+);
+
 sub item_component_names {
     return
         "item_component_armor",
