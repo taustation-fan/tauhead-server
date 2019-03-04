@@ -87,18 +87,17 @@ sub _wrecks_salvage_loot {
         my $loot_count = 0;
 
         while ( my $record = $records_rs->next ) {
-            my $percent = $record->get_column('sum_count') / $action_count * 100;
+            my $count = $record->get_column('sum_count');
+            my $percent = $count / $action_count * 100;
             $percent = sprintf "%.1f", $percent;
+            $loot_count += $count;
 
             push @result, {
                 loot_count => $record,
                 item       => $record->item,
                 percent    => $percent,
             };
-
-            $loot_count++;
         }
-
         my $loot_nothing    = $action_count - $loot_count;
         my $nothing_percent = sprintf "%.1f", ( $loot_nothing / $action_count * 100 );
 
