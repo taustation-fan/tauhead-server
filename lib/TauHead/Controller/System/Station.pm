@@ -46,6 +46,7 @@ sub loot : PathPart('loot') : Chained('station') : Args(0) {
 
     $self->_wrecks_salvage_loot($c);
     $self->_wrecks_l4t_loot($c);
+    $self->_wrecks_sewers_loot($c);
 }
 
 sub _wrecks_salvage_loot {
