@@ -35,6 +35,11 @@
 <div class="row mb-2">
 	<div class="col-middle-half">
 		<h4>The Wrecks - Looking For Trouble</h4>
+		<div>
+			<a href="[% c.uri_for('/system', station.system.slug, 'station', station.slug, 'loot', 'by_player_level', 'looking_for_trouble') %]" class="bg-info">
+				View loot broken-down by player-level
+			</a>
+		</div>
 		<ul class="list-group">
 		[% FOREACH record = wrecks_looking_for_trouble_loot %]
 			<li class="list-group-item d-flex justify-content-between align-items-center">

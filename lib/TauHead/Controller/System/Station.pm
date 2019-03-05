@@ -212,6 +212,85 @@ sub _wrecks_sewers_loot {
     };
 }
 
+sub player_level_l4t : PathPart('loot/by_player_level/looking_for_trouble') : Chained('station') : Args(0) {
+    my ( $self, $c ) = @_;
+
+    my $station = $c->stash->{station};
+    my $model   = $c->model('DB');
+
+    my $player_level_rs = $model->resultset('StationLootCount')->search(
+        {
+            action       => 'wrecks_looking_for_trouble_loot',
+            station_slug => $station->slug,
+        },
+        {
+            'select' => [
+                'player_level',
+                { sum => 'count', -as => 'sumx' },
+            ],
+            'as' => [
+                'player_level',
+                'sumx',
+            ],
+            group_by => 'player_level',
+            order_by => 'player_level',
+        },
+    );
+
+    return if ! $player_level_rs->count;
+
+    my %total_count;
+    my @heading;
+    my @rows;
+    my $level_i = 0;
+    my $max_i   = 0;
+
+    while ( my $level_rs = $player_level_rs->next ) {
+        my $level       = $level_rs->get_column('player_level');
+        my $total_count = $level_rs->get_column('sumx');
+
+        $total_count{$level} = $total_count;
+        $heading[$level_i]   = $level;
+
+        my $level_loot_rs = $model->resultset('StationLootCount')->search(
+            {
+                action       => 'wrecks_looking_for_trouble_loot',
+                station_slug => $station->slug,
+                player_level => $level,
+            },
+            {
+                '+select' => [{ sum => 'count', -as => 'sum_count' }],
+                '+as'     => ['sum_count'],
+                group_by  => 'item_slug',
+                prefetch  => 'item',
+                order_by  => ['me.sum_count DESC', 'item_slug'],
+            }
+        );
+        my $row_i = 0;
+        while ( my $record = $level_loot_rs->next ) {
+            $max_i = $row_i if $row_i > $max_i;
+
+            my $sum_count = $record->get_column('sum_count');
+            my $percent = $sum_count / $total_count * 100;
+            $percent = sprintf "%.1f", $percent;
+
+            $rows[$row_i][$level_i] = {
+                level      => $level,
+                loot_count => $sum_count,
+                item       => $record->item,
+                percent    => $percent,
+            };
+            $row_i++;
+        }
+        $level_i++;
+    }
+
+    $c->stash->{total_count} = \%total_count;
+    $c->stash->{col_count}   = [0 .. $max_i];
+    $c->stash->{heading}     = \@heading;
+    $c->stash->{rows}        = \@rows;
+}
+
 sub end : ActionClass('RenderView') { }
 
 __PACKAGE__->meta->make_immutable;

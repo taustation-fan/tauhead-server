@@ -1,0 +1,49 @@
+[% WRAPPER inc/wrapper.tt page_title=system.name _ ' / ' _ station.name _ ' Loot Drops - Looking for Trouble by Player Level' %]
+<div class="row mb-2">
+	<div class="col-middle-half">
+		<h3>[% station.name | html %], The Wrecks - Looking For Trouble by Player Level</h3>
+	</div>
+</div>
+
+[% IF heading.size %]
+<div class="row mb-2">
+	<div class="col">
+		<table class="table">
+			<thead>
+				<tr>
+				[% FOREACH level IN heading %]
+					<th>[% level %]</th>
+					<th>&nbsp;</th>
+				[% END %]
+				</tr>
+			</thead>
+			<tbody>
+			[% FOREACH row IN rows %]
+				<tr>
+				[% FOREACH col_i IN col_count %]
+					<td>
+					[% IF row.$col_i %]
+					[% SET cell = row.$col_i %]
+						<a href="[% c.uri_for('/item', cell.item.slug, 'loot') %]">[% cell.item.name | html %]</a>
+					[% ELSE %]
+						&nbsp;
+					[% END %]
+					</td>
+					<td>
+					[% IF row.$col_i %]
+						[% SET level = cell.level %]
+						[% cell.loot_count %] / [% total_count.${cell.level} %]
+						([% cell.percent %]%)
+					[% ELSE %]
+						&nbsp;
+					[% END %]
+					</td>
+				[% END %]
+				</tr>
+			[% END %]
+			</tbody>
+		</table>
+	</div>
+</div>
+[% END %]
+[% END %]
