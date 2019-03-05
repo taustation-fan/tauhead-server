@@ -62,6 +62,9 @@
 							);
 						}
 					}
+					[% ajaxForm.id %]_button.removeAttr("disabled");
+					[% ajaxForm.id %]_button.removeClass("progress-bar-striped");
+					[% ajaxForm.id %]_button.removeClass("progress-bar-animated");
 				}
 		   	}
 
