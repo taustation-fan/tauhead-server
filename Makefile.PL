@@ -21,6 +21,7 @@ requires 'Catalyst::Plugin::Session';
 requires 'Catalyst::Plugin::Session::Store::DBIC';
 requires 'Catalyst::Plugin::Session::State::Cookie';
 requires 'Catalyst::Plugin::Authentication';
+requires 'Catalyst::Plugin::Scheduler';
 requires 'Catalyst::Plugin::SubRequest';
 requires 'Catalyst::Authentication::Store::DBIx::Class';
 requires 'Catalyst::Plugin::Authorization::Roles';
@@ -29,7 +30,9 @@ requires 'Catalyst::TraitFor::Request::REST';
 requires 'Catalyst::View::TT';
 requires 'CatalystX::RoleApplicator';
 requires 'Cpanel::JSON::XS';
-requires 'DBD::mysql';
+requires 'DateTime::Format::Duration';
+requires 'DateTime::Format::TauStation';
+requires 'DBD::MariaDB';
 requires 'FCGI';
 requires 'HTML::FormFu';
 requires 'HTML::FormFu::Constraint::DBIC::Exists'; # not currently in the HTML-FormFu-Model-DBIC dist
