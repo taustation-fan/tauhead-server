@@ -5,6 +5,7 @@
   "devDependencies": {
     "grunt": "1.x",
     "grunt-contrib-sass": "1.x",
-    "grunt-contrib-uglify": "4.x"
+    "grunt-contrib-uglify": "4.x",
+    "yarn": "*"
   }
 }

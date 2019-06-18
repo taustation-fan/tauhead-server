@@ -1,6 +1,5 @@
-
 npm install
-grunt
+./node_modules/grunt/bin/grunt
 
 ### Setting up external libraries
 ###
@@ -14,13 +13,12 @@ cd ../..
 
 cd ext/jquery-validation
 npm install
-npm install -g grunt
-grunt release
+../../node_modules/grunt/bin/grunt release
 cd ../..
 
 cd ext/mermaid
 npm install
-npm install -g yarn
-yarn add mermaid
+../../node_modules/yarn/bin/yarn add mermaid
 npm run-script build
 cd ../..
+
