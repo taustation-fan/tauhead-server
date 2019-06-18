@@ -8,7 +8,7 @@ module.exports = function(grunt) {
 					sourcemap: 'none'
 				},
 				files: {
-					'dist/tauhead.min.css': 'tauhead.scss'
+					'dist/tauhead.min.css': 'src/tauhead.scss'
 				}
 			}
 		},
@@ -18,7 +18,7 @@ module.exports = function(grunt) {
 			},
 			dist: {
 				files: {
-					'root/static/item_list.min.js': 'src/item_list.js'
+					'dist/item_list.min.js': 'src/item_list.js'
 				}
 			}
 		}
