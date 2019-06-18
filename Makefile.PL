@@ -21,10 +21,10 @@ requires 'Catalyst::Plugin::Session';
 requires 'Catalyst::Plugin::Session::Store::DBIC';
 requires 'Catalyst::Plugin::Session::State::Cookie';
 requires 'Catalyst::Plugin::Authentication';
-requires 'Catalyst::Plugin::Scheduler';
 requires 'Catalyst::Plugin::SubRequest';
 requires 'Catalyst::Authentication::Store::DBIx::Class';
 requires 'Catalyst::Plugin::Authorization::Roles';
+requires 'Catalyst::Plugin::Scheduler';
 requires 'Catalyst::Plugin::StatusMessage';
 requires 'Catalyst::TraitFor::Request::REST';
 requires 'Catalyst::View::TT';
@@ -35,10 +35,12 @@ requires 'DateTime::Format::TauStation';
 requires 'DBD::MariaDB';
 requires 'FCGI';
 requires 'HTML::FormFu';
-requires 'HTML::FormFu::Constraint::DBIC::Exists'; # not currently in the HTML-FormFu-Model-DBIC dist
+#requires 'HTML::FormFu::Constraint::DBIC::Exists'; # not currently in the HTML-FormFu-Model-DBIC dist
+requires 'HTML::FormFu::Constraint::DBIC::Unique';
 requires 'HTML::FormFu::Role::JQueryValidation';
 requires 'Catalyst::Controller::HTML::FormFu';
 requires 'HTML::FormFu::Model::DBIC';
+requires 'HTML::FormFu::TauStation';
 requires 'DBIx::Class::DeploymentHandler';
 requires 'DBIx::Class::InflateColumn::DateTime';
 requires 'DBIx::Class::InflateColumn::Serializer';
