@@ -19,9 +19,6 @@
 [submodule "ext/open-iconic"]
 	path = ext/open-iconic
 	url = https://github.com/iconic/open-iconic.git
-[submodule "ext/pushjs"]
-	path = ext/pushjs
-	url = https://github.com/Nickersoft/push.js.git
 [submodule "ext/mermaid"]
 	path = ext/mermaid
 	url = https://github.com/knsv/mermaid.git
