@@ -1,3 +1,14 @@
+mkdir tmp
+chgrp apache tmp
+chmod g+w tmp
+
+semanage fcontext -a -t httpd_sys_rw_content_t '/var/www/vhosts/test.tauhead.com/perl(/.*)?'
+semanage fcontext -a -t httpd_sys_rw_content_t '/var/www/vhosts/test.tauhead.com/tmp(/.*)?'
+semanage fcontext -a -t httpd_sys_script_exec_t '/var/www/vhosts/test.tauhead.com/script/tauhead_fastcgi.pl'
+restorecon -r perl tmp script/tauhead_fastcgi.pl
+
+#
+
 git submodule init
 git submodule update
 
