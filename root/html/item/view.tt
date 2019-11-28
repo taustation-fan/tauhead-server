@@ -69,7 +69,7 @@
 					[% vendor.name | html %]
 					<small>([% vendor.area.station.name | html %])</small>
 				</a>
-				[% vendor_item = vendor.search_related( 'vendor_items', { 'item_slug' => item.slug }, {'rows' => 1}) %]
+				[% vendor_item = vendor.search_related( 'vendor_items', { 'item_slug' => item.slug }, { 'rows' => 1, 'order_by' => 'price ASC' }) %]
 				<span class="badge badge-info">
 					[% vendor_item.price %] [% vendor_item.price_unit | ucfirst %]
 				</span>
