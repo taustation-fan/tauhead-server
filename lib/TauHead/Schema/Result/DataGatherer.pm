@@ -53,7 +53,7 @@ __PACKAGE__->add_columns(
         is_nullable               => 0,
     },
     "message",
-    { data_type => "varchar", is_nullable => 0, size => 255 },
+    { data_type => "varchar", is_nullable => 0, size => 255, default_value => '' },
     "json",
     { data_type => "mediumtext", is_nullable => 0 },
 );
