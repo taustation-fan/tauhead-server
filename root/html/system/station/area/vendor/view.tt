@@ -50,7 +50,7 @@
 					<td>[% vendor_item.max_quantity_that_can_be_sold_per_attempt | html %]</td>
 					<td>[% vendor_item.default_quantity | html %]</td>
 					<td>[% vendor_item.has_unlimited_quantity ? 'Yes' : '' %]</td>
-					<td>[% vendor_item.price | html %]</td>
+					<td>[% IF vendor_item.price_unit == "credits" %]Variable[% ELSE %][% vendor_item.price | html %][% END %]</td>
 					<td>[% vendor_item.price_unit | ucfirst | html %]</td>
 				</tr>
 			[% END %]

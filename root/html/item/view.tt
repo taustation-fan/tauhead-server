@@ -71,7 +71,8 @@
 				</a>
 				[% vendor_item = vendor.search_related( 'vendor_items', { 'item_slug' => item.slug }, { 'rows' => 1, 'order_by' => 'price ASC' }) %]
 				<span class="badge badge-info">
-					[% vendor_item.price %] [% vendor_item.price_unit | ucfirst %]
+					[% IF vendor_item.price_unit == "credits" %]Variable[% ELSE %][% vendor_item.price %][% END %]
+					[% vendor_item.price_unit | ucfirst %]
 				</span>
 			</li>
 		[% END %]
