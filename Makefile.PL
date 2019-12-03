@@ -33,6 +33,8 @@ requires 'Cpanel::JSON::XS';
 requires 'DateTime::Format::Duration';
 requires 'DateTime::Format::TauStation';
 requires 'DBD::MariaDB';
+requires 'DBIx::Class::DeploymentHandler';
+requires 'DBIx::Class::InflateColumn::Serializer';
 requires 'FCGI';
 requires 'HTML::FormFu';
 #requires 'HTML::FormFu::Constraint::DBIC::Exists'; # not currently in the HTML-FormFu-Model-DBIC dist

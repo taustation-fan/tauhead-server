@@ -64,7 +64,7 @@ __PACKAGE__->add_columns(
     "stack_size",
     {
         data_type => "integer",
-        is_nullable => 0,
+        is_nullable => 1,
         default_value => undef,
         extra => {
             th_display => 1,
@@ -75,7 +75,7 @@ __PACKAGE__->add_columns(
     "bonds",
     {
         data_type => "integer",
-        is_nullable => 0,
+        is_nullable => 1,
         default_value => undef,
         extra => {
             th_display => 1,
