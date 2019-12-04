@@ -37,7 +37,7 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("id");
 
 __PACKAGE__->add_unique_constraints(
-    "slug", ["slug"],
+    ["slug"],
 );
 
 __PACKAGE__->has_many(

@@ -130,7 +130,7 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("slug");
 
-__PACKAGE__->add_unique_constraints( namex => ["name"] );
+__PACKAGE__->add_unique_constraints( ["name"] );
 
 __PACKAGE__->belongs_to(
     "item_type", "TauHead::Schema::Result::ItemType",

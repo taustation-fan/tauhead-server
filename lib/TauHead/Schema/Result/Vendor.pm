@@ -29,8 +29,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("id");
 
 __PACKAGE__->add_unique_constraints(
-    "area_id_name", ["area_id", "name"],
-    "area_id_slug", ["area_id", "slug"],
+    ["area_id", "name"],
+    ["area_id", "slug"],
 );
 
 sub sqlt_deploy_hook {

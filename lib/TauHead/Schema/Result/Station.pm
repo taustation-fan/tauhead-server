@@ -50,7 +50,7 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("slug");
 
 __PACKAGE__->add_unique_constraints(
-    "name", ["name"],
+    ["name"],
 );
 
 sub sqlt_deploy_hook {

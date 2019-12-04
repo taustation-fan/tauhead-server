@@ -55,8 +55,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("id");
 
 __PACKAGE__->add_unique_constraints(
-    "station_slug_name", ["station_slug", "name"],
-    "station_slug_slug", ["station_slug", "slug"],
+    ["station_slug", "name"],
+    ["station_slug", "slug"],
 );
 
 sub sqlt_deploy_hook {
