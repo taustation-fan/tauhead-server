@@ -16,7 +16,6 @@ __PACKAGE__->add_columns(
     { data_type => "varchar", is_nullable => 0, size => 128 },
     "sort_order",
     {   data_type         => "integer",
-        extra             => { unsigned => 1 },
         is_nullable       => 0,
     },
 );

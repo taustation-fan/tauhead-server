@@ -23,12 +23,10 @@ __PACKAGE__->add_columns(
     },
     "player_level",
     {   data_type   => "integer",
-        extra       => { unsigned => 1 },
         is_nullable => 0,
     },
     "count",
     {   data_type   => "integer",
-        extra       => { unsigned => 1 },
         is_nullable => 0,
     },
 );

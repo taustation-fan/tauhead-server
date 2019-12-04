@@ -12,7 +12,6 @@ __PACKAGE__->table("npc");
 __PACKAGE__->add_columns(
     "id",
     {   data_type         => "integer",
-        extra             => { unsigned => 1 },
         is_auto_increment => 1,
         is_nullable       => 0,
     },

@@ -12,12 +12,10 @@ __PACKAGE__->table("vendor");
 __PACKAGE__->add_columns(
     "id", # in-game `market_stall_id`
     {   data_type         => "integer",
-        extra             => { unsigned => 1 },
         is_nullable       => 0,
     },
     "area_id",
     {   data_type         => "integer",
-        extra             => { unsigned => 1 },
         is_nullable       => 0,
     },
     "name",

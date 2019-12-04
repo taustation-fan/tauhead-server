@@ -12,7 +12,6 @@ __PACKAGE__->table("mission");
 __PACKAGE__->add_columns(
     "id",
     {   data_type         => "integer",
-        extra             => { unsigned => 1 },
         is_auto_increment => 1,
         is_nullable       => 0,
     },
@@ -22,7 +21,6 @@ __PACKAGE__->add_columns(
     { data_type => "varchar", is_nullable => 0, size => 128 },
     "level",
     {   data_type         => "integer",
-        extra             => { unsigned => 1 },
         is_nullable       => 1,
     },
     "mermaid",

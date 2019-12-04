@@ -26,7 +26,6 @@ __PACKAGE__->add_columns(
     { data_type => "varchar", is_nullable => 0, size => 128 },
     "quantity",
     {   data_type      => "integer",
-        extra          => { unsigned => 1 },
         is_nullable    => 1,
     },
     "price",

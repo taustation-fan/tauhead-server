@@ -14,7 +14,6 @@ __PACKAGE__->add_columns(
     { data_type => "varchar", is_nullable => 0, size => 128 },
     "user_account_id",
     {   data_type      => "integer",
-        extra          => { unsigned => 1 },
         is_foreign_key => 1,
         is_nullable    => 0,
     },

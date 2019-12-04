@@ -12,13 +12,11 @@ __PACKAGE__->table("mission_npc");
 __PACKAGE__->add_columns(
     "mission_id",
     {   data_type      => "integer",
-        extra          => { unsigned => 1 },
         is_foreign_key => 1,
         is_nullable    => 0,
     },
     "npc_id",
     {   data_type         => "integer",
-        extra             => { unsigned => 1 },
         is_foreign_key    => 1,
         is_nullable       => 0,
     },

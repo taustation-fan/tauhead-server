@@ -12,7 +12,6 @@ __PACKAGE__->table("vendor_item");
 __PACKAGE__->add_columns(
     "id", # in-game `market_stall_item_id`
     {   data_type         => "integer",
-        extra             => { unsigned => 1 },
         is_nullable       => 0,
     },
     "item_slug",
@@ -26,7 +25,6 @@ __PACKAGE__->add_columns(
     },
     "vendor_id",
     {   data_type         => "integer",
-        extra             => { unsigned => 1 },
         is_nullable       => 0,
     },
 
