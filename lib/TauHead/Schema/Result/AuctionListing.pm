@@ -38,14 +38,12 @@ __PACKAGE__->add_columns(
     "seller_name",
     { data_type => "varchar", is_nullable => 0, size => 255 },
     "first_seen_datetime",
-    {   data_type                 => "timestamp",
-        datetime_undef_if_invalid => 1,
-        is_nullable               => 0,
+    {   data_type   => "timestamp",
+        is_nullable => 0,
     },
     "last_seen_datetime",
-    {   data_type                 => "timestamp",
-        datetime_undef_if_invalid => 1,
-        is_nullable               => 0,
+    {   data_type   => "timestamp",
+        is_nullable => 0,
     },
 );
 

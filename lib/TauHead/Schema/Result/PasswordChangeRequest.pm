@@ -21,7 +21,6 @@ __PACKAGE__->add_columns(
     },
     "datetime",
     {   data_type                 => "timestamp",
-        datetime_undef_if_invalid => 1,
         is_nullable               => 0,
     },
 );
