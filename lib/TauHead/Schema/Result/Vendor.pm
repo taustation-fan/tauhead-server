@@ -36,7 +36,7 @@ __PACKAGE__->add_unique_constraints(
 sub sqlt_deploy_hook {
     my ($self, $sqlt_table) = @_;
 
-    $sqlt_table->add_index(name => 'area_idx', fields => ['area_id']);
+    $sqlt_table->add_index(fields => ['area_id']);
 }
 
 __PACKAGE__->belongs_to(

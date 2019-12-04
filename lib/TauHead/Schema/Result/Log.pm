@@ -52,7 +52,7 @@ __PACKAGE__->set_primary_key("id");
 sub sqlt_deploy_hook {
     my ($self, $sqlt_table) = @_;
 
-    $sqlt_table->add_index(name => 'user_account_id_datetime', fields => ['user_account_id', 'datetime']);
+    $sqlt_table->add_index(fields => ['user_account_id', 'datetime']);
 }
 
 __PACKAGE__->belongs_to(

@@ -25,7 +25,7 @@ __PACKAGE__->set_primary_key("slug");
 sub sqlt_deploy_hook {
     my ($self, $sqlt_table) = @_;
 
-    $sqlt_table->add_index(name => 'namex', fields => ['name']);
+    $sqlt_table->add_index(fields => ['name']);
 }
 
 __PACKAGE__->has_many(

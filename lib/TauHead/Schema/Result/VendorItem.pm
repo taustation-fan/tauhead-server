@@ -56,7 +56,7 @@ __PACKAGE__->add_unique_constraint( "item_slug_vendor_idx", ["item_slug", "vendo
 sub sqlt_deploy_hook {
     my ($self, $sqlt_table) = @_;
 
-    $sqlt_table->add_index(name => 'vendor_idx', fields => ['vendor_id']);
+    $sqlt_table->add_index(fields => ['vendor_id']);
 }
 
 __PACKAGE__->belongs_to(

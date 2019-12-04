@@ -34,7 +34,7 @@ __PACKAGE__->set_primary_key("auction_id", "gct", "user_account_id");
 sub sqlt_deploy_hook {
     my ($self, $sqlt_table) = @_;
 
-    $sqlt_table->add_index(name => 'auction_id_datetimex', fields => ['auction_id', 'datetime']);
+    $sqlt_table->add_index(fields => ['auction_id', 'datetime']);
 }
 
 __PACKAGE__->belongs_to(

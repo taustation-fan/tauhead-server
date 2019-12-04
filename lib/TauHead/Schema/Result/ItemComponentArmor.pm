@@ -61,7 +61,7 @@ __PACKAGE__->set_primary_key("item_slug");
 sub sqlt_deploy_hook {
     my ($self, $sqlt_table) = @_;
 
-    $sqlt_table->add_index(name => 'e_i_p_idx', fields => ['energy', 'impact', 'piercing']);
+    $sqlt_table->add_index(fields => ['energy', 'impact', 'piercing']);
 }
 
 __PACKAGE__->belongs_to(

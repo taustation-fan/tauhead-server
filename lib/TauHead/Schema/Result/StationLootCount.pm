@@ -42,7 +42,7 @@ __PACKAGE__->set_primary_key("station_slug", "action", "item_slug", "player_leve
 sub sqlt_deploy_hook {
     my ($self, $sqlt_table) = @_;
 
-    $sqlt_table->add_index(name => 'station_slug_action', fields => ['station_slug', 'action']);
+    $sqlt_table->add_index(fields => ['station_slug', 'action']);
 }
 
 __PACKAGE__->belongs_to(

@@ -29,7 +29,7 @@ __PACKAGE__->add_unique_constraints(
 sub sqlt_deploy_hook {
     my ($self, $sqlt_table) = @_;
 
-    $sqlt_table->add_index(name => 'sortorderx', fields => ['sort_order']);
+    $sqlt_table->add_index(fields => ['sort_order']);
 }
 
 __PACKAGE__->has_many(

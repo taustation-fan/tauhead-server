@@ -56,8 +56,8 @@ __PACKAGE__->add_unique_constraints(
 sub sqlt_deploy_hook {
     my ($self, $sqlt_table) = @_;
 
-    $sqlt_table->add_index(name => 'system_slugx', fields => ['system_slug']);
-    $sqlt_table->add_index(name => 'slug_system_slug_sort_orderx', fields => ['slug', 'system_slug', 'sort_order']);
+    $sqlt_table->add_index(fields => ['system_slug']);
+    $sqlt_table->add_index(fields => ['slug', 'system_slug', 'sort_order']);
 }
 
 __PACKAGE__->belongs_to(

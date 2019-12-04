@@ -57,7 +57,6 @@ sub sqlt_deploy_hook {
     my ($self, $sqlt_table) = @_;
 
     $sqlt_table->add_index(
-        name => 'c_h_c_a_dt',
         fields => ['claimed', 'held', 'complete', 'action', 'datetime_created'],
     );
 }
