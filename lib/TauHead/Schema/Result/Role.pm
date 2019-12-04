@@ -16,9 +16,9 @@ __PACKAGE__->add_columns(
         is_nullable       => 0,
     },
     "name",
-    { data_type => "varchar", is_nullable => 0, size => 128 },
+    { data_type => "character varying", is_nullable => 0, size => 128 },
     "display_label",
-    { data_type => "varchar", is_nullable => 0, size => 128 },
+    { data_type => "character varying", is_nullable => 0, size => 128 },
     "description",
     { data_type => "text", is_nullable => 0 },
 );

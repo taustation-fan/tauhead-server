@@ -12,7 +12,7 @@ __PACKAGE__->table("item_component_weapon");
 __PACKAGE__->add_columns(
     "item_slug",
     {
-        data_type => "varchar",
+        data_type => "character varying",
         is_nullable => 0,
         size => 128,
         extra => {
@@ -90,7 +90,7 @@ __PACKAGE__->add_columns(
         },
     },
     "weapon_type",
-    {   data_type => "varchar",
+    {   data_type => "character varying",
         is_nullable => 0,
         extra => {
             th_api_update => 1,

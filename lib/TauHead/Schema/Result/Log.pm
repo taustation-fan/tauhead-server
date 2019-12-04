@@ -30,9 +30,9 @@ __PACKAGE__->add_columns(
         is_nullable => 0,
     },
     "ip_address",
-    { data_type => "varchar", is_nullable => 0, size => 255 },
+    { data_type => "character varying", is_nullable => 0, size => 255 },
     "action",
-    { data_type => "varchar", is_nullable => 0, size => 255 },
+    { data_type => "character varying", is_nullable => 0, size => 255 },
     "data",
     {   data_type => "text",
         is_nullable => 1,
@@ -44,7 +44,7 @@ __PACKAGE__->add_columns(
         is_nullable    => 1,
     },
     "guid",
-    { data_type => "varchar", is_nullable => 1, size => 128 },
+    { data_type => "character varying", is_nullable => 1, size => 128 },
 );
 
 __PACKAGE__->set_primary_key("id");

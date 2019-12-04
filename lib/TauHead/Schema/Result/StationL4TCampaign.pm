@@ -11,7 +11,7 @@ __PACKAGE__->table("station_l4t_campaign");
 
 __PACKAGE__->add_columns(
     "station_slug",
-    {   data_type      => "varchar",
+    {   data_type      => "character varying",
         size           => 128,
         is_foreign_key => 1,
         is_nullable    => 0,
@@ -21,7 +21,7 @@ __PACKAGE__->add_columns(
         is_nullable => 0,
     },
     "campaign_difficulty",
-    {   data_type      => "varchar",
+    {   data_type      => "character varying",
         size           => 20,
         is_foreign_key => 1,
         is_nullable    => 0,

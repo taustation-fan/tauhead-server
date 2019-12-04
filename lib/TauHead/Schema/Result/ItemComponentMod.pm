@@ -12,7 +12,7 @@ __PACKAGE__->table("item_component_mod");
 __PACKAGE__->add_columns(
     "item_slug",
     {
-        data_type => "varchar",
+        data_type => "character varying",
         is_nullable => 0,
         size => 128,
         extra => {
@@ -92,7 +92,7 @@ __PACKAGE__->add_columns(
         },
     },
     "mod_type",
-    {   data_type => "varchar",
+    {   data_type => "character varying",
         is_nullable => 0,
         size => 128,
         extra => {

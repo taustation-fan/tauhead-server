@@ -36,7 +36,7 @@ __PACKAGE__->add_columns(
         is_nullable => 0,
     },
     "action",
-    { data_type => "varchar", is_nullable => 0, size => 50 },
+    { data_type => "character varying", is_nullable => 0, size => 50 },
     "datetime_created",
     {   data_type   => "timestamp",
         is_nullable => 0,
@@ -46,7 +46,7 @@ __PACKAGE__->add_columns(
         is_nullable => 0,
     },
     "message",
-    { data_type => "varchar", is_nullable => 0, size => 255, default_value => '' },
+    { data_type => "character varying", is_nullable => 0, size => 255, default_value => '' },
     "json",
     { data_type => "text", is_nullable => 0 },
 );

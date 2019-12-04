@@ -11,13 +11,13 @@ __PACKAGE__->table("station_action_count");
 
 __PACKAGE__->add_columns(
     "station_slug",
-    {   data_type      => "varchar",
+    {   data_type      => "character varying",
         size           => 128,
         is_foreign_key => 1,
         is_nullable    => 0,
     },
     "action",
-    {   data_type   => "varchar",
+    {   data_type   => "character varying",
         is_nullable => 0,
         size        => 50,
     },

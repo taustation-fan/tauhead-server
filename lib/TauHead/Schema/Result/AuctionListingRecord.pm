@@ -15,9 +15,9 @@ __PACKAGE__->table("auction_listing_record");
 
 __PACKAGE__->add_columns(
     "auction_id",
-    { data_type => "varchar", is_nullable => 0, size => 50 },
+    { data_type => "character varying", is_nullable => 0, size => 50 },
     "gct",
-    { data_type => "varchar", is_nullable => 0, size => 17 },
+    { data_type => "character varying", is_nullable => 0, size => 17 },
     "datetime",
     {   data_type   => "timestamp",
         is_nullable => 0,

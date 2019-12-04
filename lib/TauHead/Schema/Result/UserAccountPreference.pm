@@ -26,7 +26,7 @@ __PACKAGE__->add_columns(
         is_nullable       => 0,
     },
     "value",
-    { data_type => "varchar", is_nullable => 1, size => 255 },
+    { data_type => "character varying", is_nullable => 1, size => 255 },
 );
 
 __PACKAGE__->set_primary_key("id");

@@ -11,13 +11,13 @@ __PACKAGE__->table("interstellar_link");
 
 __PACKAGE__->add_columns(
     "station_a",
-    {   data_type      => "varchar",
+    {   data_type      => "character varying",
         size           => 128,
         is_foreign_key => 1,
         is_nullable    => 0,
     },
     "station_b",
-    {   data_type      => "varchar",
+    {   data_type      => "character varying",
         size           => 128,
         is_foreign_key => 1,
         is_nullable    => 0,

@@ -11,7 +11,7 @@ __PACKAGE__->table("item");
 __PACKAGE__->add_columns(
     "item_type_slug",
     {
-        data_type => "varchar",
+        data_type => "character varying",
         is_nullable => 0,
         size => 128,
         extra => {
@@ -21,7 +21,7 @@ __PACKAGE__->add_columns(
     },
     "name",
     {
-        data_type => "varchar",
+        data_type => "character varying",
         is_nullable => 0,
         size => 128,
         extra => {
@@ -31,7 +31,7 @@ __PACKAGE__->add_columns(
     },
     "slug",
     {
-        data_type => "varchar",
+        data_type => "character varying",
         is_nullable => 0,
         size => 128,
         extra => {
@@ -41,7 +41,7 @@ __PACKAGE__->add_columns(
     },
     "image",
     {
-        data_type => "varchar",
+        data_type => "character varying",
         is_nullable => 0,
         size => 128,
         extra => {

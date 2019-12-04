@@ -19,9 +19,9 @@ __PACKAGE__->add_columns(
         is_nullable       => 0,
     },
     "name",
-    { data_type => "varchar", is_nullable => 0, size => 128 },
+    { data_type => "character varying", is_nullable => 0, size => 128 },
     "slug",
-    { data_type => "varchar", is_nullable => 0, size => 128 },
+    { data_type => "character varying", is_nullable => 0, size => 128 },
     "is_corporation",
     { data_type => "boolean", is_nullable => 0, default_value => 0 },
 );

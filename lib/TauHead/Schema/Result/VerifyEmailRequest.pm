@@ -11,7 +11,7 @@ __PACKAGE__->table("verify_email_request");
 
 __PACKAGE__->add_columns(
     "guid",
-    { data_type => "varchar", is_nullable => 0, size => 128 },
+    { data_type => "character varying", is_nullable => 0, size => 128 },
     "user_account_id",
     {   data_type      => "integer",
         is_foreign_key => 1,

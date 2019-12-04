@@ -11,15 +11,15 @@ __PACKAGE__->table("station");
 
 __PACKAGE__->add_columns(
     "slug",
-    { data_type => "varchar", is_nullable => 0, size => 128 },
+    { data_type => "character varying", is_nullable => 0, size => 128 },
     "system_slug",
-    { data_type => "varchar", is_nullable => 0, size => 128 },
+    { data_type => "character varying", is_nullable => 0, size => 128 },
     "sort_order",
     {   data_type         => "integer",
         is_nullable       => 0,
     },
     "name",
-    { data_type => "varchar", is_nullable => 0, size => 128 },
+    { data_type => "character varying", is_nullable => 0, size => 128 },
     "affiliation",
     {   data_type         => "enum",
         extra             => { list => [qw( consortium gaule freebooter independent )] },
