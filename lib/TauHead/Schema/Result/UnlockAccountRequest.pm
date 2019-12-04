@@ -20,7 +20,7 @@ __PACKAGE__->add_columns(
         is_nullable    => 0,
     },
     "datetime",
-    {   data_type                 => "datetime",
+    {   data_type                 => "timestamp",
         datetime_undef_if_invalid => 1,
         is_nullable               => 0,
     },

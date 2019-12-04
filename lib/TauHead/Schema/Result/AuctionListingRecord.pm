@@ -19,7 +19,7 @@ __PACKAGE__->add_columns(
     "gct",
     { data_type => "varchar", is_nullable => 0, size => 17 },
     "datetime",
-    {   data_type                 => "datetime",
+    {   data_type                 => "timestamp",
         datetime_undef_if_invalid => 1,
         is_nullable               => 0,
     },
