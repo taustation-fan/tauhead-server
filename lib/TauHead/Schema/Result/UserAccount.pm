@@ -29,7 +29,7 @@ __PACKAGE__->add_columns(
     "disabled",
     { data_type => "boolean", default_value => 0, is_nullable => 0 },
     "disabled_reason",
-    { data_type => "mediumtext", is_nullable => 0, default_value => "" },
+    { data_type => "text", is_nullable => 0, default_value => "" },
 );
 
 __PACKAGE__->set_primary_key("id");

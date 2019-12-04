@@ -120,7 +120,7 @@ __PACKAGE__->add_columns(
 
     "description",
     {
-        data_type => "mediumtext",
+        data_type => "text",
         is_nullable => 0,
         extra => {
             th_export => 1,

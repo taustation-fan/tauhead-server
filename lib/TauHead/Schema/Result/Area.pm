@@ -47,9 +47,9 @@ __PACKAGE__->add_columns(
     "other_img",
     { data_type => "varchar", is_nullable => 1, size => 256 },
     "area_description_short",
-    { data_type => "mediumtext", is_nullable => 1 },
+    { data_type => "text", is_nullable => 1 },
     "area_description_long",
-    { data_type => "mediumtext", is_nullable => 1 },
+    { data_type => "text", is_nullable => 1 },
 );
 
 __PACKAGE__->set_primary_key("id");
