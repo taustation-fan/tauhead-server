@@ -46,7 +46,7 @@ sub index :Path :Args(0) :Form {
         undef,
         {
             '+select' => [
-                { '' => \'DATE_SUB(MAX(me.last_seen_datetime), INTERVAL 90 SECOND)' },
+                { '' => \"max(me.last_seen_datetime) - interval '90 seconds'" },
             ],
             '+as' => [
                 'cutoff_datetime'
