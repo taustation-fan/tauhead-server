@@ -24,7 +24,7 @@
 			[% IF c.check_user_roles('log_viewer') %]
 				<tr>
 					<td colspan="2">
-						<a href="[% c.uri_for('/log/list', {'user_id' => view_user.id}) %]" class="btn btn-default">
+						<a href="[% c.uri_for('/log/list', {'user_account_id' => view_user.id}) %]" class="btn btn-default">
 							View history logs
 						</a>
 						<br />

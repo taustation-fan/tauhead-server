@@ -32,7 +32,7 @@ sub _list_json {
 
     my $last_login_rs = $model->resultset('Log')->search(
         {
-            user_id => { -ident => 'outer_id' },
+            user_account_id => { -ident => 'outer_id' },
         },
         {
             columns  => [ 'datetime' ],
@@ -41,7 +41,7 @@ sub _list_json {
         },
     )->as_query;
 
-    my $rs = $model->resultset('User')->search(
+    my $rs = $model->resultset('UserAccount')->search(
         {},
         {
             '+select' => [

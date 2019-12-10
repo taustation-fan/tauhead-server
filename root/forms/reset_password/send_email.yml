@@ -18,7 +18,7 @@ elements:
         - type: Required
         
         - type: DBIC::Exists
-          resultset: User
+          resultset: UserAccount
           message: 'There is no account with that username'
     
     - name: send

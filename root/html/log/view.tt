@@ -28,12 +28,12 @@
 			<tr>
 				<td>Logged-in User:</td>
 				<td>
-				[% IF log.user_id %]
+				[% IF log.user_account_id %]
 					[% log.user.username | html %]<br />
-					<a href="[% c.uri_for('/log/list', {'user_id' => log.user_id}) %]">View history</a>
+					<a href="[% c.uri_for('/log/list', {'user_account_id' => log.user_account_id}) %]">View history</a>
 					[% IF c.check_user_roles('user_admin') %]
 						<br />
-						<a href="[% c.uri_for('/admin/user', log.user_id) %]">View user</a>
+						<a href="[% c.uri_for('/admin/user', log.user_account_id) %]">View user</a>
 					[% END %]
 				[% ELSE %]
 					 <i>None</i>

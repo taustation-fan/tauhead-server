@@ -48,7 +48,7 @@ sub _send_email : Private {
     my ( $self, $c ) = @_;
 
     my $user
-        = $c->model('DB')->resultset('User')
+        = $c->model('DB')->resultset('UserAccount')
         ->find( { username => $c->stash->{form}->param_value('username'), } )
             or return $self->not_found($c);
 
@@ -105,7 +105,7 @@ sub unlock_account : Path('/unlock-account') : Args(1) {
     }
 
     my $form  = $c->stash->{form};
-    my $user  = $reset->user;
+    my $user  = $reset->user_account;
 
     $user->delete_related( 'login_failure' );
 

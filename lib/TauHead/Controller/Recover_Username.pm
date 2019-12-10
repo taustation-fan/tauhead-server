@@ -35,7 +35,7 @@ sub _send_email : Private {
     my ( $self, $c ) = @_;
 
     my $user
-        = $c->model('DB')->resultset('User')
+        = $c->model('DB')->resultset('UserAccount')
         ->find( { email => $c->stash->{form}->param_value('email'), } )
             or return $self->not_found($c);
 

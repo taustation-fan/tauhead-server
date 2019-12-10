@@ -16,7 +16,7 @@ __PACKAGE__->add_columns(
         is_auto_increment => 1,
         is_nullable       => 0,
     },
-    "user_id",
+    "user_account_id",
     {   data_type      => "integer",
         extra          => { unsigned => 1 },
         is_foreign_key => 1,
@@ -70,8 +70,8 @@ sub sqlt_deploy_hook {
 }
 
 __PACKAGE__->belongs_to(
-    "user", "TauHead::Schema::Result::User",
-    { id            => "user_id" },
+    "user_account", "TauHead::Schema::Result::UserAccount",
+    { id            => "user_account_id" },
     { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
 );
 

@@ -36,7 +36,7 @@ sub _send_email : Private {
     my ( $self, $c ) = @_;
 
     my $user
-        = $c->model('DB')->resultset('User')
+        = $c->model('DB')->resultset('UserAccount')
         ->find( { username => $c->stash->{form}->param_value('username'), } )
             or return $self->not_found($c);
 
@@ -105,7 +105,7 @@ sub reset_password_FORM_NOT_SUBMITTED {
     my $form    = $c->stash->{form};
     my $element = $form->get_field( { name => 'username' } );
 
-    $element->default( $reset->user->username );
+    $element->default( $reset->user_account->username );
     $form->process;
 }
 
@@ -125,7 +125,7 @@ sub reset_password_FORM_VALID {
     my $reset  = $c->stash->{reset_rs};
     my $form   = $c->stash->{form};
     my $passwd = $form->param_value('password');
-    my $user   = $reset->user;
+    my $user   = $reset->user_account;
 
     $passwd = $self->generate_password_base64( $c, $passwd );
 
@@ -133,7 +133,7 @@ sub reset_password_FORM_VALID {
     $user->update;
 
     $c->model('DB')->resultset('PasswordChangeRequest')
-        ->search( { user_id => $user->id, } )->delete;
+        ->search( { user_account_id => $user->id, } )->delete;
 
     $c->stash->{rest} = {
         ok       => 1,

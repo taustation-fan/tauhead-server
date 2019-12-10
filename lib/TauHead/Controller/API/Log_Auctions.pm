@@ -33,7 +33,7 @@ sub index_FORM_VALID {
     my $params = $form->params;
     my $schema = $c->model('DB');
 
-    my $user_id      = $c->user->obj->id;
+    my $user_account_id      = $c->user->obj->id;
     my $gct          = $params->{gct};
     my $gct_datetime = DateTime::Format::TauStation->parse_datetime( $gct );
     my $added        = 0;
@@ -92,7 +92,7 @@ sub index_FORM_VALID {
                 {
                     gct      => $gct,
                     datetime => $gct_datetime,
-                    user_id  => $user_id,
+                    user_account_id  => $user_account_id,
                 },
             );
             $added++;

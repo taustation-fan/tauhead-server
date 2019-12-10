@@ -25,14 +25,14 @@ sub list : Path('') : Args(0) : FormConfig {
             colNames => [
                 'me.datetime',
                 'me.action',
-                'user.username',
+                'user_account.username',
             ],
         },
     );
 
     my %params = (
         ip_address  => sub { sprintf "IP Address: %s", html2text( $_[0] ) },
-        user_id     => sub { sprintf "user #%d", html2text( $_[0] ) },
+        user_account_id     => sub { sprintf "user #%d", html2text( $_[0] ) },
         guid        => sub { sprintf "GUID: %s", html2text( $_[0] ) },
         owner_id    => sub { sprintf "association with user #%d", html2text( $_[0] ) },
     );
@@ -55,8 +55,8 @@ sub list : Path('') : Args(0) : FormConfig {
     my $rs = $c->model('DB')->resultset('Log')->search(
         \%cond,
         {
-            join => [ 'user' ],
-            '+select' => [ 'user.username' ],
+            join => [ 'user_account' ],
+            '+select' => [ 'user_account.username' ],
             '+as'     => [ 'username' ],
             %{ $dataTablesParams{attrs} },
         },
@@ -73,7 +73,7 @@ sub list : Path('') : Args(0) : FormConfig {
             html2text( $log->action );
 
         # responder - column 3 - username
-        if ( $log->user_id ) {
+        if ( $log->user_account_id ) {
             push @cols, html2text( $log->get_column('username') );
         }
         else {

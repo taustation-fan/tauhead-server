@@ -1,6 +1,6 @@
 use utf8;
 
-package TauHead::Schema::Result::User;
+package TauHead::Schema::Result::UserAccount;
 
 use strict;
 use warnings;
@@ -8,7 +8,7 @@ use List::Util qw( any );
 
 use base 'DBIx::Class::Core';
 
-__PACKAGE__->table("user");
+__PACKAGE__->table("user_account");
 
 __PACKAGE__->add_columns(
     "id",
@@ -42,35 +42,35 @@ __PACKAGE__->add_unique_constraint( "username", ["username"] );
 __PACKAGE__->might_have(
     "email_change_request",
     "TauHead::Schema::Result::EmailChangeRequest",
-    { "foreign.user_id" => "self.id" },
+    { "foreign.user_account_id" => "self.id" },
     { cascade_copy      => 0, cascade_delete => 0 },
 );
 
 __PACKAGE__->might_have(
     "verify_email_request",
     "TauHead::Schema::Result::VerifyEmailRequest",
-    { "foreign.user_id" => "self.id" },
+    { "foreign.user_account_id" => "self.id" },
     { cascade_copy      => 0, cascade_delete => 0 },
 );
 
 __PACKAGE__->might_have(
     "password_change_request",
     "TauHead::Schema::Result::PasswordChangeRequest",
-    { "foreign.user_id" => "self.id" },
+    { "foreign.user_account_id" => "self.id" },
     { cascade_copy      => 0, cascade_delete => 0 },
 );
 
 __PACKAGE__->might_have(
     "unlock_account_request",
     "TauHead::Schema::Result::UnlockAccountRequest",
-    { "foreign.user_id" => "self.id" },
+    { "foreign.user_account_id" => "self.id" },
     { cascade_copy      => 0, cascade_delete => 0 },
 );
 
 __PACKAGE__->has_many(
     "user_roles",
-    "TauHead::Schema::Result::UserRole",
-    { "foreign.user_id" => "self.id" },
+    "TauHead::Schema::Result::UserAccountRole",
+    { "foreign.user_account_id" => "self.id" },
     { cascade_copy      => 0, cascade_delete => 0 },
 );
 
@@ -79,28 +79,28 @@ __PACKAGE__->many_to_many( "roles", "user_roles", "role", );
 __PACKAGE__->has_many(
     "logs",
     "TauHead::Schema::Result::Log",
-    { "foreign.user_id" => "self.id" },
+    { "foreign.user_account_id" => "self.id" },
     { cascade_copy      => 0, cascade_delete => 0 },
 );
 
 __PACKAGE__->has_many(
     "login_failure",
     "TauHead::Schema::Result::LoginFailure",
-    { "foreign.user_id" => "self.id" },
+    { "foreign.user_account_id" => "self.id" },
     { cascade_copy      => 0, cascade_delete => 0 },
 );
 
 __PACKAGE__->has_many(
     "user_preferences",
-    "TauHead::Schema::Result::UserPreference",
-    { "foreign.user_id" => "self.id" },
+    "TauHead::Schema::Result::UserAccountPreference",
+    { "foreign.user_account_id" => "self.id" },
     { cascade_copy      => 0, cascade_delete => 0 },
 );
 
 __PACKAGE__->has_many(
     "auction_listing_records",
     "TauHead::Schema::Result::AuctionListingRecord",
-    { "foreign.user_id" => "self.id" },
+    { "foreign.user_account_id" => "self.id" },
     { cascade_copy      => 0, cascade_delete => 0 },
 );
 
@@ -109,7 +109,7 @@ __PACKAGE__->many_to_many( "preferences", "user_preferences", "preference", );
 __PACKAGE__->has_many(
     "data_gatherer",
     "TauHead::Schema::Result::DataGatherer",
-    { "foreign.user_id" => "self.id" },
+    { "foreign.user_account_id" => "self.id" },
     { cascade_copy      => 0, cascade_delete => 0 },
 );
 

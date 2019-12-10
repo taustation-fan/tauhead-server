@@ -33,7 +33,7 @@ __PACKAGE__->add_unique_constraints(
 
 __PACKAGE__->has_many(
     "user_roles",
-    "TauHead::Schema::Result::UserRole",
+    "TauHead::Schema::Result::UserAccountRole",
     { "foreign.role_id" => "self.id" },
     { cascade_copy      => 0, cascade_delete => 0 },
 );

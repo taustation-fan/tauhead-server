@@ -20,7 +20,7 @@ __PACKAGE__->add_columns(
         is_auto_increment => 1,
         is_nullable       => 0,
     },
-    "user_id",
+    "user_account_id",
     {   data_type      => "integer",
         extra          => { unsigned => 1 },
         is_foreign_key => 1,
@@ -36,8 +36,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("id");
 
 __PACKAGE__->belongs_to(
-    "user", "TauHead::Schema::Result::User",
-    { "foreign.id" => "self.user_id" },
+    "user_account", "TauHead::Schema::Result::UserAccount",
+    { "foreign.id" => "self.user_account_id" },
     { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
 );
 

@@ -5,16 +5,16 @@ use namespace::autoclean;
 BEGIN { extends 'TauHead::BaseController' }
 
 sub user : Chained('../admin') : CaptureArgs(1) {
-    my ( $self, $c, $user_id ) = @_;
+    my ( $self, $c, $user_account_id ) = @_;
 
-    my $view_user = $c->model('DB')->resultset('User')->find( $user_id )
+    my $view_user = $c->model('DB')->resultset('UserAccount')->find( $user_account_id )
         or return $self->not_found($c);
 
     $c->stash->{view_user} = $view_user;
 }
 
 sub view : PathPart('') : Chained('user') : Args(0) {
-    my ( $self, $c, $user_id ) = @_;
+    my ( $self, $c, $user_account_id ) = @_;
 
     my $view_user = $c->stash->{view_user};
 

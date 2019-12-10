@@ -31,7 +31,7 @@ enable_catalyst_header: 0
       password_post_salt: '%POSTSALT%'
     store:
       class: 'DBIx::Class'
-      user_model: 'DB::User'
+      user_model: 'DB::UserAccount'
       role_relation: roles
       role_field: name
 

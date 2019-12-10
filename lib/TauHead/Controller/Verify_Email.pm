@@ -17,11 +17,11 @@ sub verify_email : Path('/verify-email') : Args(1) {
         $c->detach;
     }
 
-    my $user = $verify->user;
+    my $user = $verify->user_account;
     $user->update( { email_confirmed => 1, } );
 
     $c->model('DB')->resultset('VerifyEmailRequest')
-        ->search( { user_id => $user->id, } )->delete;
+        ->search( { user_account_id => $user->id, } )->delete;
 
     $self->add_log_no_user( $c, 'verify-email',
         {

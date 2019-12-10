@@ -21,7 +21,7 @@ __PACKAGE__->add_columns(
         is_auto_increment => 1,
         is_nullable       => 0,
     },
-    "user_id",
+    "user_account_id",
     {   data_type      => "integer",
         extra          => { unsigned => 1 },
         is_foreign_key => 1,
@@ -56,17 +56,17 @@ __PACKAGE__->set_primary_key("id");
 sub sqlt_deploy_hook {
     my ($self, $sqlt_table) = @_;
 
-    $sqlt_table->add_index(name => 'user_id_datetime', fields => ['user_id', 'datetime']);
+    $sqlt_table->add_index(name => 'user_account_id_datetime', fields => ['user_account_id', 'datetime']);
 }
 
 __PACKAGE__->belongs_to(
-    "user", "TauHead::Schema::Result::User",
-    { "foreign.id" => "self.user_id" },
+    "user_account", "TauHead::Schema::Result::UserAccount",
+    { "foreign.id" => "self.user_account_id" },
     { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE", join_type => 'left' },
 );
 
 __PACKAGE__->belongs_to(
-    "owner", "TauHead::Schema::Result::User",
+    "owner", "TauHead::Schema::Result::UserAccount",
     { "foreign.id" => "self.owner_id" },
     { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE", join_type => 'left' },
 );

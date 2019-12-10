@@ -46,7 +46,7 @@ __PACKAGE__->add_unique_constraints(
 
 __PACKAGE__->has_many(
     "user_preferencess",
-    "TauHead::Schema::Result::UserPreference",
+    "TauHead::Schema::Result::UserAccountPreference",
     { "foreign.preference_id" => "self.id" },
     { cascade_copy      => 0, cascade_delete => 0 },
 );

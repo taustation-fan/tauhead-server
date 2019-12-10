@@ -38,7 +38,7 @@ sub login_FORM_VALID {
     my $username = $form->param_value('username');
 
     # basic checks before checking full authentication
-    my $user = $c->model('DB')->resultset('User')->find( {
+    my $user = $c->model('DB')->resultset('UserAccount')->find( {
         username => $username,
     } );
 

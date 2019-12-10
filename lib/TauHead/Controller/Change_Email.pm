@@ -108,7 +108,7 @@ sub change_email : Path('/change-email') : Args(1) {
         $self->redirect_with_msg( $c, "Code no longer valid" );
     }
 
-    $change_request->user->update({
+    $change_request->user_account->update({
         email => $change_request->email,
     });
 

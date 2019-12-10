@@ -23,7 +23,7 @@ __PACKAGE__->add_columns(
         datetime_undef_if_invalid => 1,
         is_nullable               => 0,
     },
-    "user_id",
+    "user_account_id",
     {   data_type      => "integer",
         extra          => { unsigned => 1 },
         is_foreign_key => 1,
@@ -31,7 +31,7 @@ __PACKAGE__->add_columns(
     },
 );
 
-__PACKAGE__->set_primary_key("auction_id", "gct", "user_id");
+__PACKAGE__->set_primary_key("auction_id", "gct", "user_account_id");
 
 sub sqlt_deploy_hook {
     my ($self, $sqlt_table) = @_;
@@ -46,8 +46,8 @@ __PACKAGE__->belongs_to(
 );
 
 __PACKAGE__->belongs_to(
-    "user", "TauHead::Schema::Result::User",
-    { "foreign.id" => "self.user_id" },
+    "user_account", "TauHead::Schema::Result::UserAccount",
+    { "foreign.id" => "self.user_account_id" },
     { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE", join_type => 'left' },
 );
 
