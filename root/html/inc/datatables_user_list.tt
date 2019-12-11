@@ -8,7 +8,6 @@ $(document).ready(function(){
 		"autoWidth"   : false,
 		"aoColumns"   : [
 			null,
-			null,
 			{ "bSortable" : false } // don't allow sorting by 'status'
 		]
 	});

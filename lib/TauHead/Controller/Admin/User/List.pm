@@ -23,35 +23,15 @@ sub _list_json {
         {
             colNames => [
                 'me.username',
-                'last_login',
             ],
         },
     );
 
     my $model = $c->model('DB');
 
-    my $last_login_rs = $model->resultset('Log')->search(
-        {
-            user_account_id => { -ident => 'outer_id' },
-        },
-        {
-            columns  => [ 'datetime' ],
-            order_by => { -desc => 'datetime' },
-            rows     => 1,
-        },
-    )->as_query;
-
     my $rs = $model->resultset('UserAccount')->search(
         {},
         {
-            '+select' => [
-                { '' => 'me.id', -as => 'outer_id' },
-                { '' => $last_login_rs, -as => 'last_login' },
-            ],
-            '+as' => [
-                'outer_id',
-                'last_login',
-            ],
             %{ $dataTablesParams{attrs} },
         },
     );
@@ -65,17 +45,7 @@ sub _list_json {
             $c->uri_for( '/admin/user', $user->id ),
             $user->username;
 
-        # column 2 - last login
-        if ( my $last_login = $user->get_column('last_login') ) {
-            # last_login isn't inflated, so parse it properly
-            my $dt = DateTime::Format::MySQL->parse_datetime( $last_login );
-            push @row, $dt->strftime('%F');
-        }
-        else {
-            push @row, 'Never';
-        }
-
-        # column 3 - status
+        # column 2 - status
         if ( $user->disabled ) {
             push @row, "<b>Disabled<b>";
         }
