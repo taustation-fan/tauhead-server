@@ -20,7 +20,7 @@ my $schema = TauHead::Schema->connect(
 	@{ $yaml->{'Model::DB'}{connect_info} }
 );
 
-my $user = $schema->resultset('User')->find( { username => $username } )
+my $user = $schema->resultset('UserAccount')->find( { username => $username } )
     or die "FATAL: user not found in database\n";
 
 my $config = $yaml->{'Plugin::Authentication'}{default}{credential};

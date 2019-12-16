@@ -16,7 +16,7 @@ my $schema = TauHead::Schema->connect(
 my $dh = DBIx::Class::DeploymentHandler->new({
 	schema              => $schema,
 	script_directory    => "$FindBin::RealBin/../dbicdh",
-	databases           => 'MySQL',
+	databases           => 'PostgreSQL',
 	sql_translator_args => { add_drop_table => 0 },
 });
 
