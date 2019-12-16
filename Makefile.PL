@@ -31,6 +31,7 @@ requires 'Catalyst::View::TT';
 requires 'CatalystX::RoleApplicator';
 requires 'Cpanel::JSON::XS';
 requires 'DateTime::Format::Duration';
+requires 'DateTime::Format::Pg';
 requires 'DateTime::Format::TauStation';
 requires 'DBD::MariaDB';
 requires 'DBIx::Class::DeploymentHandler';
