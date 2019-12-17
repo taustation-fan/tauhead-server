@@ -36,7 +36,7 @@ sub search : Chained('/') : Args(0) {
         my $rs = $model->resultset($type)->search(
             {
                 -or => [
-                    map { $_ => { 'like' => $query } } @$cols
+                    map { $_ => { 'ILIKE' => $query } } @$cols
                 ],
             },
             {
