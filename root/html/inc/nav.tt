@@ -68,7 +68,9 @@
 					Accounts <b class="caret"></b>
 				</a>
 				<div class="dropdown-menu" aria-labelledby="navbarAccountsDropdown">
-					<a class="dropdown-item" href="[% c.uri_for('/signup') %]">Create Account</a>
+					[% IF c.config.allow_new_user_signup %]
+						<a class="dropdown-item" href="[% c.uri_for('/signup') %]">Create Account</a>
+					[% END %]
 					<a class="dropdown-item" href="[% c.uri_for('/recover-username') %]">Forgot Username</a>
 					<a class="dropdown-item" href="[% c.uri_for('/reset-password') %]">Forgot Password</a>
 				</div>
