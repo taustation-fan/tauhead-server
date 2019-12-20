@@ -54,3 +54,5 @@ alert_email_address: %EMAIL%
 disqus_domain: %DISQUS_DOMAIN%
 
 login_attempts_limit: 10
+
+allow_new_user_signup: 0

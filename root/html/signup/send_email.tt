@@ -1,0 +1,8 @@
+[% WRAPPER inc/wrapper.tt page_title='Create Account' %]
+<div class="row">
+	<div class="col-middle-half">
+		[% PROCESS inc/form.tt %]
+		<a href="[% c.uri_for('/privacy') %]">TauHead Privacy Policy</a>
+	</div>
+</div>
+[% END %]
