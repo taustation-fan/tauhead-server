@@ -4,7 +4,7 @@ load_config_file:
   - __path_to(root/forms/inc/default_args.yml)__
 
 model_config:
-  resultset: User
+  resultset: UserAccount
 
 elements:
   type: Fieldset
@@ -20,7 +20,7 @@ elements:
       constraints:
         - Required
         - type: DBIC::Unique
-          resultset: User
+          resultset: UserAccount
           column: username
           message: 'That username is already taken'
     
@@ -32,7 +32,7 @@ elements:
       constraints:
         - Required
         - type: DBIC::Unique
-          resultset: User
+          resultset: UserAccount
           column: email
           message: 'That email address is already associated with an account'
     

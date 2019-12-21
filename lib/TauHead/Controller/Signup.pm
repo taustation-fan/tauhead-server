@@ -46,7 +46,7 @@ sub send_email_FORM_VALID {
         = $c->config->{'Plugin::Authentication'}{default}{credential}
         {password_hash_type};
 
-    my $user = $db->resultset('User')->create(
+    my $user = $db->resultset('UserAccount')->create(
         {   username        => $form->param_value('username'),
             email           => $form->param_value('email'),
             password_base64 => $password_base64,
