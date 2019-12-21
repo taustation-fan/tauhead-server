@@ -1,0 +1,20 @@
+---
+load_config_file:
+  - __path_to(root/forms/inc/core.yml)__
+  - __path_to(root/forms/inc/default_args.yml)__
+model_config:
+  resultset: Vendor
+
+elements:
+  - type: '+TauHead::FormFu::Element::MessageContainer'
+
+  - name: delete
+    label: 'Delete Vendor?'
+    type: Checkbox
+    constraints:
+      - type: Required
+
+  - name: submit
+    type: ContentButton
+    field_type: submit
+    content: Confirm

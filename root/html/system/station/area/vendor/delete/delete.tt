@@ -1,0 +1,7 @@
+[% WRAPPER inc/wrapper.tt page_title='Delete Vendor' %]
+<div class="row">
+	<div class="col-middle-half">
+	[% PROCESS inc/form.tt %]
+	</div>
+</div>
+[% END %]

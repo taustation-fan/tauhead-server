@@ -65,6 +65,9 @@
 		<a href="[% c.uri_for('/system', system.slug, 'station', station.slug, 'area', area.slug, 'vendor', vendor.slug, 'edit') %]" class="btn btn-outline-secondary btn-sm" role="button">
 			Edit Vendor
 		</a>
+		<a href="[% c.uri_for('/system', system.slug, 'station', station.slug, 'area', area.slug, 'vendor', vendor.slug, 'delete') %]" class="btn btn-danger btn-sm" role="button">
+			Delete Vendor
+		</a>
 	</div>
 </div>
 [% END %]
