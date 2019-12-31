@@ -122,7 +122,7 @@ sub _wrecks_salvage_loot {
     );
     my %attrs = (
         '+select' => [{ sum => 'count', -as => 'sum_count' }],
-        group_by  => ['station_slug'],
+        group_by  => ['station_slug', 'me.action', 'me.item_slug', 'me.player_level'],
         prefetch  => { station => 'system' },
         order_by  => ['me.sum_count DESC', 'station_slug'],
     );
@@ -151,7 +151,7 @@ sub _wrecks_l4t_loot {
     );
     my %attrs = (
         '+select' => [{ sum => 'count', -as => 'sum_count' }],
-        group_by  => ['station_slug'],
+        group_by  => ['station_slug', 'me.action', 'me.item_slug', 'me.player_level', 'me.count'],
         prefetch  => { station => 'system' },
         order_by  => ['me.sum_count DESC', 'station_slug'],
     );
@@ -180,7 +180,7 @@ sub _wrecks_sewers_loot {
     );
     my %attrs = (
         '+select' => [{ sum => 'count', -as => 'sum_count' }],
-        group_by  => ['station_slug'],
+        group_by  => ['station_slug', 'me.action', 'me.item_slug', 'me.player_level', 'me.count'],
         prefetch  => { station => 'system' },
         order_by  => ['me.sum_count DESC', 'station_slug'],
     );

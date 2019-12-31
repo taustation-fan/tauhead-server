@@ -60,15 +60,15 @@ sub _wrecks_salvage_loot {
             action => 'wrecks_salvage_loot',
         },
         {
-            '+select' => [{ sum => 'count', -as => 'sum_count' }],
-            '+as'     => ['sum_count'],
-            rows      => 1,
+            select => [{ sum => 'count', -as => 'sum_count' }],
+            as     => ['sum_count'],
+            rows   => 1,
         },
     )->first;
 
-    if ( $action_count && $action_count->count ) {
-        $action_count = $action_count->get_column('sum_count');
+    $action_count = $action_count->get_column('sum_count');
 
+    if ( $action_count ) {
         my $records_rs = $station->search_related(
             'loot_counts',
             {
@@ -77,7 +77,7 @@ sub _wrecks_salvage_loot {
             {
                 '+select' => [{ sum => 'count' }],
                 '+as'     => ['sum_count'],
-                group_by  => ['item_slug'],
+                group_by  => ['item_slug', 'me.station_slug', 'me.action', 'me.player_level'],
                 prefetch  => 'item',
                 order_by  => 'me.sum_count DESC',
             }
@@ -119,15 +119,15 @@ sub _wrecks_l4t_loot {
             action => 'wrecks_looking_for_trouble_loot',
         },
         {
-            '+select' => [{ sum => 'count', -as => 'sum_count' }],
-            '+as'     => ['sum_count'],
-            rows      => 1,
+            select => [{ sum => 'count', -as => 'sum_count' }],
+            as     => ['sum_count'],
+            rows   => 1,
         },
     )->first;
 
-    if ( $action_count && $action_count->count ) {
-        $action_count = $action_count->get_column('sum_count');
+    $action_count = $action_count->get_column('sum_count');
 
+    if ( $action_count ) {
         my $records_rs = $station->search_related(
             'loot_counts',
             {
@@ -136,7 +136,7 @@ sub _wrecks_l4t_loot {
             {
                 '+select' => [{ sum => 'count' }],
                 '+as'     => ['sum_count'],
-                group_by  => ['item_slug'],
+                group_by  => ['item_slug', 'me.station_slug', 'me.action', 'me.player_level'],
                 prefetch  => 'item',
                 order_by  => 'me.sum_count DESC',
             }
@@ -171,15 +171,15 @@ sub _wrecks_sewers_loot {
             action => 'wrecks_sewers_loot',
         },
         {
-            '+select' => [{ sum => 'count', -as => 'sum_count' }],
-            '+as'     => ['sum_count'],
-            rows      => 1,
+            select => [{ sum => 'count', -as => 'sum_count' }],
+            as     => ['sum_count'],
+            rows  => 1,
         },
     )->first;
 
-    if ( $action_count && $action_count->count ) {
-        $action_count = $action_count->get_column('sum_count');
+    $action_count = $action_count->get_column('sum_count');
 
+    if ( $action_count ) {
         my $records_rs = $station->search_related(
             'loot_counts',
             {
@@ -188,7 +188,7 @@ sub _wrecks_sewers_loot {
             {
                 '+select' => [{ sum => 'count' }],
                 '+as'     => ['sum_count'],
-                group_by  => ['item_slug'],
+                group_by  => ['item_slug', 'me.station_slug', 'me.action', 'me.player_level'],
                 prefetch  => 'item',
                 order_by  => 'me.sum_count DESC',
             }
@@ -261,7 +261,7 @@ sub player_level_l4t : PathPart('loot/by_player_level/looking_for_trouble') : Ch
             {
                 '+select' => [{ sum => 'count', -as => 'sum_count' }],
                 '+as'     => ['sum_count'],
-                group_by  => 'item_slug',
+                group_by  => ['item_slug', 'me.station_slug', 'me.action', 'me.player_level'],
                 prefetch  => 'item',
                 order_by  => ['me.sum_count DESC', 'item_slug'],
             }
