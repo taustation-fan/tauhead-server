@@ -20,7 +20,12 @@ sub search : Chained('/') : Args(0) {
 
     my $term = $c->request->param('query');
 
-    if ( !$term || length($term) < 2) {
+    if ( defined($term) && length $term ) {
+        $term =~ s/^\s+//;
+        $term =~ s/\s+\z//;
+    }
+
+    if ( !defined($term) || length($term) < 2) {
         $c->response->redirect( $c->uri_for('/') );
         $c->detach;
     }
