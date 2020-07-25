@@ -46,7 +46,7 @@ enable_catalyst_header: 0
   state_file: __path_to(tmp/scheduler.state)__
   hosts_allow: 127.0.0.1
 
-game_server_domain: 'https://alpha.taustation.space'
+game_server_domain: 'https://taustation.space'
 
 system_email_address: %EMAIL%
 alert_email_address: %EMAIL%
